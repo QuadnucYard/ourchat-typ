@@ -1,8 +1,10 @@
+
 /// Default light theme
 #let light-theme = (
-  right-text-color: rgb("#08110c"),
+  right-text-color: rgb("#0f170a"),
   left-text-color: rgb("#191919"),
-  link-color: rgb("#586b95"),
+  right-link-color: rgb("#576b95"),
+  left-link-color: rgb("#576b95"),
   name-color: rgb("#888888"),
   left-bubble-color: rgb("#ffffff"),
   right-bubble-color: rgb("#95ec69"),
@@ -11,15 +13,15 @@
 
 /// Default dark theme
 #let dark-theme = (
-  right-text-color: rgb("#0f170a"),
+  right-text-color: rgb("#06120b"),
   left-text-color: rgb("#d5d5d5"),
-  link-color: rgb("#365081"),
+  right-link-color: rgb("#375082"),
+  left-link-color: rgb("#7d90a9"),
   name-color: rgb("#888888"),
   left-bubble-color: rgb("#2c2c2c"),
   right-bubble-color: rgb("#3eb575"),
   bg-color: rgb("#111111"),
 )
-// TODO - check link color
 
 /// The default profile of Ourchat
 #let default-profile = image("default-profile.png")
@@ -39,6 +41,16 @@
 /// - profile (content): The profile of sender.
 #let message(side, body, name: none, profile: none) = {
   (kind: "message", side: side, body: body, name: name, profile: profile)
+}
+
+/// Create a plain item. Different from `message`, it does not have padding.
+///
+/// - side: The image side (left | right).
+/// - body (content): The image body.
+/// - name (content): The name of sender.
+/// - profile (content): The profile of sender.
+#let plain(side, body, name: none, profile: none) = {
+  (kind: "plain", side: side, body: body, name: name, profile: profile)
 }
 
 /// Create a chat.
@@ -63,19 +75,19 @@
   } else if theme == "dark" {
     dark-theme
   } else {
-    assert(type(theme) == dict, message: "the custom theme should be dictionary!")
+    assert(type(theme) == dict, message: "the custom theme should be a dictionary!")
     light-theme + theme
   }
   let left-theme = (
     text-color: color-theme.left-text-color,
-    link-color: color-theme.link-color,
+    link-color: color-theme.left-link-color,
     bubble-color: color-theme.left-bubble-color,
     sign: 1,
     profile-x: 0,
   )
   let right-theme = (
     text-color: color-theme.right-text-color,
-    link-color: color-theme.link-color,
+    link-color: color-theme.right-link-color,
     bubble-color: color-theme.right-bubble-color,
     sign: -1,
     profile-x: 2,
@@ -92,8 +104,7 @@
         align(center + horizon, text(size: 0.7em, fill: color-theme.name-color, cjk-latin-spacing: none, msg.body)),
       )
       cells.push(grid.cell(x: 1, y: i, align: center, cell))
-
-    } else if msg.kind == "message" {
+    } else if msg.kind == "message" or msg.kind == "plain" {
       let sub-theme = if msg.side == left {
         left-theme
       } else {
@@ -121,21 +132,30 @@
           )
         }
 
-        let bubble-color = sub-theme.bubble-color
+        if msg.kind == "message" {
+          let bubble-color = sub-theme.bubble-color
 
-        // small tip
-        place(
-          msg.side,
-          dy: 9pt,
-          rotate(
-            45deg * sub-theme.sign,
-            origin: top,
-            rect(width: 6pt, height: 6pt, radius: 1pt, fill: bubble-color),
-          ),
-        )
+          // small tip
+          place(
+            msg.side,
+            dy: 9pt,
+            rotate(
+              45deg * sub-theme.sign,
+              origin: top,
+              rect(width: 6pt, height: 6pt, radius: 1pt, fill: bubble-color),
+            ),
+          )
 
-        // message body
-        block(fill: bubble-color, radius: 2.5pt, inset: 0.8em, text(fill: sub-theme.text-color, align(left, msg.body)))
+          // message body
+          block(
+            fill: bubble-color,
+            radius: 2.5pt,
+            inset: 0.8em,
+            text(fill: sub-theme.text-color, align(left, msg.body)),
+          )
+        } else if msg.kind == "plain" {
+          block(radius: 2.5pt, clip: true, msg.body)
+        }
       }
 
       let profile-block = block(width: 100%, radius: 2.5pt, clip: true, profile)
