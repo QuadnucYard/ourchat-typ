@@ -8,3 +8,4 @@ description = "Forge wonderful chat messages"
 categories = ["fun"]
 keywords = ["chat", "message"]
 repository = "https://github.com/QuadnucYard/ourchat-typ"
+exclude = ["examples"]

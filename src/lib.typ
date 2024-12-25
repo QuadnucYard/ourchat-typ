@@ -75,7 +75,7 @@
   } else if theme == "dark" {
     dark-theme
   } else {
-    assert(type(theme) == dict, message: "the custom theme should be a dictionary!")
+    assert(type(theme) == dictionary, message: "the custom theme should be a dictionary!")
     light-theme + theme
   }
   let left-theme = (
