@@ -1,19 +1,14 @@
-# Ourchat
+# Ourchat-Extended
 
-Let's forge chat messages!
+Forge more chat messages.
 
-![](./examples/yau.svg)
-![](./examples/custom.svg)
-![](./examples/simple.svg)
+![yau](examples/yau.svg)
 
 ## Usage and Examples
 
 More examples can be found in `examples/*.typ`.
 
 ```typst
-#import "@preview/ourchat:0.1.0" as oc: default-profile
-
-// You can set global styles here.
 #set page(width: auto, height: auto, margin: 1em, fill: none)
 #set text(font: "Microsoft YaHei")
 
