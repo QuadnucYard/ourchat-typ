@@ -1,11 +1,11 @@
 [package]
-name = "ourchat-extended"
+name = "ourchat"
 version = "0.1.0"
 entrypoint = "src/lib.typ"
-authors = ["WenSimEHRP", "QuadnucYard"]
+authors = ["QuadnucYard", "WenSimEHRP"]
 license = "MIT"
-description = "Forge more chat messages"
+description = "Forge wonderful chat messages"
 categories = ["fun"]
 keywords = ["chat", "message"]
-repository = "https://github.com/WenSimEHRP/ourchat-extended"
+repository = "https://github.com/QuadnucYard/ourchat-typ"
 exclude = ["examples"]

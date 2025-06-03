@@ -1,5 +1,4 @@
-/// The default profile of Ourchat
-#let default-profile = image("default-profile.png")
+#import "themes.typ"
 
 /// Create a datetime item.
 ///
@@ -18,7 +17,16 @@
 /// - time (content): The time the message is sent, or will be sent.
 /// - merge (bool): If this message will be merged with the previous message
 #let message(side, body, name: none, profile: none, title: none, time: none, merge: false) = {
-  (kind: "message", side: side, body: body, name: name, profile: profile, title: title, time: time, merge: merge)
+  (
+    kind: "message",
+    side: side,
+    body: body,
+    name: name,
+    profile: profile,
+    title: title,
+    time: time,
+    merge: merge,
+  )
 }
 
 /// Create a plain item. Different from `message`, it does not have padding.
@@ -30,7 +38,3 @@
 #let plain(side, body, name: none, profile: none) = {
   (kind: "plain", side: side, body: body, name: name, profile: profile)
 }
-
-#import "wechat.typ": wechat,
-#import "qqnt.typ": qqnt, qqnt-title
-#import "discord.typ": discord, discord-newbie

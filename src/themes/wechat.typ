@@ -1,3 +1,8 @@
+
+/// The default profile of Ourchat
+#let default-profile = image("../assets/wechat-profile.svg")
+
+
 /// Default light theme
 #let light-theme = (
   right-text-color: rgb("#0f170a"),
@@ -31,7 +36,7 @@
 /// - right-profile (content): The default profile for the right user.
 ///
 /// -> content
-#let wechat(
+#let chat(
   ..messages,
   theme: "light",
   width: 270pt,
@@ -68,10 +73,12 @@
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "datetime" {
-      let cell = block(
-        height: 1.4em,
-        align(center + horizon, text(size: 0.7em, fill: color-theme.name-color, cjk-latin-spacing: none, msg.body)),
-      )
+      let cell = block(height: 1.4em, align(center + horizon, text(
+        size: 0.7em,
+        fill: color-theme.name-color,
+        cjk-latin-spacing: none,
+        msg.body,
+      )))
       cells.push(grid.cell(x: 1, y: i, align: center, cell))
     } else if msg.kind == "message" or msg.kind == "plain" {
       let sub-theme = if msg.side == left {
@@ -95,33 +102,30 @@
 
         // sender name
         if msg.name != none {
-          block(
-            height: 1em,
-            align(horizon, text(size: 0.7em, fill: color-theme.name-color, cjk-latin-spacing: none, msg.name)),
-          )
+          block(height: 1em, align(horizon, text(
+            size: 0.7em,
+            fill: color-theme.name-color,
+            cjk-latin-spacing: none,
+            msg.name,
+          )))
         }
 
         if msg.kind == "message" {
           let bubble-color = sub-theme.bubble-color
 
           // small tip
-          place(
-            msg.side,
-            dy: 9pt,
-            rotate(
-              45deg * sub-theme.sign,
-              origin: top,
-              rect(width: 6pt, height: 6pt, radius: 1pt, fill: bubble-color),
-            ),
-          )
+          place(msg.side, dy: 9pt, rotate(45deg * sub-theme.sign, origin: top, rect(
+            width: 6pt,
+            height: 6pt,
+            radius: 1pt,
+            fill: bubble-color,
+          )))
 
           // message body
-          block(
-            fill: bubble-color,
-            radius: 2.5pt,
-            inset: 0.8em,
-            text(fill: sub-theme.text-color, align(left, msg.body)),
-          )
+          block(fill: bubble-color, radius: 2.5pt, inset: 0.8em, text(
+            fill: sub-theme.text-color,
+            align(left, msg.body),
+          ))
         } else if msg.kind == "plain" {
           block(radius: 2.5pt, clip: true, msg.body)
         }

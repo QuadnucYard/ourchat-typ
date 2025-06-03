@@ -9,21 +9,17 @@
   line-color: rgb("#43444B"),
 )
 
-#let discord-newbie = stack(
+#let newbie = stack(
   dir: ltr,
-  block(
-    height: 15pt,
-    width: 15pt,
-    image(
-      width: 100%,
-      height: 100%,
-      bytes("<svg aria-hidden=\"true\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"#6FC381\" viewBox=\"0 0 24 24\"><path fill=\"#6FC381\" d=\"M11.55 14.4c.28.17.62.17.9 0 1.6-.96 6.88-4.46 6.88-8.57A3.83 3.83 0 0 0 15.5 2c-1.56 0-2.58.6-3.5 1.5A4.66 4.66 0 0 0 8.5 2a3.83 3.83 0 0 0-3.83 3.83c0 4.1 5.29 7.61 6.88 8.57Z\" class=\"\"></path><path fill=\"#6FC381\" d=\"M3.11 14.86a1 1 0 0 0-.83 1.24l.23.89a6 6 0 0 0 6.46 4.45l2.03-.22V22a1 1 0 1 0 2 0v-.78l2.03.22A6 6 0 0 0 21.5 17l.23-.89a1 1 0 0 0-.83-1.24l-2.05-.29a6 6 0 0 0-6.1 3.07L12 19l-.74-1.36a6 6 0 0 0-6.1-3.07l-2.05.29ZM2.93 9.4a.6.6 0 0 1 1.14 0l.1.25a2 2 0 0 0 1.18 1.19l.25.1a.6.6 0 0 1 0 1.13l-.25.1a2 2 0 0 0-1.19 1.18l-.1.25a.6.6 0 0 1-1.13 0l-.1-.25a2 2 0 0 0-1.18-1.19l-.25-.1a.6.6 0 0 1 0-1.13l.25-.1a2 2 0 0 0 1.19-1.18l.1-.25ZM21.46 9.82a.49.49 0 0 0-.92 0v.03a2 2 0 0 1-1.19 1.18l-.03.01a.49.49 0 0 0 0 .92h.03a2 2 0 0 1 1.18 1.19l.01.03c.16.43.76.43.92 0v-.03a2 2 0 0 1 1.19-1.18l.03-.01a.49.49 0 0 0 0-.92h-.03a2 2 0 0 1-1.18-1.19l-.01-.03Z\" class=\"\"></path></svg>"),
-    ),
-  ),
+  block(height: 15pt, width: 15pt, image(
+    width: 100%,
+    height: 100%,
+    "../assets/discord-newbie.svg",
+  )),
   h(5pt),
 )
 
-#let discord(
+#let chat(
   ..messages,
   default-profile: none,
   show-profile: false,
@@ -70,13 +66,12 @@
         stack(
           dir: ltr,
           if msg.name != none {
-            block(
-              height: 1em,
-              align(
-                bottom,
-                text(size: 1em, fill: color-theme.name-color, cjk-latin-spacing: none, text(weight: 500)[#msg.name]),
-              ),
-            )
+            block(height: 1em, align(bottom, text(
+              size: 1em,
+              fill: color-theme.name-color,
+              cjk-latin-spacing: none,
+              text(weight: 500)[#msg.name],
+            )))
           },
           h(2pt),
           if msg.title != none {
@@ -84,14 +79,16 @@
           },
           h(2pt),
           if msg.time != none {
-            block(
-              height: 1em,
-              align(bottom, (text(fill: color-theme.secondary-text-color, size: .8em, weight: 500)[#msg.time])),
-            )
+            block(height: 1em, align(bottom, (
+              text(fill: color-theme.secondary-text-color, size: .8em, weight: 500)[#msg.time]
+            )))
           },
         )
         if msg.kind == "message" {
-          pad(top: 6pt, text(cjk-latin-spacing: none, fill: theme.text-color, align(left, msg.body)))
+          pad(top: 6pt, text(cjk-latin-spacing: none, fill: theme.text-color, align(
+            left,
+            msg.body,
+          )))
         } else if msg.kind == "plain" {
           block(radius: 2.5pt, clip: true, msg.body)
         }

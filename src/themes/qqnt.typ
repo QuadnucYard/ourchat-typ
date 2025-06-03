@@ -24,23 +24,17 @@
   time-block-color: rgb("#000000").transparentize(70%),
 )
 
-#let qqnt-title(
+#let title(
   title-block-color: rgb("#FF8D37").transparentize(80%),
   title-text-color: rgb("#FF8D37"),
-  title
+  title,
 ) = {
-  align(
-    horizon,
-    block(
-      radius: 2pt,
-      fill: title-block-color,
-      height: .8em,
-      pad(
-        2pt,
-        text(size: 0.55em, fill: title-text-color, cjk-latin-spacing: none, title),
-      ),
-    ),
-  )
+  align(horizon, block(radius: 2pt, fill: title-block-color, height: .8em, pad(2pt, text(
+    size: 0.55em,
+    fill: title-text-color,
+    cjk-latin-spacing: none,
+    title,
+  ))))
 }
 
 /// Create a qqnt style chat.
@@ -52,7 +46,7 @@
 /// - right-profile (content): The default profile for the right user.
 ///
 /// -> content
-#let qqnt(
+#let chat(
   ..messages,
   theme: "light",
   width: 270pt,
@@ -89,19 +83,15 @@
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "datetime" {
-      let cell = block(
-        height: 1.2em,
-        radius: .6em,
-        fill: color-theme.time-block-color,
-        align(
-          center + horizon,
-          pad(
-            left: .6em,
-            right: .6em,
-            text(size: 0.7em, fill: color-theme.name-color, cjk-latin-spacing: none, msg.body),
-          ),
-        ),
-      )
+      let cell = block(height: 1.2em, radius: .6em, fill: color-theme.time-block-color, align(
+        center + horizon,
+        pad(left: .6em, right: .6em, text(
+          size: 0.7em,
+          fill: color-theme.name-color,
+          cjk-latin-spacing: none,
+          msg.body,
+        )),
+      ))
       cells.push(grid.cell(x: 1, y: i, align: center, cell))
     } else if msg.kind == "message" or msg.kind == "plain" {
       let sub-theme = if msg.side == left {
@@ -127,10 +117,12 @@
         stack(
           dir: if msg.side == left { ltr } else { rtl },
           if msg.name != none {
-            block(
-              height: 1em,
-              align(horizon, text(size: 0.7em, fill: color-theme.name-color, cjk-latin-spacing: none, msg.name)),
-            )
+            block(height: 1em, align(horizon, text(
+              size: 0.7em,
+              fill: color-theme.name-color,
+              cjk-latin-spacing: none,
+              msg.name,
+            )))
           },
           h(2pt),
           if msg.title != none {
@@ -142,12 +134,11 @@
           let bubble-color = sub-theme.bubble-color
 
           // message body
-          block(
-            fill: bubble-color,
-            radius: 5pt,
-            inset: 0.8em,
-            text(cjk-latin-spacing: none, fill: sub-theme.text-color, align(left, msg.body)),
-          )
+          block(fill: bubble-color, radius: 5pt, inset: 0.8em, text(
+            cjk-latin-spacing: none,
+            fill: sub-theme.text-color,
+            align(left, msg.body),
+          ))
         } else if msg.kind == "plain" {
           block(radius: 2.5pt, clip: true, msg.body)
         }
