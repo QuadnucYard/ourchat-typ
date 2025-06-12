@@ -2,10 +2,6 @@
 
 Let's forge chat messages!
 
-![](./examples/yau.svg)
-![](./examples/custom.svg)
-![](./examples/simple.svg)
-
 ## Usage and Examples
 
 More examples can be found in `examples/*.typ`.
