@@ -1,7 +1,11 @@
+/// Wechat theme
+#import "../components.typ": *
+
 
 /// The default profile of Ourchat
 #let default-profile = image("../assets/wechat-profile.svg")
 
+#let default-user = user.with(profile: default-profile)
 
 /// Default light theme
 #let light-theme = (
@@ -29,19 +33,15 @@
 
 /// Create a wechat style chat.
 ///
-/// - messages: The items created by `datetime` or `message`.
+/// - messages: The items created by `time` or `message`.
 /// - theme (str, dictionary): The chat theme.
 /// - width (length): The width of the whole block.
-/// - left-profile (content): The default profile for the left user.
-/// - right-profile (content): The default profile for the right user.
 ///
 /// -> content
 #let chat(
   ..messages,
   theme: "light",
   width: 270pt,
-  left-profile: none,
-  right-profile: none,
 ) = {
   // prepare theme
   let color-theme = if theme == "light" {
@@ -72,7 +72,7 @@
   let cells = ()
 
   for (i, msg) in messages.pos().enumerate() {
-    if msg.kind == "datetime" {
+    if msg.kind == "time" {
       let cell = block(height: 1.4em, align(center + horizon, text(
         size: 0.7em,
         fill: color-theme.name-color,
@@ -81,18 +81,11 @@
       )))
       cells.push(grid.cell(x: 1, y: i, align: center, cell))
     } else if msg.kind == "message" or msg.kind == "plain" {
+      let user = msg.user
       let sub-theme = if msg.side == left {
         left-theme
       } else {
         right-theme
-      }
-      let profile = msg.profile
-      if profile == none {
-        profile = if msg.side == left {
-          left-profile
-        } else {
-          right-profile
-        }
       }
 
       let body-block = {
@@ -101,12 +94,12 @@
         show link: set text(sub-theme.link-color)
 
         // sender name
-        if msg.name != none {
+        if user.name != none and msg.side == left {
           block(height: 1em, align(horizon, text(
             size: 0.7em,
             fill: color-theme.name-color,
             cjk-latin-spacing: none,
-            msg.name,
+            user.name,
           )))
         }
 
@@ -131,7 +124,7 @@
         }
       }
 
-      let profile-block = block(width: 100%, radius: 2.5pt, clip: true, profile)
+      let profile-block = block(width: 100%, radius: 2.5pt, clip: true, user.profile)
       cells.push(grid.cell(x: 1, y: i, align: msg.side, body-block))
       cells.push(grid.cell(x: sub-theme.profile-x, y: i, profile-block))
     }

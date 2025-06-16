@@ -1,3 +1,6 @@
+/// Discord theme
+#import "../components.typ": *
+
 // discord peeps only use da dak deme
 #let default-theme = (
   text-color: rgb("#DEDFE2"),
@@ -9,25 +12,19 @@
   line-color: rgb("#43444B"),
 )
 
-#let newbie = stack(
-  dir: ltr,
-  block(height: 15pt, width: 15pt, image(
-    width: 100%,
-    height: 100%,
-    "../assets/discord-newbie.svg",
-  )),
-  h(5pt),
-)
+#let newbie = stack(dir: ltr, image(width: 15pt, height: 15pt, "../assets/discord-newbie.svg"), h(
+  5pt,
+))
+
+#let newbie-user = user.with(title: newbie)
 
 #let chat(
   ..messages,
-  default-profile: none,
-  show-profile: false,
-  theme: none,
+  theme: auto,
   width: 500pt,
 ) = {
   // prepare theme
-  let color-theme = if theme == none { default-theme } else {
+  let color-theme = if theme == auto { default-theme } else {
     assert(type(theme) == dictionary, message: "the custom theme should be a dictionary!")
     default-theme + theme
   }
@@ -43,7 +40,7 @@
   let cells = ()
 
   for (i, msg) in messages.pos().enumerate() {
-    if msg.kind == "datetime" {
+    if msg.kind == "time" {
       let cell = grid(
         columns: (1fr, auto, 1fr),
         align: horizon,
@@ -54,8 +51,7 @@
       )
       cells.push(grid.cell(x: 0, y: i, align: center, cell, colspan: 2))
     } else if msg.kind == "message" or msg.kind == "plain" {
-      let profile = msg.profile
-      if profile == none { profile = default-profile }
+      let user = msg.user
 
       let body-block = {
         set block(spacing: 1pt)
@@ -65,18 +61,16 @@
         // sender name
         stack(
           dir: ltr,
-          if msg.name != none {
+          if user.name != none {
             block(height: 1em, align(bottom, text(
               size: 1em,
               fill: color-theme.name-color,
               cjk-latin-spacing: none,
-              text(weight: 500)[#msg.name],
+              text(weight: 500)[#user.name],
             )))
           },
           h(2pt),
-          if msg.title != none {
-            msg.title
-          },
+          user.title,
           h(2pt),
           if msg.time != none {
             block(height: 1em, align(bottom, (
@@ -94,7 +88,7 @@
         }
       }
 
-      let profile-block = align(center, block(width: 100%, radius: 100pt, clip: true, profile))
+      let profile-block = align(center, block(width: 100%, radius: 100pt, clip: true, user.profile))
       cells.push(grid.cell(x: 0, y: i, profile-block))
       cells.push(grid.cell(x: 1, y: i, align: left, body-block))
     }

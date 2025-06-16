@@ -1,3 +1,5 @@
+/// QQNT theme
+
 /// Default light theme
 #let light-theme = (
   right-text-color: rgb("#FFFFFF"),
@@ -25,33 +27,29 @@
 )
 
 #let title(
-  title-block-color: rgb("#FF8D37").transparentize(80%),
-  title-text-color: rgb("#FF8D37"),
   title,
+  text-color: rgb("#FF8D37"),
+  bg-color: rgb("#FF8D37").transparentize(80%),
 ) = {
-  align(horizon, block(radius: 2pt, fill: title-block-color, height: .8em, pad(2pt, text(
+  align(horizon, block(height: .8em, inset: 2pt, radius: 2pt, fill: bg-color, text(
     size: 0.55em,
-    fill: title-text-color,
+    fill: text-color,
     cjk-latin-spacing: none,
     title,
-  ))))
+  )))
 }
 
 /// Create a qqnt style chat.
 ///
-/// - messages: The items created by `datetime` or `message`.
+/// - messages: The items created by `time` or `message`.
 /// - theme (str, dictionary): The chat theme.
 /// - width (length): The width of the whole block.
-/// - left-profile (content): The default profile for the left user.
-/// - right-profile (content): The default profile for the right user.
 ///
 /// -> content
 #let chat(
   ..messages,
   theme: "light",
   width: 270pt,
-  left-profile: none,
-  right-profile: none,
 ) = {
   // prepare theme
   let color-theme = if theme == "light" {
@@ -82,7 +80,7 @@
   let cells = ()
 
   for (i, msg) in messages.pos().enumerate() {
-    if msg.kind == "datetime" {
+    if msg.kind == "time" {
       let cell = block(height: 1.2em, radius: .6em, fill: color-theme.time-block-color, align(
         center + horizon,
         pad(left: .6em, right: .6em, text(
@@ -94,18 +92,11 @@
       ))
       cells.push(grid.cell(x: 1, y: i, align: center, cell))
     } else if msg.kind == "message" or msg.kind == "plain" {
+      let user = msg.user
       let sub-theme = if msg.side == left {
         left-theme
       } else {
         right-theme
-      }
-      let profile = msg.profile
-      if profile == none {
-        profile = if msg.side == left {
-          left-profile
-        } else {
-          right-profile
-        }
       }
 
       let body-block = {
@@ -116,18 +107,16 @@
         // sender name
         stack(
           dir: if msg.side == left { ltr } else { rtl },
-          if msg.name != none {
+          if user.name != none {
             block(height: 1em, align(horizon, text(
               size: 0.7em,
               fill: color-theme.name-color,
               cjk-latin-spacing: none,
-              msg.name,
+              user.name,
             )))
           },
           h(2pt),
-          if msg.title != none {
-            msg.title
-          },
+          user.title,
         )
 
         if msg.kind == "message" {
@@ -144,7 +133,7 @@
         }
       }
 
-      let profile-block = align(center, block(width: 90%, radius: 100pt, clip: true, profile))
+      let profile-block = align(center, block(width: 90%, radius: 100pt, clip: true, user.profile))
       cells.push(grid.cell(x: 1, y: i, align: msg.side, body-block))
       cells.push(grid.cell(x: sub-theme.profile-x, y: i, profile-block))
     }
