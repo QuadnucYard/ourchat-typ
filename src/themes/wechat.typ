@@ -1,6 +1,6 @@
 /// Wechat theme
 #import "../components.typ": *
-
+#import "../utils.typ": resolve-theme
 
 /// The default profile of Ourchat
 #let default-profile = image("../assets/wechat-profile.svg")
@@ -31,6 +31,11 @@
   bg-color: rgb("#111111"),
 )
 
+#let builtin-themes = (
+  light: light-theme,
+  dark: dark-theme
+)
+
 /// Create a wechat style chat.
 ///
 /// - messages: The items created by `time` or `message`.
@@ -40,18 +45,10 @@
 /// -> content
 #let chat(
   ..messages,
-  theme: "light",
+  theme: auto,
   width: 270pt,
 ) = {
-  // prepare theme
-  let color-theme = if theme == "light" {
-    light-theme
-  } else if theme == "dark" {
-    dark-theme
-  } else {
-    assert(type(theme) == dictionary, message: "the custom theme should be a dictionary!")
-    light-theme + theme
-  }
+  let color-theme = resolve-theme(builtin-themes, theme, default: "light")
   let left-theme = (
     text-color: color-theme.left-text-color,
     link-color: color-theme.left-link-color,
@@ -89,7 +86,6 @@
       }
 
       let body-block = {
-        set block(spacing: 1pt)
         set text(size: 11.5pt)
         show link: set text(sub-theme.link-color)
 
@@ -101,6 +97,7 @@
             cjk-latin-spacing: none,
             user.name,
           )))
+          v(1pt, weak: true)
         }
 
         if msg.kind == "message" {

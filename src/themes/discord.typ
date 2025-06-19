@@ -1,5 +1,6 @@
 /// Discord theme
 #import "../components.typ": *
+#import "../utils.typ": resolve-theme
 
 // discord peeps only use da dak deme
 #let default-theme = (
@@ -10,6 +11,10 @@
   bg-color: rgb("#2F3137"),
   time-block-color: rgb("#000000").transparentize(70%),
   line-color: rgb("#43444B"),
+)
+
+#let builtin-themes = (
+  default: default-theme,
 )
 
 #let newbie = stack(dir: ltr, image(width: 15pt, height: 15pt, "../assets/discord-newbie.svg"), h(
@@ -23,11 +28,7 @@
   theme: auto,
   width: 500pt,
 ) = {
-  // prepare theme
-  let color-theme = if theme == auto { default-theme } else {
-    assert(type(theme) == dictionary, message: "the custom theme should be a dictionary!")
-    default-theme + theme
-  }
+  let color-theme = resolve-theme(builtin-themes, theme)
   let theme = (
     text-color: color-theme.text-color,
     link-color: color-theme.link-color,
@@ -54,7 +55,6 @@
       let user = msg.user
 
       let body-block = {
-        set block(spacing: 1pt)
         set text(size: 11.5pt)
         show link: set text(theme.link-color)
 
@@ -78,6 +78,7 @@
             )))
           },
         )
+        v(1pt, weak: true)
         if msg.kind == "message" {
           pad(top: 6pt, text(cjk-latin-spacing: none, fill: theme.text-color, align(
             left,

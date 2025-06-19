@@ -1,4 +1,6 @@
 /// QQNT theme
+#import "../components.typ": *
+#import "../utils.typ": resolve-theme
 
 /// Default light theme
 #let light-theme = (
@@ -26,6 +28,11 @@
   time-block-color: rgb("#000000").transparentize(70%),
 )
 
+#let builtin-themes = (
+  light: light-theme,
+  dark: dark-theme,
+)
+
 #let title(
   title,
   text-color: rgb("#FF8D37"),
@@ -51,15 +58,7 @@
   theme: "light",
   width: 270pt,
 ) = {
-  // prepare theme
-  let color-theme = if theme == "light" {
-    light-theme
-  } else if theme == "dark" {
-    dark-theme
-  } else {
-    assert(type(theme) == dictionary, message: "the custom theme should be a dictionary!")
-    light-theme + theme
-  }
+  let color-theme = resolve-theme(builtin-themes, theme)
   let left-theme = (
     text-color: color-theme.left-text-color,
     link-color: color-theme.left-link-color,
@@ -100,7 +99,6 @@
       }
 
       let body-block = {
-        set block(spacing: 1pt)
         set text(size: 11.5pt)
         show link: set text(sub-theme.link-color)
 
@@ -118,6 +116,7 @@
           h(2pt),
           user.title,
         )
+        v(1pt, weak: true)
 
         if msg.kind == "message" {
           let bubble-color = sub-theme.bubble-color
