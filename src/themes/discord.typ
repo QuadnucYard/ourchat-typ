@@ -17,6 +17,33 @@
   default: default-theme,
 )
 
+/// Layout constants that can be overridden
+#let default-constants = (
+  // Overall layout
+  content-width: 500pt,
+  content-inset: 8pt,
+  // Grid layout
+  profile-width: 27pt,
+  row-gutter: 1.5em,
+  column-gutter: 10pt,
+  // Text sizing
+  message-text-size: 11.5pt,
+  name-text-size: 1em,
+  time-text-size: 0.8em,
+  // Paragraph formatting
+  par-leading: 0.575em,
+  par-spacing: 1em,
+  // Profile styling
+  profile-radius: 100pt,
+  // Element styling
+  element-radius: 2.5pt,
+  // Element heights
+  name-height: 1em,
+  // Time separator styling
+  time-line-stroke: 0.5pt,
+  time-gutter: 1em,
+)
+
 #let newbie = stack(dir: ltr, image(width: 15pt, height: 15pt, "../assets/discord-newbie.svg"), h(
   5pt,
 ))
@@ -26,9 +53,13 @@
 #let chat(
   ..messages,
   theme: auto,
-  width: 500pt,
+  constants: (:),
 ) = {
-  let color-theme = resolve-theme(builtin-themes, theme)
+  let color-theme = resolve-theme(builtin-themes, theme, default: "default")
+
+  // Merge default constants with user overrides
+  let const = default-constants + constants
+
   let theme = (
     text-color: color-theme.text-color,
     link-color: color-theme.link-color,
@@ -36,65 +67,96 @@
     profile-x: 2,
   )
 
-  set par(leading: 0.575em, spacing: 1em)
+  set par(leading: const.par-leading, spacing: const.par-spacing)
 
   let cells = ()
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "time" {
-      let cell = grid(
-        columns: (1fr, auto, 1fr),
-        align: horizon,
-        gutter: 1em,
-        line(stroke: color-theme.line-color + .5pt, length: 100%),
-        text(fill: color-theme.secondary-text-color, size: .8em, weight: 600)[#msg.body],
-        line(stroke: color-theme.line-color + .5pt, length: 100%),
-      )
-      cells.push(grid.cell(x: 0, y: i, align: center, cell, colspan: 2))
+      let time-block = {
+        set text(
+          fill: color-theme.secondary-text-color,
+          size: const.time-text-size,
+          weight: 600,
+        )
+        let div-line = line(length: 100%, stroke: color-theme.line-color + const.time-line-stroke)
+        grid(
+          columns: (1fr, auto, 1fr),
+          align: horizon,
+          gutter: const.time-gutter,
+          div-line, msg.body, div-line,
+        )
+      }
+      cells.push(grid.cell(x: 0, y: i, align: center, colspan: 2, time-block))
     } else if msg.kind == "message" or msg.kind == "plain" {
       let user = msg.user
 
-      let body-block = {
-        set text(size: 11.5pt)
-        show link: set text(theme.link-color)
-
-        // sender name
+      let sender-block = {
         stack(
           dir: ltr,
           if user.name != none {
-            block(height: 1em, align(bottom, text(
-              size: 1em,
+            set text(
+              size: const.name-text-size,
               fill: color-theme.name-color,
               cjk-latin-spacing: none,
-              text(weight: 500)[#user.name],
-            )))
+              weight: 500,
+            )
+            block(height: const.name-height, align(bottom, user.name))
           },
-          h(2pt),
+          h(2pt, weak: true),
           user.title,
-          h(2pt),
+          h(2pt, weak: true),
           if msg.time != none {
-            block(height: 1em, align(bottom, (
-              text(fill: color-theme.secondary-text-color, size: .8em, weight: 500)[#msg.time]
-            )))
+            set text(
+              fill: color-theme.secondary-text-color,
+              size: .8em,
+              weight: 500,
+            )
+            block(height: 1em, align(bottom, msg.time))
           },
         )
-        v(1pt, weak: true)
+      }
+
+      let message-block = {
+        set text(size: const.message-text-size)
+        show link: set text(theme.link-color)
+
         if msg.kind == "message" {
-          pad(top: 6pt, text(cjk-latin-spacing: none, fill: theme.text-color, align(
-            left,
-            msg.body,
-          )))
+          set text(
+            cjk-latin-spacing: none,
+            fill: theme.text-color,
+          )
+          block(align(left, msg.body))
         } else if msg.kind == "plain" {
-          block(radius: 2.5pt, clip: true, msg.body)
+          block(radius: const.element-radius, clip: true, msg.body)
         }
       }
 
-      let profile-block = align(center, block(width: 100%, radius: 100pt, clip: true, user.profile))
+      let body-block = {
+        sender-block
+        v(6pt, weak: true)
+        message-block
+      }
+
+      let profile-block = block(width: 100%, radius: const.profile-radius, clip: true, align(
+        center,
+        user.profile,
+      ))
+
       cells.push(grid.cell(x: 0, y: i, profile-block))
       cells.push(grid.cell(x: 1, y: i, align: left, body-block))
     }
   }
 
-  show: block.with(width: width, fill: color-theme.bg-color, inset: 8pt)
-  grid(columns: (27pt, 1fr), row-gutter: 1.5em, column-gutter: 10pt, ..cells)
+  show: block.with(
+    width: const.content-width,
+    fill: color-theme.bg-color,
+    inset: const.content-inset,
+  )
+  grid(
+    columns: (const.profile-width, 1fr),
+    row-gutter: const.row-gutter,
+    column-gutter: const.column-gutter,
+    ..cells
+  )
 }
