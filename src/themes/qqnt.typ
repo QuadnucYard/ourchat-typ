@@ -34,12 +34,12 @@
 )
 
 /// Layout constants that can be overridden
-#let default-constants = (
+#let default-layout = (
   // Overall layout
   content-width: 270pt,
   content-inset: 8pt,
   // Grid layout
-  profile-width: 27pt,
+  avatar-width: 27pt,
   row-gutter: 0.65em,
   column-gutter: 7.5pt,
   // Text sizing
@@ -53,9 +53,9 @@
   // Bubble styling
   bubble-radius: 5pt,
   bubble-inset: 0.8em,
-  // Profile styling
-  profile-radius: 100pt,
-  profile-width-1: 90%,
+  // avatar styling
+  avatar-radius: 100pt,
+  avatar-width-1: 90%,
   // Element heights
   name-height: 1em,
   time-height: 1.2em,
@@ -82,49 +82,49 @@
 
 /// Create a qqnt style chat.
 ///
-/// - messages: The items created by `time` or `message`.
 /// - theme (str, dictionary): The chat theme.
-/// - constants (dictionary): Override layout constants.
+/// - layout (dictionary): Override layout constants.
+/// - messages: The items created by `time` or `message`.
 ///
 /// -> content
 #let chat(
-  ..messages,
   theme: auto,
-  constants: (:),
+  layout: (:),
+  ..messages,
 ) = {
-  let color-theme = resolve-theme(builtin-themes, theme, default: "light")
+  let theme = resolve-theme(builtin-themes, theme, default: "light")
 
   // Merge default constants with user overrides
-  let const = default-constants + constants
+  let sty = default-layout + layout
 
   let left-theme = (
-    text-color: color-theme.left-text-color,
-    link-color: color-theme.left-link-color,
-    bubble-color: color-theme.left-bubble-color,
+    text-color: theme.left-text-color,
+    link-color: theme.left-link-color,
+    bubble-color: theme.left-bubble-color,
     sign: 1,
-    profile-x: 0,
+    avatar-x: 0,
   )
   let right-theme = (
-    text-color: color-theme.right-text-color,
-    link-color: color-theme.right-link-color,
-    bubble-color: color-theme.right-bubble-color,
+    text-color: theme.right-text-color,
+    link-color: theme.right-link-color,
+    bubble-color: theme.right-bubble-color,
     sign: -1,
-    profile-x: 2,
+    avatar-x: 2,
   )
 
-  set par(leading: const.par-leading, spacing: const.par-spacing)
+  set par(leading: sty.par-leading, spacing: sty.par-spacing)
 
   let cells = ()
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "time" {
       let time-block = {
-        set text(size: const.time-text-size, fill: color-theme.name-color, cjk-latin-spacing: none)
+        set text(size: sty.time-text-size, fill: theme.name-color, cjk-latin-spacing: none)
         block(
-          height: const.time-height,
-          inset: const.time-inset,
-          radius: const.time-radius,
-          fill: color-theme.time-block-color,
+          height: sty.time-height,
+          inset: sty.time-inset,
+          radius: sty.time-radius,
+          fill: theme.time-block-color,
           align(center + horizon, msg.body),
         )
       }
@@ -144,19 +144,19 @@
           dir: if msg.side == left { ltr } else { rtl },
           if user.name != none {
             set text(
-              size: const.name-text-size,
-              fill: color-theme.name-color,
+              size: sty.name-text-size,
+              fill: theme.name-color,
               cjk-latin-spacing: none,
             )
             block(height: 1em, align(horizon, user.name))
           },
           h(2pt, weak: true),
           if title != none {
-            set text(size: const.title-text-size, fill: title.text-color, cjk-latin-spacing: none)
+            set text(size: sty.title-text-size, fill: title.text-color, cjk-latin-spacing: none)
             block(
-              height: const.title-height,
-              inset: const.title-inset,
-              radius: const.title-radius,
+              height: sty.title-height,
+              inset: sty.title-inset,
+              radius: sty.title-radius,
               fill: title.bg-color,
               align(horizon, title.body),
             )
@@ -165,19 +165,19 @@
       }
 
       let message-block = {
-        set text(size: const.message-text-size)
+        set text(size: sty.message-text-size)
         show link: set text(sub-theme.link-color)
 
         if msg.kind == "message" {
           let bubble-color = sub-theme.bubble-color
 
           set text(cjk-latin-spacing: none, fill: sub-theme.text-color)
-          block(fill: bubble-color, radius: const.bubble-radius, inset: const.bubble-inset, align(
+          block(fill: bubble-color, radius: sty.bubble-radius, inset: sty.bubble-inset, align(
             left,
             msg.body,
           ))
         } else if msg.kind == "plain" {
-          block(radius: const.bubble-radius, clip: true, msg.body)
+          block(radius: sty.bubble-radius, clip: true, msg.body)
         }
       }
 
@@ -187,26 +187,26 @@
         message-block
       }
 
-      let profile-block = align(center, block(
-        width: const.profile-width-1,
-        radius: const.profile-radius,
+      let avatar-block = align(center, block(
+        width: sty.avatar-width-1,
+        radius: sty.avatar-radius,
         clip: true,
-        user.profile,
+        user.avatar,
       ))
       cells.push(grid.cell(x: 1, y: i, align: msg.side, body-block))
-      cells.push(grid.cell(x: sub-theme.profile-x, y: i, profile-block))
+      cells.push(grid.cell(x: sub-theme.avatar-x, y: i, avatar-block))
     }
   }
 
   show: block.with(
-    width: const.content-width,
-    fill: color-theme.bg-color,
-    inset: const.content-inset,
+    width: sty.content-width,
+    fill: theme.bg-color,
+    inset: sty.content-inset,
   )
   grid(
-    columns: (const.profile-width, 1fr, const.profile-width),
-    row-gutter: const.row-gutter,
-    column-gutter: const.column-gutter,
+    columns: (sty.avatar-width, 1fr, sty.avatar-width),
+    row-gutter: sty.row-gutter,
+    column-gutter: sty.column-gutter,
     ..cells
   )
 }

@@ -7,9 +7,9 @@
 #let yau = oc.message.with(left, oc.user(
   name: [丘成桐（囯內）],
   title: qqnt.title(text(weight: 600)[LV100 群主]),
-  profile: wechat.default-profile,
+  avatar: wechat.default-avatar,
 ))
-#let me = oc.message.with(right, oc.user(name: [丘成桐（囯內）], profile: wechat.default-profile))
+#let me = oc.message.with(right, oc.user(name: [丘成桐（囯內）], avatar: wechat.default-avatar))
 
 #qqnt.chat(
   theme: "dark",

@@ -4,13 +4,12 @@
 
 // discord peeps only use da dak deme
 #let default-theme = (
-  text-color: rgb("#DEDFE2"),
-  secondary-text-color: rgb("#9A9BA2"),
-  link-color: rgb("#375082"),
-  name-color: rgb("#FCF9F6"),
-  bg-color: rgb("#2F3137"),
-  time-block-color: rgb("#000000").transparentize(70%),
-  line-color: rgb("#43444B"),
+  background: oklab(21.9499%, 0.00211129, -0.00744916),
+  text-normal: oklab(95.2331%, 0.000418991, -0.00125992),
+  text-muted: oklab(61.1686%, 0.00218612, -0.0118227),
+  text-link: oklab(67.0158%, -0.038477, -0.141411),
+  text-username: oklab(98.8044%, 0.0000450313, 0.0000197887),
+  divider-color: rgb(151, 151, 159, 12%),
 )
 
 #let builtin-themes = (
@@ -18,145 +17,125 @@
 )
 
 /// Layout constants that can be overridden
-#let default-constants = (
+#let default-layout = (
   // Overall layout
-  content-width: 500pt,
-  content-inset: 8pt,
-  // Grid layout
-  profile-width: 27pt,
-  row-gutter: 1.5em,
-  column-gutter: 10pt,
+  content-scale: 75%,
+  content-width: 640pt,
+  content-inset: (y: 16pt),
+  group-spacing-start: 1.0625em,
+  message-margin-left: 72pt,
+  avatar-size: 40pt,
   // Text sizing
-  message-text-size: 11.5pt,
-  name-text-size: 1em,
-  time-text-size: 0.8em,
+  main-text-size: 17pt,
+  message-text-size: 1em,
+  username-text-size: 1em,
+  timestamp-text-size: 0.75em,
   // Paragraph formatting
-  par-leading: 0.575em,
-  par-spacing: 1em,
-  // Profile styling
-  profile-radius: 100pt,
-  // Element styling
-  element-radius: 2.5pt,
-  // Element heights
-  name-height: 1em,
-  // Time separator styling
-  time-line-stroke: 0.5pt,
-  time-gutter: 1em,
+  par-leading: 0.375em,
+  par-spacing: 0.25em + 0.375em,
+  username-line-height: 1.375em,
+  // Time divider styling
+  divider-above: 1.5em,
+  divider-below: 0.5em,
+  divider-left: 1.0em,
+  divider-right: 0.875em,
+  time-line-stroke: 0.8pt,
 )
 
-#let newbie = stack(dir: ltr, image(width: 15pt, height: 15pt, "../assets/discord-newbie.svg"), h(
-  5pt,
-))
+#let newbie = image(width: 15pt, "../assets/discord-newbie.svg")
 
 #let newbie-user = user.with(title: newbie)
 
 #let chat(
-  ..messages,
   theme: auto,
-  constants: (:),
+  layout: (:),
+  ..messages,
 ) = {
-  let color-theme = resolve-theme(builtin-themes, theme, default: "default")
+  let theme = resolve-theme(builtin-themes, theme, default: "default")
+  let sty = default-layout + layout
 
-  // Merge default constants with user overrides
-  let const = default-constants + constants
-
-  let theme = (
-    text-color: color-theme.text-color,
-    link-color: color-theme.link-color,
-    sign: -1,
-    profile-x: 2,
+  show: scale.with(sty.content-scale, reflow: true)
+  show: block.with(
+    width: sty.content-width,
+    inset: sty.content-inset,
+    fill: theme.background,
   )
-
-  set par(leading: const.par-leading, spacing: const.par-spacing)
-
-  let cells = ()
+  set text(size: sty.main-text-size)
+  set par(leading: sty.par-leading, spacing: sty.par-spacing)
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "time" {
-      let time-block = {
-        set text(
-          fill: color-theme.secondary-text-color,
-          size: const.time-text-size,
-          weight: 600,
-        )
-        let div-line = line(length: 100%, stroke: color-theme.line-color + const.time-line-stroke)
-        grid(
-          columns: (1fr, auto, 1fr),
-          align: horizon,
-          gutter: const.time-gutter,
-          div-line, msg.body, div-line,
-        )
-      }
-      cells.push(grid.cell(x: 0, y: i, align: center, colspan: 2, time-block))
+      show: block.with(
+        width: 100%,
+        height: 0pt,
+        above: sty.divider-above,
+        below: sty.divider-below,
+        inset: (
+          left: sty.divider-left,
+          right: sty.divider-right,
+        ),
+      )
+      show: block.with(width: 100%, stroke: (top: theme.divider-color + sty.time-line-stroke))
+      set align(horizon + center)
+      show: block.with(height: 13pt, inset: (x: 4pt, y: 2pt), fill: theme.background)
+      set text(
+        fill: theme.text-muted,
+        cjk-latin-spacing: none,
+        size: 12pt,
+        weight: 600,
+      )
+      msg.body
     } else if msg.kind == "message" or msg.kind == "plain" {
       let user = msg.user
 
-      let sender-block = {
-        stack(
-          dir: ltr,
+      let avatar-block = {
+        set align(center)
+        block(width: sty.avatar-size, radius: 50%, clip: true, user.avatar)
+      }
+
+      let header-block = {
+        show: block.with(height: sty.username-line-height)
+        set align(horizon)
+        set text(
+          size: sty.username-text-size,
+          fill: theme.text-username,
+          cjk-latin-spacing: none,
+          weight: 500,
+        )
+        let items = (
           if user.name != none {
-            set text(
-              size: const.name-text-size,
-              fill: color-theme.name-color,
-              cjk-latin-spacing: none,
-              weight: 500,
+            text(
+              fill: theme.text-username,
+              user.name,
             )
-            block(height: const.name-height, align(bottom, user.name))
           },
-          h(2pt, weak: true),
           user.title,
-          h(2pt, weak: true),
           if msg.time != none {
-            set text(
-              fill: color-theme.secondary-text-color,
-              size: .8em,
-              weight: 500,
+            text(
+              fill: theme.text-muted,
+              size: sty.timestamp-text-size,
+              msg.time,
             )
-            block(height: 1em, align(bottom, msg.time))
           },
         )
+        stack(dir: ltr, spacing: 0.5em, ..items.filter(it => it != none))
       }
 
       let message-block = {
-        set text(size: const.message-text-size)
-        show link: set text(theme.link-color)
+        set text(size: sty.message-text-size, fill: theme.text-normal, cjk-latin-spacing: none)
+        show link: set text(fill: theme.text-link)
 
         if msg.kind == "message" {
-          set text(
-            cjk-latin-spacing: none,
-            fill: theme.text-color,
-          )
-          block(align(left, msg.body))
-        } else if msg.kind == "plain" {
-          block(radius: const.element-radius, clip: true, msg.body)
+          block(width: 100%, align(left, msg.body))
         }
       }
 
-      let body-block = {
-        sender-block
-        v(6pt, weak: true)
-        message-block
-      }
-
-      let profile-block = block(width: 100%, radius: const.profile-radius, clip: true, align(
-        center,
-        user.profile,
-      ))
-
-      cells.push(grid.cell(x: 0, y: i, profile-block))
-      cells.push(grid.cell(x: 1, y: i, align: left, body-block))
+      show: block.with(above: sty.group-spacing-start)
+      place(left, dx: sty.message-margin-left / 2, dy: 4pt - 0.125em, place(center, avatar-block))
+      show: pad.with(left: sty.message-margin-left, y: 0.125em)
+      header-block
+      v(6pt, weak: true)
+      message-block
     }
   }
-
-  show: block.with(
-    width: const.content-width,
-    fill: color-theme.bg-color,
-    inset: const.content-inset,
-  )
-  grid(
-    columns: (const.profile-width, 1fr),
-    row-gutter: const.row-gutter,
-    column-gutter: const.column-gutter,
-    ..cells
-  )
 }

@@ -2,33 +2,33 @@
 #import "../components.typ": *
 #import "../utils.typ": resolve-theme
 
-/// The default profile of Ourchat
-#let default-profile = image("../assets/wechat-profile.svg")
+/// The default avatar of Ourchat
+#let default-avatar = image("../assets/wechat-avatar.svg")
 
-#let default-user = user.with(profile: default-profile)
+#let default-user = user.with(avatar: default-avatar)
 
 /// Default light theme
 #let light-theme = (
-  right-text-color: rgb("#0f170a"),
-  left-text-color: rgb("#191919"),
-  right-link-color: rgb("#576b95"),
-  left-link-color: rgb("#576b95"),
-  name-color: rgb("#888888"),
-  left-bubble-color: rgb("#ffffff"),
-  right-bubble-color: rgb("#95ec69"),
-  bg-color: rgb("#ededed"),
+  background: rgb("#ededed"),
+  bubble-left: rgb("#ffffff"),
+  bubble-right: rgb("#95ec69"),
+  text-left: rgb("#191919"),
+  text-right: rgb("#0f170a"),
+  text-link-left: rgb("#576b95"),
+  text-link-right: rgb("#576b95"),
+  text-name: rgb("#888888"),
 )
 
 /// Default dark theme
 #let dark-theme = (
-  right-text-color: rgb("#06120b"),
-  left-text-color: rgb("#d5d5d5"),
-  right-link-color: rgb("#375082"),
-  left-link-color: rgb("#7d90a9"),
-  name-color: rgb("#888888"),
-  left-bubble-color: rgb("#2c2c2c"),
-  right-bubble-color: rgb("#3eb575"),
-  bg-color: rgb("#111111"),
+  background: rgb("#111111"),
+  bubble-left: rgb("#2c2c2c"),
+  bubble-right: rgb("#3eb575"),
+  text-left: rgb("#d5d5d5"),
+  text-right: rgb("#06120b"),
+  text-link-left: rgb("#7d90a9"),
+  text-link-right: rgb("#375082"),
+  text-name: rgb("#888888"),
 )
 
 #let builtin-themes = (
@@ -37,75 +37,70 @@
 )
 
 /// Layout constants that can be overridden
-#let default-constants = (
+#let default-layout = (
   // Overall layout
   content-width: 270pt,
   content-inset: 8pt,
-  // Grid layout
-  profile-width: 27pt,
-  row-gutter: 0.65em,
+  row-gutter: 11.75pt,
   column-gutter: 7.5pt,
+  avatar-column-width: 27pt,
   // Text sizing
   message-text-size: 11.5pt,
   name-text-size: 8pt,
   time-text-size: 8pt,
   // Paragraph formatting
-  par-leading: 0.575em,
-  par-spacing: 0.65em,
+  par-leading: 0.6em,
+  par-spacing: 0.6em,
+  // Element heights
+  name-height: 11pt,
+  time-height: 1.4em,
+  avatar-radius: 2.5pt,
   // Bubble styling
   bubble-radius: 2.5pt,
-  bubble-inset: 0.8em,
-  bubble-tail-size: 6pt,
-  bubble-tail-offset-y: 9pt,
+  bubble-inset: 0.7em,
+  bubble-tail-size: 6.5pt,
+  bubble-tail-offset-y: 11.5pt,
   bubble-tail-radius: 1pt,
-  // Element heights
-  name-height: 1em,
-  time-height: 1.4em,
-  profile-radius: 2.5pt,
 )
 
 /// Create a wechat style chat.
 ///
-/// - messages: The items created by `time` or `message`.
 /// - theme (str, dictionary): The chat theme.
-/// - width (length): The width of the whole block.
-/// - constants (dictionary): Override layout constants.
+/// - layout (dictionary): Override layout constants.
+/// - messages: The items created by `time` or `message`.
 ///
 /// -> content
 #let chat(
-  ..messages,
   theme: auto,
-  constants: (:),
+  layout: (:),
+  ..messages,
 ) = {
-  let color-theme = resolve-theme(builtin-themes, theme, default: "light")
-
-  // Merge default constants with user overrides
-  let const = default-constants + constants
+  let theme = resolve-theme(builtin-themes, theme, default: "light")
+  let sty = default-layout + layout
 
   let left-theme = (
-    text-color: color-theme.left-text-color,
-    link-color: color-theme.left-link-color,
-    bubble-color: color-theme.left-bubble-color,
+    text-color: theme.text-left,
+    link-color: theme.text-link-left,
+    bubble-color: theme.bubble-left,
     sign: 1,
-    profile-x: 0,
+    avatar-x: 0,
   )
   let right-theme = (
-    text-color: color-theme.right-text-color,
-    link-color: color-theme.right-link-color,
-    bubble-color: color-theme.right-bubble-color,
+    text-color: theme.text-right,
+    link-color: theme.text-link-right,
+    bubble-color: theme.bubble-right,
     sign: -1,
-    profile-x: 2,
+    avatar-x: 2,
   )
-
-  set par(leading: const.par-leading, spacing: const.par-spacing)
 
   let cells = ()
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "time" {
       let time-block = {
-        set text(size: const.time-text-size, fill: color-theme.name-color, cjk-latin-spacing: none)
-        block(height: const.time-height, align(center + horizon, msg.body))
+        set text(size: sty.time-text-size, fill: theme.text-name, cjk-latin-spacing: none)
+        show: block.with(height: sty.time-height)
+        align(center + horizon, msg.body)
       }
       cells.push(grid.cell(x: 1, y: i, align: center, time-block))
     } else if msg.kind == "message" or msg.kind == "plain" {
@@ -118,65 +113,70 @@
 
       let sender-block = if user.name != none and msg.side == left {
         set text(
-          size: const.name-text-size,
-          fill: color-theme.name-color,
+          size: sty.name-text-size,
+          fill: theme.text-name,
           cjk-latin-spacing: none,
         )
-        block(height: const.name-height, align(horizon, user.name))
+        show: block.with(height: sty.name-height, inset: (left: 1.25pt))
+        align(horizon, user.name)
       }
 
       let message-block = {
-        set text(size: const.message-text-size)
+        set text(size: sty.message-text-size)
         show link: set text(sub-theme.link-color)
 
         if msg.kind == "message" {
           let bubble-color = sub-theme.bubble-color
 
           // small tip
-          place(msg.side, dy: const.bubble-tail-offset-y, rotate(
+          place(msg.side, dy: sty.bubble-tail-offset-y, rotate(
             45deg * sub-theme.sign,
             origin: top,
             rect(
-              width: const.bubble-tail-size,
-              height: const.bubble-tail-size,
-              radius: const.bubble-tail-radius,
+              width: sty.bubble-tail-size,
+              height: sty.bubble-tail-size,
+              radius: sty.bubble-tail-radius,
               fill: bubble-color,
             ),
           ))
 
           // message body
-          set text(fill: sub-theme.text-color)
-          block(fill: bubble-color, radius: const.bubble-radius, inset: const.bubble-inset, align(
-            left,
-            msg.body,
+          show: block.with(fill: bubble-color, radius: sty.bubble-radius, inset: (
+            x: 0.7em,
+            y: 0.8em,
           ))
+          set text(fill: sub-theme.text-color, tracking: 0.1pt)
+          set par(justify: true)
+          align(left, msg.body)
+          v(-1pt)
         } else if msg.kind == "plain" {
-          block(radius: const.bubble-radius, clip: true, msg.body)
+          block(radius: sty.bubble-radius, clip: true, msg.body)
         }
       }
 
       let body-block = {
         sender-block
-        v(2pt, weak: true)
+        v(0.75pt, weak: true)
         message-block
       }
 
-      let profile-block = block(width: 100%, radius: const.profile-radius, clip: true, user.profile)
+      let avatar-block = block(width: 100%, radius: sty.avatar-radius, clip: true, user.avatar)
 
       cells.push(grid.cell(x: 1, y: i, align: msg.side, body-block))
-      cells.push(grid.cell(x: sub-theme.profile-x, y: i, profile-block))
+      cells.push(grid.cell(x: sub-theme.avatar-x, y: i, avatar-block))
     }
   }
 
+  set par(leading: sty.par-leading, spacing: sty.par-spacing)
   show: block.with(
-    width: const.content-width,
-    fill: color-theme.bg-color,
-    inset: const.content-inset,
+    width: sty.content-width,
+    fill: theme.background,
+    inset: sty.content-inset,
   )
   grid(
-    columns: (const.profile-width, 1fr, const.profile-width),
-    row-gutter: const.row-gutter,
-    column-gutter: const.column-gutter,
+    columns: (sty.avatar-column-width, 1fr, sty.avatar-column-width),
+    row-gutter: sty.row-gutter,
+    column-gutter: sty.column-gutter,
     ..cells
   )
 }

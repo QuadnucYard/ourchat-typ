@@ -4,7 +4,7 @@
 #set page(width: auto, height: auto, margin: 0em, fill: none)
 #set text(font: ("gg sans", "IBM Plex Sans SC"))
 
-#let yau = discord.newbie-user(name: [丘成桐（囯內）], profile: wechat.default-profile)
+#let yau = discord.newbie-user(name: [丘成桐（囯內）], avatar: wechat.default-avatar)
 
 #let me = discord.user(name: text(fill: rgb("#009692"))[Anonymous])
 

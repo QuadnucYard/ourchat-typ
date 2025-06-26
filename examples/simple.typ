@@ -4,11 +4,11 @@
 #set page(width: auto, height: auto, margin: 0em, fill: none)
 #set text(font: "Arial")
 
-#let left-profile = box(width: 27pt, height: 27pt, fill: green, scale(200%, move(dx: 3pt, dy: 5pt)[🤣]))
-#let right-profile = box(width: 27pt, height: 27pt, fill: blue, scale(200%, move(dx: 3pt, dy: 5pt)[😆]))
+#let left-avatar = box(width: 27pt, height: 27pt, fill: green, scale(200%, move(dx: 3pt, dy: 5pt)[🤣]))
+#let right-avatar = box(width: 27pt, height: 27pt, fill: blue, scale(200%, move(dx: 3pt, dy: 5pt)[😆]))
 
-#let left-user = oc.user(name: [Han Meimei], profile: left-profile)
-#let right-user = oc.user(name: [Li Lei], profile: right-profile)
+#let left-user = oc.user(name: [Han Meimei], avatar: left-avatar)
+#let right-user = oc.user(name: [Li Lei], avatar: right-avatar)
 
 #wechat.chat(
   theme: (left-text-color: purple),

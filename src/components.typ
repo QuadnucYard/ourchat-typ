@@ -39,15 +39,15 @@
 /// - user: The message sender.
 /// - body (content): The image body.
 /// - name (content): The name of sender.
-/// - profile (content): The profile of sender.
+/// - avatar (content): The avatar of sender.
 #let plain(side, user, body) = {
   (kind: "plain", side: side, user: user, body: body)
 }
 
-#let user(name: none, profile: none, title: none) = {
+#let user(name: none, avatar: none, title: none) = {
   (
     name: name,
-    profile: profile,
+    avatar: avatar,
     title: title,
   )
 }
