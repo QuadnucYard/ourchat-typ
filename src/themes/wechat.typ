@@ -1,6 +1,6 @@
 /// Wechat theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme
+#import "../utils.typ": resolve-theme, stretch-cover
 
 /// The default avatar of Ourchat
 #let default-avatar = image("../assets/wechat-avatar.svg")
@@ -16,7 +16,7 @@
   text-right: rgb("#0f170a"),
   text-link-left: rgb("#576b95"),
   text-link-right: rgb("#576b95"),
-  text-name: rgb("#888888"),
+  text-username: rgb("#888888"),
 )
 
 /// Default dark theme
@@ -28,7 +28,8 @@
   text-right: rgb("#06120b"),
   text-link-left: rgb("#7d90a9"),
   text-link-right: rgb("#375082"),
-  text-name: rgb("#888888"),
+  text-username: rgb("#888888"),
+  text-timestamp: rgb("#888888"),
 )
 
 #let builtin-themes = (
@@ -43,24 +44,24 @@
   content-inset: 8pt,
   row-gutter: 11.75pt,
   column-gutter: 7.5pt,
-  avatar-column-width: 27pt,
   // Text sizing
   message-text-size: 11.5pt,
-  name-text-size: 8pt,
-  time-text-size: 8pt,
+  username-text-size: 8pt,
+  timestamp-text-size: 8pt,
   // Paragraph formatting
   par-leading: 0.6em,
   par-spacing: 0.6em,
-  // Element heights
-  name-height: 11pt,
-  time-height: 1.4em,
-  avatar-radius: 2.5pt,
   // Bubble styling
   bubble-radius: 2.5pt,
   bubble-inset: 0.7em,
   bubble-tail-size: 6.5pt,
   bubble-tail-offset-y: 11.5pt,
   bubble-tail-radius: 1pt,
+  // Element heights
+  username-height: 11pt,
+  timestamp-height: 1.4em,
+  avatar-size: 27pt,
+  avatar-radius: 2.5pt,
 )
 
 /// Create a wechat style chat.
@@ -98,8 +99,8 @@
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "time" {
       let time-block = {
-        set text(size: sty.time-text-size, fill: theme.text-name, cjk-latin-spacing: none)
-        show: block.with(height: sty.time-height)
+        set text(size: sty.timestamp-text-size, fill: theme.text-timestamp, cjk-latin-spacing: none)
+        show: block.with(height: sty.timestamp-height)
         align(center + horizon, msg.body)
       }
       cells.push(grid.cell(x: 1, y: i, align: center, time-block))
@@ -113,11 +114,11 @@
 
       let sender-block = if user.name != none and msg.side == left {
         set text(
-          size: sty.name-text-size,
-          fill: theme.text-name,
+          size: sty.username-text-size,
+          fill: theme.text-username,
           cjk-latin-spacing: none,
         )
-        show: block.with(height: sty.name-height, inset: (left: 1.25pt))
+        show: block.with(height: sty.username-height, inset: (left: 1.25pt))
         align(horizon, user.name)
       }
 
@@ -160,7 +161,15 @@
         message-block
       }
 
-      let avatar-block = block(width: 100%, radius: sty.avatar-radius, clip: true, user.avatar)
+      let avatar-block = {
+        show: block.with(
+          width: sty.avatar-size,
+          height: sty.avatar-size,
+          radius: sty.avatar-radius,
+          clip: true,
+        )
+        stretch-cover(user.avatar)
+      }
 
       cells.push(grid.cell(x: 1, y: i, align: msg.side, body-block))
       cells.push(grid.cell(x: sub-theme.avatar-x, y: i, avatar-block))
@@ -174,7 +183,7 @@
     inset: sty.content-inset,
   )
   grid(
-    columns: (sty.avatar-column-width, 1fr, sty.avatar-column-width),
+    columns: (sty.avatar-size, 1fr, sty.avatar-size),
     row-gutter: sty.row-gutter,
     column-gutter: sty.column-gutter,
     ..cells

@@ -68,3 +68,15 @@
     )
   }
 }
+
+/// Stretch the item to cover its container.
+///
+/// - item (content):
+/// -> content
+#let stretch-cover(item) = {
+  layout(size => {
+    let item-size = measure(item)
+    let s = calc.max(size.width / item-size.width, size.height / item-size.height)
+    align(horizon + center, scale(s * 100%, item, reflow: true))
+  })
+}

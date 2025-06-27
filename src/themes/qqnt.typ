@@ -1,31 +1,33 @@
 /// QQNT theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme
+#import "../utils.typ": resolve-theme, stretch-cover
 
 /// Default light theme
 #let light-theme = (
-  right-text-color: rgb("#FFFFFF"),
-  left-text-color: rgb("#191919"),
-  right-link-color: rgb("#9AE9FF"),
-  left-link-color: rgb("#576b95"),
-  name-color: rgb("#888888"),
-  left-bubble-color: rgb("#ffffff"),
-  right-bubble-color: rgb("#0098FF"),
-  bg-color: gradient.linear(rgb("#FAF2FF"), rgb("#D8EAFF"), angle: 30deg),
-  time-block-color: rgb("#FFFFFF").transparentize(60%),
+  background: gradient.linear(rgb("#FAF2FF"), rgb("#D8EAFF"), angle: 30deg),
+  timestamp-background: rgb("#FFFFFF").transparentize(60%),
+  bubble-left: rgb("#ffffff"),
+  bubble-right: rgb("#0098FF"),
+  text-left: rgb("#191919"),
+  text-right: rgb("#FFFFFF"),
+  text-link-left: rgb("#576b95"),
+  text-link-right: rgb("#9AE9FF"),
+  text-username: rgb("#888888"),
+  text-timestamp: rgb("#888888"),
 )
 
 /// Default dark theme
 #let dark-theme = (
-  right-text-color: rgb("#FFFFFF"),
-  left-text-color: rgb("#FFFFFF"),
-  right-link-color: rgb("#375082"),
-  left-link-color: rgb("#7d90a9"),
-  name-color: rgb("#888888"),
-  left-bubble-color: rgb("#393939"),
-  right-bubble-color: rgb("#0064CD"),
-  bg-color: gradient.linear(rgb("#2A252F"), rgb("#021F2E"), angle: 30deg),
-  time-block-color: rgb("#000000").transparentize(70%),
+  background: gradient.linear(rgb("#2A252F"), rgb("#021F2E"), angle: 30deg),
+  timestamp-background: rgb("#000000").transparentize(70%),
+  bubble-left: rgb("#393939"),
+  bubble-right: rgb("#0064CD"),
+  text-left: rgb("#FFFFFF"),
+  text-right: rgb("#FFFFFF"),
+  text-link-left: rgb("#7d90a9"),
+  text-link-right: rgb("#375082"),
+  text-username: rgb("#888888"),
+  text-timestamp: rgb("#888888"),
 )
 
 #let builtin-themes = (
@@ -36,36 +38,39 @@
 /// Layout constants that can be overridden
 #let default-layout = (
   // Overall layout
-  content-width: 270pt,
-  content-inset: 8pt,
-  // Grid layout
-  avatar-width: 27pt,
-  row-gutter: 0.65em,
-  column-gutter: 7.5pt,
+  content-width: 480pt,
+  content-inset: (x: 45pt, y: 15pt),
   // Text sizing
-  message-text-size: 11.5pt,
-  name-text-size: 0.7em,
-  time-text-size: 0.7em,
-  title-text-size: 0.55em,
+  main-text-size: 10.5pt,
+  message-text-size: 1em,
+  username-text-size: 9pt,
+  title-text-size: 7.5pt,
+  timestamp-text-size: 9pt,
   // Paragraph formatting
-  par-leading: 0.575em,
-  par-spacing: 0.65em,
+  par-leading: 0.8em,
+  par-spacing: 0.825em,
   // Bubble styling
+  message-spacing-above: 2.0em,
+  bubble-padding: 2em,
+  bubble-inset: (x: 0.7em, y: 0.9em),
   bubble-radius: 5pt,
-  bubble-inset: 0.8em,
-  // avatar styling
-  avatar-radius: 100pt,
-  avatar-width-1: 90%,
-  // Element heights
-  name-height: 1em,
-  time-height: 1.2em,
-  title-height: 1.2em,
-  // Time block styling
-  time-radius: 0.6em,
-  time-inset: 0.6em,
   // Title styling
-  title-inset: 2pt,
-  title-radius: 2pt,
+  username-height: 1.05em,
+  title-spacing: 0.3em,
+  title-height: 1.2em,
+  title-inset: (x: 3pt),
+  title-radius: 3pt,
+  // Avatar styling
+  avatar-offset-x: -30pt,
+  avatar-width: 36pt,
+  avatar-size: 24pt,
+  avatar-radius: 50%,
+  // Timestamp styling
+  timestamp-spacing-above: 2.5em,
+  timestamp-spacing-below: 1.0em,
+  timestamp-height: 1.4em,
+  timestamp-radius: 0.6em,
+  timestamp-inset: 0.6em,
 )
 
 #let title(
@@ -93,42 +98,43 @@
   ..messages,
 ) = {
   let theme = resolve-theme(builtin-themes, theme, default: "light")
-
-  // Merge default constants with user overrides
   let sty = default-layout + layout
 
   let left-theme = (
-    text-color: theme.left-text-color,
-    link-color: theme.left-link-color,
-    bubble-color: theme.left-bubble-color,
-    sign: 1,
-    avatar-x: 0,
+    text-color: theme.text-left,
+    link-color: theme.text-link-left,
+    bubble-color: theme.bubble-left,
   )
   let right-theme = (
-    text-color: theme.right-text-color,
-    link-color: theme.right-link-color,
-    bubble-color: theme.right-bubble-color,
-    sign: -1,
-    avatar-x: 2,
+    text-color: theme.text-right,
+    link-color: theme.text-link-right,
+    bubble-color: theme.bubble-right,
   )
 
+  set text(size: sty.main-text-size)
   set par(leading: sty.par-leading, spacing: sty.par-spacing)
 
-  let cells = ()
+  show: block.with(width: sty.content-width, fill: theme.background, inset: sty.content-inset)
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "time" {
-      let time-block = {
-        set text(size: sty.time-text-size, fill: theme.name-color, cjk-latin-spacing: none)
-        block(
-          height: sty.time-height,
-          inset: sty.time-inset,
-          radius: sty.time-radius,
-          fill: theme.time-block-color,
-          align(center + horizon, msg.body),
-        )
-      }
-      cells.push(grid.cell(x: 1, y: i, align: center, time-block))
+      show: it => (
+        v(sty.timestamp-spacing-above, weak: true) + it + v(sty.timestamp-spacing-below, weak: true)
+      )
+      show: align.with(center)
+      show: block.with(
+        height: sty.timestamp-height,
+        inset: sty.timestamp-inset,
+        radius: sty.timestamp-radius,
+        fill: theme.timestamp-background,
+      )
+      set text(
+        size: sty.timestamp-text-size,
+        weight: "light",
+        fill: theme.text-timestamp,
+        cjk-latin-spacing: none,
+      )
+      align(center + horizon, msg.body)
     } else if msg.kind == "message" or msg.kind == "plain" {
       let user = msg.user
       let sub-theme = if msg.side == left {
@@ -137,30 +143,48 @@
         right-theme
       }
 
+      let avatar-block = {
+        show: pad.with(top: 1pt, x: sty.avatar-offset-x)
+        show: block.with(
+          width: sty.avatar-size,
+          height: sty.avatar-size,
+          radius: sty.avatar-radius,
+          clip: true,
+        )
+        stretch-cover(user.avatar)
+      }
+
       let sender-block = {
         let title = user.title
 
-        stack(
-          dir: if msg.side == left { ltr } else { rtl },
+        let items = (
           if user.name != none {
             set text(
-              size: sty.name-text-size,
-              fill: theme.name-color,
+              size: sty.username-text-size,
+              fill: theme.text-username,
               cjk-latin-spacing: none,
             )
-            block(height: 1em, align(horizon, user.name))
+            align(horizon, user.name)
           },
-          h(2pt, weak: true),
           if title != none {
-            set text(size: sty.title-text-size, fill: title.text-color, cjk-latin-spacing: none)
-            block(
+            show: box.with(
               height: sty.title-height,
               inset: sty.title-inset,
               radius: sty.title-radius,
               fill: title.bg-color,
-              align(horizon, title.body),
             )
+            set text(size: sty.title-text-size, fill: title.text-color, cjk-latin-spacing: none)
+            align(horizon, title.body)
           },
+        )
+
+        show: block.with(height: sty.username-height)
+        show: align.with(horizon)
+        set text(weight: "light")
+        stack(
+          dir: if msg.side == left { ltr } else { rtl },
+          spacing: sty.title-spacing,
+          ..items.filter(it => it != none),
         )
       }
 
@@ -171,42 +195,25 @@
         if msg.kind == "message" {
           let bubble-color = sub-theme.bubble-color
 
+          show: block.with(fill: bubble-color, radius: sty.bubble-radius, inset: sty.bubble-inset)
           set text(cjk-latin-spacing: none, fill: sub-theme.text-color)
-          block(fill: bubble-color, radius: sty.bubble-radius, inset: sty.bubble-inset, align(
-            left,
-            msg.body,
-          ))
+          align(left, msg.body)
+          v(1pt)
         } else if msg.kind == "plain" {
           block(radius: sty.bubble-radius, clip: true, msg.body)
         }
       }
 
-      let body-block = {
-        sender-block
-        v(2pt, weak: true)
-        message-block
+      show: block.with(above: sty.message-spacing-above, width: 100%)
+      show: align.with(msg.side)
+      place(msg.side, avatar-block)
+      sender-block
+      v(3pt, weak: true)
+      if msg.side == left {
+        pad(right: sty.bubble-padding, message-block)
+      } else {
+        pad(left: sty.bubble-padding, message-block)
       }
-
-      let avatar-block = align(center, block(
-        width: sty.avatar-width-1,
-        radius: sty.avatar-radius,
-        clip: true,
-        user.avatar,
-      ))
-      cells.push(grid.cell(x: 1, y: i, align: msg.side, body-block))
-      cells.push(grid.cell(x: sub-theme.avatar-x, y: i, avatar-block))
     }
   }
-
-  show: block.with(
-    width: sty.content-width,
-    fill: theme.bg-color,
-    inset: sty.content-inset,
-  )
-  grid(
-    columns: (sty.avatar-width, 1fr, sty.avatar-width),
-    row-gutter: sty.row-gutter,
-    column-gutter: sty.column-gutter,
-    ..cells
-  )
 }

@@ -1,6 +1,6 @@
 /// Discord theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme
+#import "../utils.typ": resolve-theme, stretch-cover
 
 // discord peeps only use da dak deme
 #let default-theme = (
@@ -33,6 +33,7 @@
   // Paragraph formatting
   par-leading: 0.375em,
   par-spacing: 0.25em + 0.375em,
+  markup-line-height: 1.375em,
   username-line-height: 1.375em,
   // Time divider styling
   divider-above: 1.5em,
@@ -90,7 +91,8 @@
 
       let avatar-block = {
         set align(center)
-        block(width: sty.avatar-size, radius: 50%, clip: true, user.avatar)
+        show: block.with(width: sty.avatar-size, height: sty.avatar-size, radius: 50%, clip: true)
+        stretch-cover(user.avatar)
       }
 
       let header-block = {
