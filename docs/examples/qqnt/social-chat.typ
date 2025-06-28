@@ -35,7 +35,7 @@
     What's everyone up to this weekend? 😊
   ],
 
-  message(center, bob_qq)[
+  message(left, bob_qq)[
     Planning to see a movie! Heard the new sci-fi film is great 🎬
   ],
 
@@ -49,7 +49,7 @@
     That's rough! Want to grab dinner together to unwind? 🍜
   ],
 
-  message(center, bob_qq)[
+  message(left, bob_qq)[
     Great idea! I know a new hotpot place that just opened 🔥
   ],
 
@@ -61,7 +61,7 @@
     How about 7 PM? I'll send the location to everyone 📍
   ],
 
-  message(center, bob_qq)[
+  message(left, bob_qq)[
     Perfect! Looking forward to our weekend hangout 🎉
   ],
 )

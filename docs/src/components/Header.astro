@@ -1,11 +1,18 @@
 ---
 import Nav from "./Nav.astro";
+import { siteConfig } from "@/config/site";
+
+export interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
 ---
 
 <div class="header">
   <div class="header-content">
-    <a href="/" class="logo">Ourchat</a>
-    <Nav />
+    <a href="/" class="logo">{siteConfig.name}</a>
+    <Nav currentPath={currentPath} />
   </div>
 </div>
 

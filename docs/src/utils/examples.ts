@@ -67,6 +67,13 @@ async function extractExampleMetadata(): Promise<Example[]> {
           .filter((line) => line.trim().startsWith("///"))
           .map((line) => line.replace(/^\/\/\/\s?/, ""));
 
+        // Strip documentation lines from source code
+        const sourceCode = content
+          .split("\n")
+          .filter((line) => !line.trim().startsWith("///"))
+          .join("\n")
+          .trim();
+
         const example: Example = {
           theme,
           name: basename,
@@ -78,7 +85,7 @@ async function extractExampleMetadata(): Promise<Example[]> {
           description: docLines[0] || "",
           features: docLines[1]?.replace(/^Features:\s?/, "") || "",
           layout: docLines[2]?.replace(/^Layout:\s?/, "") || "",
-          sourceCode: content,
+          sourceCode: sourceCode,
           svgPath: `/examples/${theme}/${basename}.svg`,
         };
 

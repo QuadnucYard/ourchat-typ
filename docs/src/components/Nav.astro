@@ -1,10 +1,30 @@
 ---
+import GitHub from "./icons/GitHub.astro";
+import { siteConfig } from "@/config/site";
 
+export interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
 ---
 
 <nav class="nav">
-  <a href="/">Home</a>
-  <a href="/gallery">Gallery</a>
+  <a href="/" class:list={[{ active: currentPath === "/" }]}>Home</a>
+  <a
+    href="/gallery"
+    class:list={[{ active: currentPath?.startsWith("/gallery") }]}>Gallery</a
+  >
+  <a
+    href={siteConfig.github.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="github-link"
+    aria-label="View source on GitHub"
+  >
+    <GitHub size={18} />
+    <span>GitHub</span>
+  </a>
 </nav>
 
 <style>
@@ -23,5 +43,16 @@
   .nav a:hover,
   .nav a.active {
     color: #667eea;
+  }
+
+  .github-link {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .github-link:hover {
+    color: #333 !important;
   }
 </style>

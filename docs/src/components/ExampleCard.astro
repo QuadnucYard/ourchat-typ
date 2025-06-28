@@ -12,7 +12,12 @@ const { example } = Astro.props;
   class="example-card"
   onclick={`window.location.href='/gallery/${example.name}'`}
 >
-  <img src={example.svgPath} alt={example.title} class="example-image" />
+  <img
+    src={example.svgPath}
+    alt={example.title}
+    loading="lazy"
+    class="example-image"
+  />
   <div class="example-info">
     <h3 class="example-title">{example.title}</h3>
     <p class="example-description">{example.description}</p>

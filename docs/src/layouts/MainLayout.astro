@@ -1,18 +1,21 @@
 ---
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
+import { siteConfig } from "@/config/site";
 
 export interface Props {
   title?: string;
   description?: string;
+  additionalCSS?: string;
 }
 
 const {
-  title = "Ourchat",
-  description = "Build beautiful, authentic chat UIs for WeChat, Discord, and QQNT with our comprehensive Typst library.",
+  title = siteConfig.name,
+  description = siteConfig.description,
+  additionalCSS,
 } = Astro.props;
 
-const fullTitle = title === "Ourchat" ? title : `${title} - Ourchat`;
+const fullTitle = title === siteConfig.name ? title : `${title} - ${siteConfig.name}`;
 ---
 
 <!doctype html>
@@ -22,9 +25,10 @@ const fullTitle = title === "Ourchat" ? title : `${title} - Ourchat`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {additionalCSS && <link rel="stylesheet" href={additionalCSS} />}
   </head>
   <body>
-    <Header />
+    <Header currentPath={Astro.url.pathname} />
 
     <slot />
 
