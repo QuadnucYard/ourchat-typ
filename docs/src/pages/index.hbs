@@ -1,0 +1,51 @@
+{{#> main additionalCSS="/src/styles/home.css"}}
+
+<main>
+  <div class="hero">
+    <h1>{{title}}</h1>
+    <p class="subtitle">{{subtitle}}</p>
+    <p class="description">{{description}}</p>
+    <div class="cta-buttons">
+      <a href="./gallery.html" class="btn btn-primary">🎨 View Examples</a>
+      <a
+        href="https://github.com/your-username/ourchat"
+        class="btn btn-secondary"
+        >💻 GitHub</a
+      >
+    </div>
+  </div>
+
+  <section class="examples-showcase">
+    <div class="container">
+      <h2>Featured Examples</h2>
+      <p class="examples-subtitle">
+        Explore our collection of ready-to-use chat UI examples
+      </p>
+      <div class="examples-grid">
+        {{#each featuredExamples}}
+        <div
+          class="example-card"
+          onclick="window.location.href='./detail.html?example={{theme}}/{{name}}'"
+        >
+          <img src="{{svgPath}}" alt="{{title}}" class="example-image" />
+          <div class="example-info">
+            <h3 class="example-title">{{title}}</h3>
+            <p class="example-description">{{description}}</p>
+            <div class="example-tags">
+              <span class="tag tag-{{complexity}}">{{complexity}}</span>
+              <span class="tag theme-{{theme}}">{{capitalize theme}}</span>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <div style="text-align: center; margin-top: 2rem">
+        <a href="./gallery.html" class="btn btn-primary"
+          >View All Examples</a
+        >
+      </div>
+    </div>
+  </section>
+</main>
+
+{{/main}}

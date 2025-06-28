@@ -17,6 +17,7 @@
   text-link-left: rgb("#576b95"),
   text-link-right: rgb("#576b95"),
   text-username: rgb("#888888"),
+  text-timestamp: rgb("#888888"),
 )
 
 /// Default dark theme
