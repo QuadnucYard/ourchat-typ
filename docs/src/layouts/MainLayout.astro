@@ -1,0 +1,52 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Ourchat",
+  description = "Build beautiful, authentic chat UIs for WeChat, Discord, and QQNT with our comprehensive Typst library.",
+} = Astro.props;
+
+const fullTitle = title === "Ourchat" ? title : `${title} - Ourchat`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <Header />
+
+    <slot />
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+  }
+</style>
+
+<style is:global>
+  @import "@/styles/base.css";
+</style>

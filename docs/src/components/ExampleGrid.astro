@@ -1,0 +1,32 @@
+---
+import type { Example } from "@/utils/examples";
+import ExampleCard from "./ExampleCard.astro";
+
+export interface Props {
+  examples: Example[];
+}
+
+const { examples } = Astro.props;
+---
+
+<div class="examples-grid">
+  {examples.map((example) => <ExampleCard example={example} />)}
+</div>
+
+<style>
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .examples-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
