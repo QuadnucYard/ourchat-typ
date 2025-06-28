@@ -4,15 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "devDependencies": {
     "@types/node": "^24.0.6",
+    "astro": "^5.10.1",
     "shiki": "^3.7.0",
-    "typescript": "~5.8.3",
-    "vite": "^7.0.0",
-    "vite-plugin-handlebars": "^2.0.0"
+    "typescript": "~5.8.3"
   }
 }

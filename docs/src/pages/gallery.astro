@@ -1,0 +1,98 @@
+---
+import Layout from "@/layouts/MainLayout.astro";
+import ExampleCard from "@/components/ExampleCard.astro";
+import { getExamplesByTheme } from "../utils/examples.ts";
+
+const examplesByTheme = await getExamplesByTheme();
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+---
+
+<Layout title="Gallery" additionalCSS="/src/styles/gallery.css">
+  <main>
+    <div class="gallery-container">
+      {
+        Object.entries(examplesByTheme).map(
+          ([theme, examples]) =>
+            examples && (
+              <div class="theme-section">
+                <h2 class="theme-title">{capitalize(theme)} Theme</h2>
+                <div class="examples-grid">
+                  {examples.map((example) => (
+                    <ExampleCard example={example} />
+                  ))}
+                </div>
+              </div>
+            )
+        )
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .gallery-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .gallery-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+
+  .gallery-header p {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .theme-section {
+    margin-bottom: 4rem;
+  }
+
+  .theme-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .examples-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gallery-header h1 {
+      font-size: 2rem;
+    }
+
+    .gallery-container {
+      padding: 2rem 1rem;
+    }
+  }
+</style>
