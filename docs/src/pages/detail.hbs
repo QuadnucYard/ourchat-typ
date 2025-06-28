@@ -1,0 +1,140 @@
+{{#> main pageTitle="Example Detail" additionalCSS="/src/styles/detail.css"}}
+
+<main id="detail-main">
+  <div class="detail-header">
+    <div class="detail-header-content">
+      <a href="./gallery.html" class="back-button">← Back to Gallery</a>
+      <h1 class="detail-title" id="detail-title">Loading...</h1>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="detail-container">
+    <div class="example-header">
+      <h1 class="example-title" id="example-title">Loading Example...</h1>
+      <p class="example-description" id="example-description">Please wait while we load the example details.</p>
+    </div>
+
+    <div class="content-grid">
+      <div class="result-panel">
+        <div class="panel-header">📱 Rendered Result</div>
+        <div class="panel-content">
+          <img
+            id="example-image"
+            src=""
+            alt="Example Result"
+            class="result-image"
+            style="display: none;"
+          />
+          <div id="loading-placeholder" style="padding: 2rem; text-align: center; color: #666;">
+            Loading example...
+          </div>
+        </div>
+      </div>
+
+      <div class="code-panel">
+        <div class="panel-header">
+          📄 Source Code
+          <span class="file-name" id="file-name">example.typ</span>
+        </div>
+        <div class="panel-content" id="code-content">
+          <pre><code>Loading source code...</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="example-actions">
+      <a href="./gallery.html" class="button secondary"
+        >← Back to Gallery</a
+      >
+      <button onclick="copyToClipboard()" class="button primary">
+        📋 Copy Code
+      </button>
+    </div>
+  </div>
+</main>
+
+<script>
+  // Get examples data from context
+  const examples = {{{json examples}}};
+
+  // Get example name from URL parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const exampleParam = urlParams.get('example');
+
+  if (exampleParam) {
+    const [theme, name] = exampleParam.split('/');
+    const example = examples.find(ex => ex.theme === theme && ex.name === name);
+
+    if (example) {
+      // Update page title
+      document.title = `${example.title} - {{title}}`;
+
+      // Update content
+      document.getElementById('detail-title').textContent = example.title;
+      document.getElementById('example-title').textContent = example.title;
+      document.getElementById('example-description').textContent = example.description;
+      document.getElementById('file-name').textContent = example.fileName;
+
+      // Update image
+      const img = document.getElementById('example-image');
+      img.src = example.svgPath;
+      img.alt = `${example.title} Result`;
+      img.style.display = 'block';
+      document.getElementById('loading-placeholder').style.display = 'none';
+
+      // Update code content
+      document.getElementById('code-content').innerHTML = example.highlightedCode;
+    } else {
+      // Example not found
+      document.getElementById('detail-title').textContent = 'Example Not Found';
+      document.getElementById('example-title').textContent = 'Example Not Found';
+      document.getElementById('example-description').textContent = 'The requested example could not be found.';
+      document.getElementById('loading-placeholder').innerHTML = '<p style="color: #e74c3c;">Example not found</p>';
+    }
+  } else {
+    // No example parameter
+    document.getElementById('detail-title').textContent = 'No Example Selected';
+    document.getElementById('example-title').textContent = 'No Example Selected';
+    document.getElementById('example-description').textContent = 'Please select an example from the gallery.';
+    document.getElementById('loading-placeholder').innerHTML = '<p style="color: #e74c3c;">No example selected</p>';
+  }
+
+  function copyToClipboard() {
+    // Get the source code from the example data
+    const codeElement = document.querySelector(
+      ".panel-content pre code, .panel-content code"
+    );
+    const text = codeElement.textContent || codeElement.innerText;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        const button = document.querySelector(".button.primary");
+        const originalText = button.textContent;
+        button.textContent = "✅ Copied!";
+        button.style.background = "#28a745";
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = "";
+        }, 2000);
+      });
+    } else {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+
+      const button = document.querySelector(".button.primary");
+      const originalText = button.textContent;
+      button.textContent = "✅ Copied!";
+      setTimeout(() => {
+        button.textContent = originalText;
+      }, 2000);
+    }
+  }
+</script>
+
+{{/main}}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{#if pageTitle}}{{pageTitle}} - {{/if}}{{title}}</title>
+    <meta name="description" content="{{description}}" />
+    <link rel="stylesheet" href="/src/styles/base.css" />
+    {{#if additionalCSS}}
+    {{#each additionalCSS}}
+    <link rel="stylesheet" href="{{this}}" />
+    {{/each}}
+    {{/if}}
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-content">
+        <a href="./" class="logo">{{title}}</a>
+        <nav class="nav">
+          <a href="./">Home</a>
+          <a href="./gallery.html">Gallery</a>
+        </nav>
+      </div>
+    </div>
