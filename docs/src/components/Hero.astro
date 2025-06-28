@@ -1,4 +1,7 @@
 ---
+import { siteConfig } from "@/config/site";
+import GitHub from "./icons/GitHub.astro";
+
 export interface Props {
   title: string;
   subtitle: string;
@@ -14,12 +17,9 @@ const { title, subtitle, description } = Astro.props;
   <p class="description">{description}</p>
   <div class="cta-buttons">
     <a href="/gallery" class="btn btn-primary">🎨 View Examples</a>
-    <a
-      href="https://github.com/QuadnucYard/ourchat-typ"
-      target="_blank"
-      class="btn btn-secondary"
-    >
-      💻 GitHub
+    <a href={siteConfig.github.url} target="_blank" class="btn btn-secondary">
+      <GitHub />
+      <span>GitHub</span>
     </a>
   </div>
 </div>

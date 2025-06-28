@@ -1,13 +1,9 @@
 ---
 import Layout from "@/layouts/MainLayout.astro";
-import ExampleCard from "@/components/ExampleCard.astro";
 import { getExamplesByTheme } from "../utils/examples.ts";
+import ExampleGrid from "@/components/ExampleGrid.astro";
 
 const examplesByTheme = await getExamplesByTheme();
-
-function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
 ---
 
 <Layout title="Gallery" additionalCSS="/src/styles/gallery.css">
@@ -18,12 +14,8 @@ function capitalize(str: string): string {
           ([theme, examples]) =>
             examples && (
               <div class="theme-section">
-                <h2 class="theme-title">{capitalize(theme)} Theme</h2>
-                <div class="examples-grid">
-                  {examples.map((example) => (
-                    <ExampleCard example={example} />
-                  ))}
-                </div>
+                <h2 class="theme-title">{theme} Theme</h2>
+                <ExampleGrid examples={examples} />
               </div>
             )
         )
@@ -76,17 +68,7 @@ function capitalize(str: string): string {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
-  .examples-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-
   @media (max-width: 768px) {
-    .examples-grid {
-      grid-template-columns: 1fr;
-    }
-
     .gallery-header h1 {
       font-size: 2rem;
     }
