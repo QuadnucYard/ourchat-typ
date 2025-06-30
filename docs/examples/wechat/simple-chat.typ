@@ -4,7 +4,7 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
+#set page(width: auto, height: auto, margin: 0em, fill: white)
 #set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
 
 #wechat.chat(

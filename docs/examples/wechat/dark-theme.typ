@@ -4,7 +4,7 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: rgb("#1a1a1a"))
+#set page(width: auto, height: auto, margin: 0em, fill: rgb("#1a1a1a"))
 #set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
 
 #let alice_dark = user(
