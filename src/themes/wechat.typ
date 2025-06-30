@@ -1,6 +1,6 @@
 /// Wechat theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme, stretch-cover
+#import "../utils.typ": resolve-theme, resolve-layout, stretch-cover
 
 /// The default avatar of Ourchat
 #let default-avatar = image("../assets/wechat-avatar.svg")
@@ -17,6 +17,7 @@
   text-link-left: rgb("#576b95"),
   text-link-right: rgb("#576b95"),
   text-username: rgb("#888888"),
+  text-timestamp: rgb("#888888"),
 )
 
 /// Default dark theme
@@ -68,16 +69,18 @@
 ///
 /// - theme (str, dictionary): The chat theme.
 /// - layout (dictionary): Override layout constants.
+/// - validate (bool): Validate the fields
 /// - messages: The items created by `time` or `message`.
 ///
 /// -> content
 #let chat(
   theme: auto,
   layout: (:),
+  validate: true,
   ..messages,
 ) = {
-  let theme = resolve-theme(builtin-themes, theme, default: "light")
-  let sty = default-layout + layout
+  let theme = resolve-theme(builtin-themes, theme, default: "light", validate: validate)
+  let sty = resolve-layout(layout, default-layout, validate: validate)
 
   let left-theme = (
     text-color: theme.text-left,

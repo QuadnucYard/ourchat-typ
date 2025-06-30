@@ -1,6 +1,6 @@
 /// Discord theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme, stretch-cover
+#import "../utils.typ": resolve-theme, resolve-layout, stretch-cover
 
 // discord peeps only use da dak deme
 #let default-theme = (
@@ -50,10 +50,11 @@
 #let chat(
   theme: auto,
   layout: (:),
+  validate: true,
   ..messages,
 ) = {
-  let theme = resolve-theme(builtin-themes, theme, default: "default")
-  let sty = default-layout + layout
+  let theme = resolve-theme(builtin-themes, theme, default: "default", validate: validate)
+  let sty = resolve-layout(layout, default-layout, validate: validate)
 
   show: scale.with(sty.content-scale, reflow: true)
   show: block.with(

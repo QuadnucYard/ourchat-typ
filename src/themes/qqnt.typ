@@ -1,6 +1,6 @@
 /// QQNT theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme, stretch-cover
+#import "../utils.typ": resolve-theme, resolve-layout, stretch-cover
 
 /// Default light theme
 #let light-theme = (
@@ -95,10 +95,11 @@
 #let chat(
   theme: auto,
   layout: (:),
+  validate: true,
   ..messages,
 ) = {
-  let theme = resolve-theme(builtin-themes, theme, default: "light")
-  let sty = default-layout + layout
+  let theme = resolve-theme(builtin-themes, theme, default: "light", validate: validate)
+  let sty = resolve-layout(layout, default-layout, validate: validate)
 
   let left-theme = (
     text-color: theme.text-left,
