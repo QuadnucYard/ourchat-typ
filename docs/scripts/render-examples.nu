@@ -29,7 +29,7 @@ def main [] {
     print $"📋 Found ($typ_files | length) example files"
 
     # Process each .typ file
-    for file in $typ_files {
+    $typ_files | par-each { |file|
         let rel_path = ($file | path relative-to $examples_dir)
         let theme = ($rel_path | path dirname)
         let basename = ($rel_path | path basename | path parse | get stem)

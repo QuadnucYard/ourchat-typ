@@ -34,8 +34,8 @@
 #wechat.chat(
   theme: "light",
   layout: (
-    content-width: 280pt,
-    avatar-width: 30pt,
+    content-width: 320pt,
+    avatar-size: 30pt,
     bubble-radius: 8pt,
     row-gutter: 0.5em,
   ),

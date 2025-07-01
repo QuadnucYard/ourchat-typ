@@ -1,87 +1,126 @@
-/// Study group discussing programming concepts
-/// Features: Educational content, code examples, collaborative learning
-/// Layout: Academic-friendly spacing with clear message structure
+/// Advanced Rust programming discussion
+/// Features: Memory safety, ownership concepts, performance optimization
+/// Layout: Professional developer chat with technical depth
 
 #import "../mod.typ": *
+#import "@preview/zebraw:0.5.5": *
 
 #set page(width: auto, height: auto, margin: 1em, fill: white)
 #set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
 
-#let student_a = user(name: [Tom Wilson], avatar: circle(
-  fill: gradient.radial(rgb("#FF9800"), rgb("#F57C00")),
-  text(white, size: 8pt, weight: "bold")[TW],
+#let backend_dev = user(name: [Alex Chen], avatar: circle(
+  fill: gradient.radial(rgb("#FF6B35"), rgb("#F7931E")),
+  text(white, size: 8pt, weight: "bold")[AC],
 ))
 
-#let student_b = user(name: [Lisa Chang], avatar: circle(
-  fill: gradient.radial(rgb("#9C27B0"), rgb("#7B1FA2")),
-  text(white, size: 8pt, weight: "bold")[LC],
+#let systems_dev = user(name: [Sarah Kim], avatar: circle(
+  fill: gradient.radial(rgb("#C44536"), rgb("#8B0000")),
+  text(white, size: 8pt, weight: "bold")[SK],
 ))
 
-#let tutor = user(name: [Prof. Smith], avatar: circle(
-  fill: gradient.radial(rgb("#2196F3"), rgb("#1976D2")),
-  text(white, size: 8pt, weight: "bold")[PS],
+#let rust_expert = user(name: [Dr. Martinez], avatar: circle(
+  fill: gradient.radial(rgb("#2E86AB"), rgb("#A23B72")),
+  text(white, size: 8pt, weight: "bold")[DM],
 ))
+
+#show: zebraw.with(lang: false)
 
 #qqnt.chat(
   theme: (
     inherit: "light",
     bubble-left: rgb("#F0F8FF"),
     bubble-right: rgb("#FFF0F5"),
+    text-right: rgb("#653545"),
   ),
   layout: (
-    content-width: 350pt,
+    content-width: 480pt,
     message-text-size: 12pt,
   ),
 
-  time[Programming Study Session - Today 7:00 PM],
+  time[Rust Learning Session - Today 3:00 PM],
 
-  message(left, student_a)[
-    Can someone explain Python decorators? Still confused 🤔
+  message(left, backend_dev)[
+    I'm struggling with Rust's ownership model. When should I use `&` vs `&mut`?
   ],
 
-  message(center, tutor)[
-    A decorator is essentially a function that modifies other functions:
+  message(right, rust_expert)[
+    Great question! Ownership prevents data races at compile time:
 
-    ```python
-    def my_decorator(func):
-        def wrapper():
-            print("Before function")
-            func()
-            print("After function")
-        return wrapper
+    ```rust
+    fn main() {
+        let mut data = vec![1, 2, 3];
+
+        // Immutable borrow
+        let len = calculate_length(&data);
+
+        // Mutable borrow (exclusive access)
+        add_element(&mut data, 4);
+
+        println!("Length: {}, Data: {:?}", len, data);
+    }
+
+    fn calculate_length(v: &Vec<i32>) -> usize {
+        v.len() // Can read but not modify
+    }
+
+    fn add_element(v: &mut Vec<i32>, item: i32) {
+        v.push(item); // Can modify
+    }
     ```
   ],
 
-  message(right, student_b)[
-    Let me add a practical example!
+  message(left, systems_dev)[
+    The key insight: Rust prevents data races by ensuring either:
+    - Multiple immutable references (`&T`)
+    - OR exactly one mutable reference (`&mut T`)
 
-    ```python
-    @my_decorator
-    def say_hello():
-        print("Hello World!")
+    Never both simultaneously! 🔒
+  ],
 
-    # Equivalent to:
-    # say_hello = my_decorator(say_hello)
+  message(right, backend_dev)[
+    That's brilliant! How does this compare to manual memory management?
+  ],
+
+  message(left, rust_expert)[
+    Zero-cost abstractions! No garbage collector overhead:
+
+    ```rust
+    // RAII: Resource Acquisition Is Initialization
+    {
+        let file = File::open("data.txt")?; // Acquire
+        // Use file...
+    } // Automatically dropped/closed here
+
+    // Compare to C++:
+    // FILE* f = fopen("data.txt", "r");
+    // // Must remember: fclose(f);
     ```
+
+    Memory safety without performance cost ⚡
   ],
 
-  message(left, student_a)[
-    Oh! So the \@ symbol is syntactic sugar to make code cleaner ✨
-  ],
+  message(right, systems_dev)[
+    Perfect for systems programming! Here's async Rust in action:
 
-  message(center, tutor)[
-    Exactly! Common decorator uses:
-    • Logging
-    • Performance timing
-    • Authentication
-    • Caching
-  ],
+    ```rust
+    use tokio::time::{sleep, Duration};
 
-  message(right, student_b)[
-    Got it! You can add functionality without modifying the original function 👍
-  ],
+    #[tokio::main]
+    async fn main() {
+        let handles: Vec<_> = (0..1000).map(|i| {
+            tokio::spawn(async move {
+                sleep(Duration::from_millis(100)).await;
+                format!("Task {} completed", i)
+            })
+        }).collect();
 
-  message(left, student_a)[
-    Thanks everyone! Learned so much today 📚
+        // Wait for all tasks
+        for handle in handles {
+            println!("{}", handle.await.unwrap());
+        }
+    }
+    ```
+
+    1000 concurrent tasks with minimal overhead! �
   ],
 )

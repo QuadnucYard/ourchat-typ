@@ -27,9 +27,10 @@
     inherit: "light",
     bubble-left: rgb("#E8F5E8"),
     bubble-right: rgb("#FFF8DC"),
+    text-right: rgb("#354634")
   ),
   layout: (
-    content-width: 300pt,
+    content-width: 360pt,
     message-text-size: 12pt,
   ),
 
@@ -39,7 +40,7 @@
     Just got back from the park! Took some amazing sunset photos �
   ],
 
-  message(center, bob_hobby)[
+  message(left, bob_hobby)[
     Nice! I spent the afternoon trying a new pasta recipe 🍝
   ],
 
@@ -51,7 +52,7 @@
     Bob, how did the pasta turn out? You've been experimenting a lot lately!
   ],
 
-  message(center, bob_hobby)[
+  message(left, bob_hobby)[
     It was amazing! Homemade pesto with fresh basil from my garden 🌿
 
     Want me to share the recipe?
@@ -65,7 +66,7 @@
     Count me in! We should have a hobby share session sometime 🌟
   ],
 
-  message(center, bob_hobby)[
+  message(left, bob_hobby)[
     Great idea! I'll cook, Alice can document with photos, Charlie provides the soundtrack 😊
 
     Perfect creative collaboration!

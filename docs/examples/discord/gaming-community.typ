@@ -7,22 +7,6 @@
 #set page(width: auto, height: auto, margin: 1em, fill: rgb("#36393f"))
 #set text(font: ("gg sans", "IBM Plex Sans SC"))
 
-#show ref: it => {
-  if it.element != none {
-    return it
-  }
-  let name = repr(it.target).slice(1, -1)
-  // Discord-style mention with blue background
-  box(
-    height: 1.375em,
-    fill: oklab(57.738%, 0.0140701, -0.208587, 23.9216%),
-    inset: (x: 2pt),
-    baseline: 0.375em,
-    radius: 3pt,
-    text(fill: oklab(80.1297%, 0.00579226, -0.0997229), weight: "medium", align(horizon)[\@#name]),
-  )
-}
-
 #let gamer1 = user(name: [PixelWarrior], avatar: circle(
   fill: gradient.radial(rgb("#FF6B6B"), rgb("#E55353")),
   text(white, size: 8pt, weight: "bold")[🎮],
@@ -58,7 +42,7 @@
   message(left, gamer1)[
     Perfect! Let's start at 9 PM.
 
-    Dungeon: Halls of Valor
+    Dungeon: Halls of Valor \
     Goal: Weekly chest + practice for next week's +16
   ],
 

@@ -25,10 +25,10 @@
 ))
 
 #wechat.chat(
-  theme: "light",
+  theme: "dark",
   layout: (
-    content-width: 400pt,
-    avatar-width: 35pt,
+    content-width: 480pt,
+    avatar-size: 36pt,
     message-text-size: 12pt,
     bubble-radius: 6pt,
     row-gutter: 0.8em,

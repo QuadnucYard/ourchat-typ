@@ -9,7 +9,7 @@
 
 #let manager = user(
   name: [Sarah Wilson],
-  title: [Project Manager],
+  title: qqnt.title[Project Manager],
   avatar: circle(
     fill: gradient.radial(rgb("#1976D2"), rgb("#0D47A1")),
     text(white, size: 9pt, weight: "bold")[SW]
@@ -18,7 +18,7 @@
 
 #let designer = user(
   name: [Mike Chen],
-  title: [UI Designer],
+  title: qqnt.title[UI Designer],
   avatar: circle(
     fill: gradient.radial(rgb("#E91E63"), rgb("#AD1457")),
     text(white, size: 9pt, weight: "bold")[MC]
@@ -27,7 +27,7 @@
 
 #let developer = user(
   name: [Alex Kim],
-  title: [Frontend Dev],
+  title: qqnt.title[Frontend Dev],
   avatar: circle(
     fill: gradient.radial(rgb("#4CAF50"), rgb("#2E7D32")),
     text(white, size: 9pt, weight: "bold")[AK]
@@ -37,7 +37,7 @@
 #qqnt.chat(
   theme: "light",
   layout: (
-    content-width: 320pt,
+    content-width: 360pt,
     message-text-size: 12pt,
   ),
 
@@ -47,7 +47,7 @@
     Good morning team! Let's discuss the new project timeline 📋
   ],
 
-  message(center, designer)[
+  message(left, designer)[
     UI designs are 80% complete, should be finished by tomorrow 🎨
   ],
 
@@ -58,13 +58,13 @@
   message(left, manager)[
     Perfect! Here's our schedule:
 
-    • Design completion: Tomorrow
-    • Frontend dev: Monday start
-    • Backend API: Wednesday completion
-    • Testing: Friday
+    - Design completion: Tomorrow
+    - Frontend dev: Monday start
+    - Backend API: Wednesday completion
+    - Testing: Friday
   ],
 
-  message(center, designer)[
+  message(left, designer)[
     Got it! I'll push to finish this afternoon 💪
   ],
 

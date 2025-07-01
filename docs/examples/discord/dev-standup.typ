@@ -32,14 +32,14 @@
     Good morning team! 🌅 Daily standup time
 
     *Agenda:*
-    • Yesterday's progress
-    • Today's goals
-    • Any blockers?
+    - Yesterday's progress
+    - Today's goals
+    - Any blockers?
   ],
 
   message(left, dev1)[
-    *Yesterday:* Finished the user authentication API
-    *Today:* Working on password reset functionality
+    *Yesterday:* Finished the user authentication API \
+    *Today:* Working on password reset functionality \
     *Blockers:* None so far!
 
     ```typescript
@@ -53,15 +53,15 @@
   ],
 
   message(left, dev2)[
-    *Yesterday:* Implemented responsive dashboard layout
-    *Today:* Adding dark mode toggle + testing
+    *Yesterday:* Implemented responsive dashboard layout \
+    *Today:* Adding dark mode toggle + testing \
     *Blockers:* Need design approval for dark theme colors 🎨
   ],
 
   message(left, lead)[
     Great progress everyone! 🎉
 
-    \@emma_frontend I'll ping the design team about dark mode colors
+    @emma_frontend I'll ping the design team about dark mode colors
 
     *Sprint goal:* We're on track for Friday's demo! 🚀
   ],

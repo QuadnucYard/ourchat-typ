@@ -30,7 +30,7 @@
     bubble-right: rgb("#007AFF"),
     text-left: rgb("#FFFFFF"),
     text-right: rgb("#FFFFFF"),
-    bg-color: rgb("#1C1C1E"),
+    background: rgb("#1C1C1E"),
   ),
   layout: (
     content-width: 320pt,
