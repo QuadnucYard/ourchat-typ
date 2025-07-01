@@ -7,7 +7,14 @@
 #let validate-theme(theme, reference, field-type: "theme") = {
   for field in theme.keys() {
     if field not in reference {
-      panic("Invalid " + field-type + " field: '" + field + "'. Valid fields are: " + reference.keys().join(", "))
+      panic(
+        "Invalid "
+          + field-type
+          + " field: '"
+          + field
+          + "'. Valid fields are: "
+          + reference.keys().join(", "),
+      )
     }
   }
 }
@@ -61,6 +68,7 @@
       } else {
         panic("Invalid inherit value '" + repr(inherit-from) + "' and no valid default provided")
       }
+      let _ = theme.remove("inherit")
       base-theme + theme
     } else {
       // No inherit field. Inherit default theme.
@@ -81,18 +89,6 @@
   resolved-theme
 }
 
-/// Stretch the item to cover its container.
-///
-/// - item (content):
-/// -> content
-#let stretch-cover(item) = {
-  layout(size => {
-    let item-size = measure(item)
-    let s = calc.max(size.width / item-size.width, size.height / item-size.height)
-    align(horizon + center, scale(s * 100%, item, reflow: true))
-  })
-}
-
 /// Resolve and validate a layout dictionary
 ///
 /// - layout (dictionary): Layout overrides to apply
@@ -108,4 +104,35 @@
   }
 
   resolved-layout
+}
+
+/// Stretch the item to cover its container.
+///
+/// - item (content):
+/// -> content
+#let stretch-cover(item) = {
+  layout(size => {
+    let item-size = measure(item)
+    let s = if item-size.width == 0pt or item-size.height == 0pt {
+      1
+    } else {
+      calc.max(size.width / item-size.width, size.height / item-size.height)
+    }
+    align(horizon + center, scale(s * 100%, item, reflow: true))
+  })
+}
+
+#let auto-mention-rule(auto-mention, styler) = {
+  if auto-mention {
+    it => {
+      show ref: it => if it.element != none {
+        it
+      } else {
+        styler(repr(it.target).slice(1, -1))
+      }
+      it
+    }
+  } else {
+    it => it
+  }
 }

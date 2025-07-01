@@ -1,6 +1,6 @@
 /// QQNT theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme, resolve-layout, stretch-cover
+#import "../utils.typ": resolve-layout, resolve-theme, stretch-cover
 
 /// Default light theme
 #let light-theme = (

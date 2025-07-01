@@ -1,6 +1,6 @@
 /// Wechat theme
 #import "../components.typ": *
-#import "../utils.typ": resolve-theme, resolve-layout, stretch-cover
+#import "../utils.typ": resolve-layout, resolve-theme, stretch-cover
 
 /// The default avatar of Ourchat
 #let default-avatar = image("../assets/wechat-avatar.svg")
