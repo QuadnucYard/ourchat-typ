@@ -6,16 +6,13 @@ import { siteConfig } from "@/config/site";
 export interface Props {
   title?: string;
   description?: string;
-  additionalCSS?: string;
 }
 
-const {
-  title = siteConfig.name,
-  description = siteConfig.description,
-  additionalCSS,
-} = Astro.props;
+const { title = siteConfig.name, description = siteConfig.description } =
+  Astro.props;
 
-const fullTitle = title === siteConfig.name ? title : `${title} - ${siteConfig.name}`;
+const fullTitle =
+  title === siteConfig.name ? title : `${title} - ${siteConfig.name}`;
 ---
 
 <!doctype html>
@@ -25,7 +22,6 @@ const fullTitle = title === siteConfig.name ? title : `${title} - ${siteConfig.n
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {additionalCSS && <link rel="stylesheet" href={additionalCSS} />}
   </head>
   <body>
     <Header currentPath={Astro.url.pathname} />
