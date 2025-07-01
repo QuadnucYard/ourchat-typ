@@ -4,8 +4,7 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
 #let manager = user(name: [Sarah Chen], title: [Project Manager], avatar: rect(
   fill: blue.darken(20%),

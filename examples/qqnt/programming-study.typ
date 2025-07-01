@@ -5,8 +5,7 @@
 #import "../mod.typ": *
 #import "@preview/zebraw:0.5.5": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
 #let backend_dev = user(name: [Alex Chen], avatar: circle(
   fill: gradient.radial(rgb("#FF6B35"), rgb("#F7931E")),

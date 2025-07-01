@@ -4,8 +4,17 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 0em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
+
+#let alice = oc.user(name: [Alice Chen], avatar: circle(
+  fill: gradient.radial(blue.lighten(60%), blue),
+  text(white, size: 10pt, weight: "bold")[A],
+))
+
+#let bob = oc.user(name: [Bob Smith], avatar: circle(
+  fill: gradient.radial(green.lighten(60%), green),
+  text(white, size: 10pt, weight: "bold")[B],
+))
 
 #wechat.chat(
   theme: "light",

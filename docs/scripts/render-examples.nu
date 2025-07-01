@@ -8,7 +8,7 @@ def main [] {
 
     # Get the docs directory (parent of scripts)
     let docs_dir = ($env.FILE_PWD | path dirname)
-    let examples_dir = ($docs_dir | path join "examples")
+    let examples_dir = ($docs_dir | path dirname | path join "examples")
     let output_dir = ($docs_dir | path join "public" "examples")
 
     print $"📁 Examples directory: ($examples_dir)"
@@ -19,7 +19,7 @@ def main [] {
     mkdir $output_dir
 
     # Find all .typ files in theme subdirectories
-    let typ_files = (glob "examples/*/*.typ")
+    let typ_files = glob $"../examples/*/*.typ" -e ["**/mod.typ"]
 
     if ($typ_files | length) == 0 {
         print "❌ No .typ files found in examples directory"

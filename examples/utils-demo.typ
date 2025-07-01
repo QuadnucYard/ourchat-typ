@@ -1,7 +1,6 @@
 #import "../src/lib.typ" as oc
 #import "../src/utils.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: none)
 
 = Simplified Theme Utility Functions Demo
 
@@ -131,13 +130,3 @@ Example 2 (inherit): #example2
 Example 3 (custom): #example3
 Example 4 (fallback): #example4
 ```
-
-== Benefits of Simplified API
-
-1. **Single function**: `resolve-theme` handles all cases (strings, dictionaries, inheritance)
-2. **Built-in fallback**: No need for separate error handling - just specify `default`
-3. **Less complexity**: Removed multiple utility functions in favor of one robust function
-4. **Better UX**: Invalid themes gracefully fall back instead of panicking
-5. **Consistent behavior**: Same function works for all theme resolution needs
-
-The simplified API makes theme systems much easier to implement while maintaining all the flexibility of inheritance and custom themes.

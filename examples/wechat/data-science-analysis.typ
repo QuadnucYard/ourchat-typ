@@ -3,38 +3,25 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
-#let data_scientist = user(
-  name: [Dr. Chen Wei],
-  title: [Data Scientist],
-  avatar: rect(
-    fill: rgb("#2E86AB"),
-    radius: 4pt,
-    text(white, size: 8pt, weight: "bold")[CW]
-  )
-)
+#let data_scientist = user(name: [Dr. Chen Wei], title: [Data Scientist], avatar: rect(
+  fill: rgb("#2E86AB"),
+  radius: 4pt,
+  text(white, size: 8pt, weight: "bold")[CW],
+))
 
-#let ml_engineer = user(
-  name: [Alex Zhang],
-  title: [ML Engineer],
-  avatar: rect(
-    fill: rgb("#A23B72"),
-    radius: 4pt,
-    text(white, size: 8pt, weight: "bold")[AZ]
-  )
-)
+#let ml_engineer = user(name: [Alex Zhang], title: [ML Engineer], avatar: rect(
+  fill: rgb("#A23B72"),
+  radius: 4pt,
+  text(white, size: 8pt, weight: "bold")[AZ],
+))
 
-#let analyst = user(
-  name: [Sarah Liu],
-  title: [Business Analyst],
-  avatar: rect(
-    fill: rgb("#F18F01"),
-    radius: 4pt,
-    text(white, size: 8pt, weight: "bold")[SL]
-  )
-)
+#let analyst = user(name: [Sarah Liu], title: [Business Analyst], avatar: rect(
+  fill: rgb("#F18F01"),
+  radius: 4pt,
+  text(white, size: 8pt, weight: "bold")[SL],
+))
 
 #wechat.chat(
   theme: "light",
@@ -107,5 +94,5 @@
     $L = -sum log sigma(y(W_u u + W_i i)) + lambda||W||^2$
 
     Ready for production scaling! 🔬✨
-  ]
+  ],
 )

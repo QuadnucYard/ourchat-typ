@@ -3,38 +3,25 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: rgb("#36393f"))
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
-#let developer = user(
-  name: [junior_dev],
-  title: discord.newbie,
-  avatar: rect(
-    fill: rgb("#FEE75C"),
-    radius: 4pt,
-    text(black, size: 8pt, weight: "bold")[JD]
-  )
-)
+#let developer = user(name: [junior_dev], title: discord.newbie, avatar: rect(
+  fill: rgb("#FEE75C"),
+  radius: 4pt,
+  text(black, size: 8pt, weight: "bold")[JD],
+))
 
-#let senior = user(
-  name: [tech_lead],
-  title: [Senior Engineer],
-  avatar: rect(
-    fill: rgb("#EB459E"),
-    radius: 4pt,
-    text(white, size: 8pt, weight: "bold")[TL]
-  )
-)
+#let senior = user(name: [tech_lead], title: [Senior Engineer], avatar: rect(
+  fill: rgb("#EB459E"),
+  radius: 4pt,
+  text(white, size: 8pt, weight: "bold")[TL],
+))
 
-#let devops = user(
-  name: [devops_guru],
-  title: [DevOps],
-  avatar: rect(
-    fill: rgb("#57F287"),
-    radius: 4pt,
-    text(black, size: 8pt, weight: "bold")[DG]
-  )
-)
+#let devops = user(name: [devops_guru], title: [DevOps], avatar: rect(
+  fill: rgb("#57F287"),
+  radius: 4pt,
+  text(black, size: 8pt, weight: "bold")[DG],
+))
 
 #discord.chat(
   time[Today at 10:15 AM],
@@ -89,5 +76,5 @@
     ```
 
     Pool utilization dropped to 5/20. Crisis averted! ✅
-  ]
+  ],
 )

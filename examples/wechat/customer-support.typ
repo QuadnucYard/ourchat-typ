@@ -4,27 +4,18 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
-#let support = user(
-  name: [Support Team],
-  title: [Technical Support],
-  avatar: rect(
-    fill: rgb("#2196F3"),
-    radius: 50%,
-    text(white, size: 8pt, weight: "bold")[🛠]
-  )
-)
+#let support = user(name: [Support Team], title: [Technical Support], avatar: rect(
+  fill: rgb("#2196F3"),
+  radius: 50%,
+  text(white, size: 8pt, weight: "bold")[🛠],
+))
 
-#let customer = user(
-  name: [John Developer],
-  title: [Customer],
-  avatar: circle(
-    fill: gradient.radial(gray.lighten(40%), gray),
-    text(white, size: 8pt, weight: "bold")[JD]
-  )
-)
+#let customer = user(name: [John Developer], title: [Customer], avatar: circle(
+  fill: gradient.radial(gray.lighten(40%), gray),
+  text(white, size: 8pt, weight: "bold")[JD],
+))
 
 #wechat.chat(
   theme: (

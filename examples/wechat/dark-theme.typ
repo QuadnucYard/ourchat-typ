@@ -4,24 +4,17 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 0em, fill: rgb("#1a1a1a"))
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
-#let alice_dark = user(
-  name: [Alice],
-  avatar: circle(
-    fill: gradient.radial(rgb("#E91E63"), rgb("#AD1457")),
-    text(white, size: 9pt, weight: "bold")[A]
-  )
-)
+#let alice_dark = user(name: [Alice], avatar: circle(
+  fill: gradient.radial(rgb("#E91E63"), rgb("#AD1457")),
+  text(white, size: 9pt, weight: "bold")[A],
+))
 
-#let bob_dark = user(
-  name: [Bob],
-  avatar: circle(
-    fill: gradient.radial(rgb("#00BCD4"), rgb("#00838F")),
-    text(white, size: 9pt, weight: "bold")[B]
-  )
-)
+#let bob_dark = user(name: [Bob], avatar: circle(
+  fill: gradient.radial(rgb("#00BCD4"), rgb("#00838F")),
+  text(white, size: 9pt, weight: "bold")[B],
+))
 
 #wechat.chat(
   theme: (

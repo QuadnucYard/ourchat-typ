@@ -4,38 +4,30 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
-#let manager = user(
-  name: [Sarah Wilson],
-  title: qqnt.title[Project Manager],
-  avatar: circle(
-    fill: gradient.radial(rgb("#1976D2"), rgb("#0D47A1")),
-    text(white, size: 9pt, weight: "bold")[SW]
-  )
-)
+#let manager = user(name: [Sarah Wilson], title: qqnt.title[Project Manager], avatar: circle(
+  fill: gradient.radial(rgb("#1976D2"), rgb("#0D47A1")),
+  text(white, size: 9pt, weight: "bold")[SW],
+))
 
-#let designer = user(
-  name: [Mike Chen],
-  title: qqnt.title[UI Designer],
-  avatar: circle(
-    fill: gradient.radial(rgb("#E91E63"), rgb("#AD1457")),
-    text(white, size: 9pt, weight: "bold")[MC]
-  )
-)
+#let designer = user(name: [Mike Chen], title: qqnt.title[UI Designer], avatar: circle(
+  fill: gradient.radial(rgb("#E91E63"), rgb("#AD1457")),
+  text(white, size: 9pt, weight: "bold")[MC],
+))
 
-#let developer = user(
-  name: [Alex Kim],
-  title: qqnt.title[Frontend Dev],
-  avatar: circle(
-    fill: gradient.radial(rgb("#4CAF50"), rgb("#2E7D32")),
-    text(white, size: 9pt, weight: "bold")[AK]
-  )
-)
+#let developer = user(name: [Alex Kim], title: qqnt.title[Frontend Dev], avatar: circle(
+  fill: gradient.radial(rgb("#4CAF50"), rgb("#2E7D32")),
+  text(white, size: 9pt, weight: "bold")[AK],
+))
 
 #qqnt.chat(
-  theme: "light",
+  theme: (
+    inherit: "dark",
+    bubble-left: rgb("#FF9500"), // Orange bubble
+    bubble-right: rgb("#34C759"), // Green bubble
+    text-left: white,
+  ),
   layout: (
     content-width: 360pt,
     message-text-size: 12pt,

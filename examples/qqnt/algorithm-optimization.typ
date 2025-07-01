@@ -4,34 +4,26 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
-#let senior_dev = user(
-  name: [Alex Chen],
-  title: qqnt.title[Senior Developer],
-  avatar: circle(
-    fill: gradient.radial(rgb("#FF6B6B"), rgb("#EE5A24")),
-    text(white, size: 8pt, weight: "bold")[AC],
-  )
-)
+#let senior_dev = user(name: [Alex Chen], title: qqnt.title[Senior Developer], avatar: circle(
+  fill: gradient.radial(rgb("#FF6B6B"), rgb("#EE5A24")),
+  text(white, size: 8pt, weight: "bold")[AC],
+))
 
-#let algo_expert = user(
-  name: [Dr. Wang],
-  title: qqnt.title[Algorithm Specialist],
-  avatar: circle(
-    fill: gradient.radial(rgb("#4834D4"), rgb("#686DE0")),
-    text(white, size: 8pt, weight: "bold")[DW],
-  )
-)
+#let algo_expert = user(name: [Dr. Wang], title: qqnt.title[Algorithm Specialist], avatar: circle(
+  fill: gradient.radial(rgb("#4834D4"), rgb("#686DE0")),
+  text(white, size: 8pt, weight: "bold")[DW],
+))
 
 #let performance_eng = user(
   name: [Sarah Kim],
   title: qqnt.title[Performance Engineer],
-  avatar: circle(
-    fill: gradient.radial(rgb("#00D2D3"), rgb("#01A3A4")),
-    text(white, size: 8pt, weight: "bold")[SK],
-  )
+  avatar: circle(fill: gradient.radial(rgb("#00D2D3"), rgb("#01A3A4")), text(
+    white,
+    size: 8pt,
+    weight: "bold",
+  )[SK]),
 )
 
 #qqnt.chat(
@@ -39,7 +31,7 @@
     inherit: "light",
     bubble-left: rgb("#F0F8FF"),
     bubble-right: rgb("#E8F5E8"),
-    text-right: rgb("#663476")
+    text-right: rgb("#663476"),
   ),
   layout: (
     content-width: 450pt,
@@ -127,5 +119,5 @@
     ```
 
     Complexity: O(V + E) time, O(V/64) space! 🧠✨
-  ]
+  ],
 )

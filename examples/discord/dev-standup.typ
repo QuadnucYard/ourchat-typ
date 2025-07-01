@@ -4,8 +4,7 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: rgb("#36393f"))
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
 #let lead = user(name: [sarah_pm], title: [Team Lead], avatar: rect(
   fill: rgb("#5865F2"),

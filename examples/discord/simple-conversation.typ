@@ -4,26 +4,24 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: rgb("#36393f"))
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
-#let user1 = user(
-  name: [alex_dev],
-  avatar: circle(
-    fill: gradient.radial(rgb("#5865F2"), rgb("#4752C4")),
-    text(white, size: 8pt, weight: "bold")[AD]
-  )
-)
+#let user1 = user(name: [alex_dev], avatar: circle(
+  fill: gradient.radial(rgb("#5865F2"), rgb("#4752C4")),
+  text(white, size: 8pt, weight: "bold")[AD],
+))
 
-#let user2 = user(
-  name: [sarah_pm],
-  avatar: circle(
-    fill: gradient.radial(rgb("#57F287"), rgb("#3BA55D")),
-    text(white, size: 8pt, weight: "bold")[SP]
-  )
-)
+#let user2 = user(name: [sarah_pm], avatar: circle(
+  fill: gradient.radial(rgb("#57F287"), rgb("#3BA55D")),
+  text(white, size: 8pt, weight: "bold")[SP],
+))
 
 #discord.chat(
+  theme: (
+    inherit: "default",
+    text-normal: rgb("#FFD700"), // Gold text
+    text-username: rgb("#FF69B4"), // Pink names
+  ),
   time[Today at 2:30 PM],
 
   message(left, user1)[

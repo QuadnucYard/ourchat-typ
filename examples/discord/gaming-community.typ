@@ -4,8 +4,7 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: rgb("#36393f"))
-#set text(font: ("gg sans", "IBM Plex Sans SC"))
+#show: example-style
 
 #let gamer1 = user(name: [PixelWarrior], avatar: circle(
   fill: gradient.radial(rgb("#FF6B6B"), rgb("#E55353")),

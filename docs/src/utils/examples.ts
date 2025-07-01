@@ -2,7 +2,7 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const __dirname = fileURLToPath(new URL("../..", import.meta.url));
+const __dirname = fileURLToPath(new URL("../../..", import.meta.url));
 
 export interface Example {
   theme: string;
@@ -49,7 +49,7 @@ export async function getFeaturedExamples(): Promise<Example[]> {
 
 async function extractExampleMetadata(): Promise<Example[]> {
   const examples: Example[] = [];
-  const themeDirs = ["wechat", "discord", "qqnt"];
+  const themeDirs = ["wechat", "discord", "qqnt", "yau"];
 
   for (const theme of themeDirs) {
     const exampleDir = resolve(__dirname, "examples", theme);
@@ -80,7 +80,7 @@ async function extractExampleMetadata(): Promise<Example[]> {
           title: basename
             .split("-")
             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" "),
+            .join(" "), // todo: extract title
           fileName: file,
           description: docLines[0] || "",
           features: docLines[1]?.replace(/^Features:\s?/, "") || "",

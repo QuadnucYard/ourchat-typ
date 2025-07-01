@@ -4,8 +4,7 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: white)
-#set text(font: ("Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
 #let alice_hobby = user(name: [Alice], title: qqnt.title[Photography], avatar: circle(
   fill: gradient.radial(rgb("#FFD700"), rgb("#FFA000")),
@@ -27,7 +26,7 @@
     inherit: "light",
     bubble-left: rgb("#E8F5E8"),
     bubble-right: rgb("#FFF8DC"),
-    text-right: rgb("#354634")
+    text-right: rgb("#354634"),
   ),
   layout: (
     content-width: 360pt,

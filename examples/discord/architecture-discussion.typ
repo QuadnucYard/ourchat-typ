@@ -3,8 +3,7 @@
 
 #import "../mod.typ": *
 
-#set page(width: auto, height: auto, margin: 1em, fill: rgb("#36393f"))
-#set text(font: ("gg sans", "Segoe UI", "PingFang SC", "Noto Sans CJK SC"))
+#show: example-style
 
 #let architect = user(name: [SystemArchitect], title: [Senior Engineer], avatar: rect(
   fill: rgb("#3498db"),
