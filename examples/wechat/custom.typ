@@ -26,7 +26,7 @@
       Custom blocks work great!
     ])
   ],
-  oc.plain(right, alice)[
+  oc.plain(right, bob)[
     #align(center, stack(
       rect(width: 60pt, height: 40pt, fill: red.lighten(70%), radius: 4pt),
       v(4pt),

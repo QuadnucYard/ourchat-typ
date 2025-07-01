@@ -4,20 +4,6 @@
 
 #show: example-style
 
-#let alice = oc.user(name: [Alice], avatar: box(
-  width: 27pt,
-  height: 27pt,
-  fill: gradient.radial(blue.lighten(60%), blue),
-  align(center + horizon, text(white, size: 12pt, weight: "bold")[A]),
-))
-
-#let bob = oc.user(name: [Bob], avatar: box(
-  width: 27pt,
-  height: 27pt,
-  fill: gradient.radial(green.lighten(60%), green),
-  align(center + horizon, text(white, size: 12pt, weight: "bold")[B]),
-))
-
 #discord.chat(
   width: 400pt,
   oc.time[Today at 3:30 PM],
