@@ -1,7 +1,7 @@
 ---
-import Layout from "@/layouts/MainLayout.astro";
-import { getExamples, type Example } from "@/utils/examples";
 import { Code } from "astro:components";
+import Layout from "@/layouts/MainLayout.astro";
+import { type Example, getExamples } from "@/utils/examples";
 
 export async function getStaticPaths() {
   const examples = await getExamples();
