@@ -3,6 +3,7 @@ import Layout from "@/layouts/MainLayout.astro";
 import Hero from "@/components/Hero.astro";
 import ExampleGrid from "@/components/ExampleGrid.astro";
 import { getFeaturedExamples } from "@/utils/examples.ts";
+import { siteConfig } from "@/config/site";
 
 const featuredExamples = await getFeaturedExamples();
 ---
@@ -10,9 +11,9 @@ const featuredExamples = await getFeaturedExamples();
 <Layout>
   <main>
     <Hero
-      title="Ourchat"
-      subtitle="Create stunning, authentic chat interfaces"
-      description="Build beautiful, authentic chat UIs for WeChat, Discord, and QQNT with our comprehensive Typst library. Rich theming, easy customization, and extensive examples included."
+      title={siteConfig.name}
+      subtitle={siteConfig.subtitle}
+      description={siteConfig.description}
     />
 
     <section class="examples-showcase">
