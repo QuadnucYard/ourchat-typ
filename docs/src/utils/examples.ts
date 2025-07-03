@@ -4,14 +4,25 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = fileURLToPath(new URL("../../..", import.meta.url));
 
+// In display order
+const THEMES = [
+  { name: "wechat", displayName: "WeChat Theme" },
+  { name: "qqnt", displayName: "QQ NT Theme" },
+  { name: "discord", displayName: "Discord Theme" },
+  { name: "yau", displayName: "yau" },
+];
+
+export function getThemeDisplayName(theme: string): string {
+  return THEMES.find((t) => t.name === theme)?.displayName ?? theme;
+}
+
 export interface Example {
   theme: string;
   name: string;
   title: string;
   fileName: string;
   description: string;
-  features: string;
-  layout: string;
+  featured: boolean;
   sourceCode: string;
   svgPath: string;
 }
@@ -35,21 +46,12 @@ export async function getExamplesByTheme(): Promise<
 
 export async function getFeaturedExamples(): Promise<Example[]> {
   const examples = await getExamples();
-  return examples.filter((example) =>
-    [
-      "simple-chat",
-      "business-meeting",
-      "gaming-community",
-      "study-group",
-      "dev-standup",
-      "social-chat",
-    ].includes(example.name)
-  );
+  return examples.filter((example) => example.featured);
 }
 
 async function extractExampleMetadata(): Promise<Example[]> {
   const examples: Example[] = [];
-  const themeDirs = ["wechat", "discord", "qqnt", "yau"];
+  const themeDirs = THEMES.map((theme) => theme.name);
 
   for (const theme of themeDirs) {
     const exampleDir = resolve(__dirname, "examples", theme);
@@ -61,30 +63,35 @@ async function extractExampleMetadata(): Promise<Example[]> {
         const filePath = resolve(exampleDir, file);
         const content = readFileSync(filePath, "utf-8");
 
-        // Extract documentation comments (lines starting with ///)
-        const docLines = content
-          .split("\n")
-          .filter((line) => line.trim().startsWith("///"))
-          .map((line) => line.replace(/^\/\/\/\s?/, ""));
+        const { description, title, featured } =
+          extractExampleFrontmatter(content);
 
         // Strip documentation lines from source code
         const sourceCode = content
           .split("\n")
-          .filter((line) => !line.trim().startsWith("///"))
+          .filter((line) => {
+            let lineTrimmed = line.trim();
+            return (
+              !lineTrimmed.startsWith("///") &&
+              lineTrimmed != `#import "../mod.typ": *` &&
+              lineTrimmed != `#show: example-style`
+            );
+          })
           .join("\n")
           .trim();
 
         const example: Example = {
           theme,
           name: basename,
-          title: basename
-            .split("-")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" "), // todo: extract title
+          title:
+            title ??
+            basename
+              .split("-")
+              .map((word) => capitalizeFirstLetter(word))
+              .join(" "),
           fileName: file,
-          description: docLines[0] || "",
-          features: docLines[1]?.replace(/^Features:\s?/, "") || "",
-          layout: docLines[2]?.replace(/^Layout:\s?/, "") || "",
+          description,
+          featured,
           sourceCode: sourceCode,
           svgPath: `/examples/${theme}/${basename}.svg`,
         };
@@ -95,4 +102,33 @@ async function extractExampleMetadata(): Promise<Example[]> {
   }
 
   return examples;
+}
+
+function extractExampleFrontmatter(content: string) {
+  let description = "";
+  let title = undefined;
+  let featured = false;
+
+  for (const line of content
+    .split("\n")
+    .filter((line) => line.trim().startsWith("///"))) {
+    const lineContent = line.replace(/^\/\/\/\s?/, "");
+    if (lineContent.startsWith("Title:")) {
+      title = lineContent.replace(/^Title:\s?/, "");
+    } else if (lineContent.startsWith("[Featured]")) {
+      featured = true;
+    } else {
+      description += lineContent + "\n";
+    }
+  }
+
+  return {
+    description: description.trim(),
+    title,
+    featured,
+  };
+}
+
+function capitalizeFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

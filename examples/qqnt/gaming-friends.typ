@@ -1,6 +1,4 @@
 /// Casual hobby discussion with friends using QQNT
-/// Features: Hobby sharing, casual conversation, friend interactions
-/// Layout: Relaxed spacing perfect for informal chat
 
 #import "../mod.typ": *
 

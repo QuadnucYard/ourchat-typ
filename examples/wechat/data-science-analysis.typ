@@ -1,5 +1,4 @@
 /// ML model performance analysis with statistical insights
-/// Features: Statistical formulas, model metrics, feature engineering
 
 #import "../mod.typ": *
 

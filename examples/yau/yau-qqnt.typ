@@ -1,3 +1,6 @@
+/// [Featured]
+/// Title: Yau QQ NT
+
 #import "../mod.typ": *
 
 #set page(width: auto, height: auto, margin: 0em, fill: none)

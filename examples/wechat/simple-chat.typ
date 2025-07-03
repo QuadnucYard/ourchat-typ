@@ -1,6 +1,4 @@
 /// Simple casual conversation between friends
-/// Features: Basic message exchange, emojis, minimal customization
-/// Layout: Default WeChat styling with standard bubble sizes
 
 #import "../mod.typ": *
 

@@ -1,6 +1,5 @@
+/// [Featured]
 /// Gaming community discussion with Discord's characteristic features
-/// Features: Discord-style usernames, gaming terminology, community interaction
-/// Layout: Discord's signature dark theme and spacing
 
 #import "../mod.typ": *
 

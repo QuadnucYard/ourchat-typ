@@ -1,6 +1,4 @@
 /// Work team coordination using QQNT for business communication
-/// Features: Professional QQNT styling, task management, team coordination
-/// Layout: Three-column layout with business-appropriate spacing
 
 #import "../mod.typ": *
 

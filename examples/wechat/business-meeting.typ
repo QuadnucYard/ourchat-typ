@@ -1,6 +1,5 @@
+/// [Featured]
 /// Professional team meeting discussion showcasing business communication
-/// Features: Custom professional avatars, structured content with tables, action items
-/// Layout: Wider content area, larger avatars for professional appearance
 
 #import "../mod.typ": *
 

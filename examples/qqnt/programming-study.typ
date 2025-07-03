@@ -1,6 +1,5 @@
+/// [Featured]
 /// Advanced Rust programming discussion
-/// Features: Memory safety, ownership concepts, performance optimization
-/// Layout: Professional developer chat with technical depth
 
 #import "../mod.typ": *
 #import "@preview/zebraw:0.5.5": *

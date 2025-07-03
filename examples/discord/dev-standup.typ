@@ -1,6 +1,5 @@
+/// [Featured]
 /// Development team standup meeting in Discord format
-/// Features: Code sharing, technical discussion, team coordination
-/// Layout: Discord's clean developer-friendly interface
 
 #import "../mod.typ": *
 

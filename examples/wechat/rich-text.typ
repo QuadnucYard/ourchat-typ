@@ -1,3 +1,4 @@
+/// Using rich text in messages
 
 #import "../mod.typ": *
 
@@ -5,7 +6,7 @@
 
 #wechat.chat(
   theme: "dark",
-  width: 350pt,
+  layout: (content-width: 300pt),
 
   oc.time[Today 14:30],
 

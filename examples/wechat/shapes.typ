@@ -1,3 +1,4 @@
+/// Using shapes in messages
 
 #import "../mod.typ": *
 
@@ -5,7 +6,7 @@
 
 #wechat.chat(
   theme: "light",
-  width: 350pt,
+  layout: (content-width: 240pt),
 
   oc.time[15:15],
 
@@ -15,10 +16,10 @@
     #let progress = 75%
     #stack(dir: ttb, spacing: 4pt, text(size: 0.8em)[Progress: #progress], rect(
       inset: 0pt,
-      width: 150pt,
+      width: 100%,
       height: 8pt,
       fill: gray.lighten(80%),
-      rect(width: 150pt * progress, height: 8pt, fill: blue),
+      rect(width: 100% * progress, height: 8pt, fill: blue),
     ))
   ],
 

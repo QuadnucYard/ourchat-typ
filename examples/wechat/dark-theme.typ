@@ -1,6 +1,4 @@
 /// Dark theme example with custom styling and modern appearance
-/// Features: Dark theme, custom colors, modern bubble design, night-time conversation
-/// Layout: Larger text, rounded bubbles, custom dark color scheme
 
 #import "../mod.typ": *
 

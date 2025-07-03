@@ -1,3 +1,5 @@
+/// [Featured]
+/// Fancy custom themes with gradient bubbles
 
 #import "../mod.typ": *
 

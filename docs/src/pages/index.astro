@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/MainLayout.astro";
-import Hero from "../components/Hero.astro";
-import ExampleGrid from "../components/ExampleGrid.astro";
-import { getFeaturedExamples } from "../utils/examples.ts";
+import Layout from "@/layouts/MainLayout.astro";
+import Hero from "@/components/Hero.astro";
+import ExampleGrid from "@/components/ExampleGrid.astro";
+import { getFeaturedExamples } from "@/utils/examples.ts";
 
 const featuredExamples = await getFeaturedExamples();
 ---

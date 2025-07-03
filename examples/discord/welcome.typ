@@ -5,7 +5,7 @@
 #show: example-style
 
 #discord.chat(
-  width: 400pt,
+  layout: (content-width: 400pt),
   oc.time[Today at 3:30 PM],
   oc.message(left, alice, time: [Today at 3:30 PM])[
     Welcome to our Discord-style chat!

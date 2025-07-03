@@ -1,6 +1,4 @@
 /// Customer support conversation with professional styling
-/// Features: Support ticket format, code snippets, structured responses
-/// Layout: Wider layout for technical content, custom theme colors
 
 #import "../mod.typ": *
 

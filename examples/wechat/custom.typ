@@ -1,3 +1,4 @@
+/// Display bubbles in any styles
 
 #import "../mod.typ": *
 

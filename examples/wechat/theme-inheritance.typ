@@ -1,3 +1,4 @@
+/// Your first example of theme inheritance
 
 #import "../mod.typ": *
 
@@ -21,7 +22,6 @@
 
 #wechat.chat(
   theme: custom-dark,
-  width: 300pt,
   oc.time[Today 15:00],
   oc.message(left, alice)[
     This inherits from dark theme with purple bubbles!

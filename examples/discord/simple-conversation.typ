@@ -1,6 +1,4 @@
 /// Simple Discord conversation showcasing basic features
-/// Features: Clean Discord styling, basic messages, timestamps
-/// Layout: Standard Discord layout with minimal customization
 
 #import "../mod.typ": *
 

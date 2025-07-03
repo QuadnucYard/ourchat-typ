@@ -1,5 +1,4 @@
 /// Microservices architecture design with performance optimization
-/// Features: System diagrams, load balancing, database sharding
 
 #import "../mod.typ": *
 

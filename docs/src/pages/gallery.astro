@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/MainLayout.astro";
-import { getExamplesByTheme } from "../utils/examples.ts";
+import { getExamplesByTheme, getThemeDisplayName } from "@/utils/examples.ts";
 import ExampleGrid from "@/components/ExampleGrid.astro";
 
 const examplesByTheme = await getExamplesByTheme();
@@ -14,7 +14,7 @@ const examplesByTheme = await getExamplesByTheme();
           ([theme, examples]) =>
             examples && (
               <div class="theme-section">
-                <h2 class="theme-title">{theme} Theme</h2>
+                <h2 class="theme-title">{getThemeDisplayName(theme)}</h2>
                 <ExampleGrid examples={examples} />
               </div>
             )

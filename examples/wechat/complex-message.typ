@@ -1,3 +1,4 @@
+/// Display something complex inside bubbles
 
 #import "../mod.typ": *
 
@@ -5,7 +6,7 @@
 
 #wechat.chat(
   theme: "light",
-  width: 400pt,
+  layout: (content-width: 300pt),
 
   oc.time[16:45],
 

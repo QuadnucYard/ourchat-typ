@@ -1,6 +1,5 @@
+/// [Featured]
 /// Family group chat with photos and mixed content
-/// Features: Image sharing, family conversations, time breaks, varied content
-/// Layout: Compact design suitable for mobile-like appearance
 
 #import "../mod.typ": *
 

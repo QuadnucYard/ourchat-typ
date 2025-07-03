@@ -1,6 +1,4 @@
 /// Advanced algorithm design discussion with complexity analysis
-/// Features: Algorithm visualizations, complexity notation, code optimization
-/// Layout: Developer-focused QQNT interface for technical discussions
 
 #import "../mod.typ": *
 
@@ -34,7 +32,7 @@
     text-right: rgb("#663476"),
   ),
   layout: (
-    content-width: 450pt,
+    content-width: 600pt,
     message-text-size: 12pt,
   ),
 

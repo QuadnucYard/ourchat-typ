@@ -1,5 +1,4 @@
 /// Quick tech debugging session with database connection issues
-/// Features: Error logs, SQL optimization, monitoring setup
 
 #import "../mod.typ": *
 
