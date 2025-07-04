@@ -38,7 +38,6 @@
 /// Layout constants that can be overridden
 #let default-layout = (
   // Overall layout
-  content-width: 480pt,
   content-inset: (x: 45pt, y: 15pt),
   // Text sizing
   main-text-size: 10.5pt,
@@ -85,37 +84,42 @@
   )
 }
 
-/// Create a qqnt style chat.
+/// Create a QQNT style chat.
 ///
 /// - theme (str, dictionary): The chat theme.
 /// - layout (dictionary): Override layout constants.
+/// - width (length): The width of the content block.
+/// - validate (bool): Validate the style fields.
 /// - messages: The items created by `time` or `message`.
 ///
 /// -> content
 #let chat(
   theme: auto,
   layout: (:),
+  width: 480pt,
   validate: true,
   ..messages,
 ) = {
-  let theme = resolve-theme(builtin-themes, theme, default: "light", validate: validate)
-  let sty = resolve-layout(layout, default-layout, validate: validate)
+  let sty = (
+    resolve-theme(builtin-themes, theme, default: "light", validate: validate)
+      + resolve-layout(layout, default-layout, validate: validate)
+  )
 
   let left-theme = (
-    text-color: theme.text-left,
-    link-color: theme.text-link-left,
-    bubble-color: theme.bubble-left,
+    text-color: sty.text-left,
+    link-color: sty.text-link-left,
+    bubble-color: sty.bubble-left,
   )
   let right-theme = (
-    text-color: theme.text-right,
-    link-color: theme.text-link-right,
-    bubble-color: theme.bubble-right,
+    text-color: sty.text-right,
+    link-color: sty.text-link-right,
+    bubble-color: sty.bubble-right,
   )
 
   set text(size: sty.main-text-size)
   set par(leading: sty.par-leading, spacing: sty.par-spacing)
 
-  show: block.with(width: sty.content-width, fill: theme.background, inset: sty.content-inset)
+  show: block.with(width: width, fill: sty.background, inset: sty.content-inset)
 
   for (i, msg) in messages.pos().enumerate() {
     if msg.kind == "time" {
@@ -127,22 +131,18 @@
         height: sty.timestamp-height,
         inset: sty.timestamp-inset,
         radius: sty.timestamp-radius,
-        fill: theme.timestamp-background,
+        fill: sty.timestamp-background,
       )
       set text(
         size: sty.timestamp-text-size,
         weight: "light",
-        fill: theme.text-timestamp,
+        fill: sty.text-timestamp,
         cjk-latin-spacing: none,
       )
       align(center + horizon, msg.body)
     } else if msg.kind == "message" or msg.kind == "plain" {
       let user = msg.user
-      let sub-theme = if msg.side == left {
-        left-theme
-      } else {
-        right-theme
-      }
+      let sty = sty + (if msg.side == left { left-theme } else { right-theme })
 
       let avatar-block = {
         show: pad.with(top: 1pt, x: sty.avatar-offset-x)
@@ -162,7 +162,7 @@
           if user.name != none {
             set text(
               size: sty.username-text-size,
-              fill: theme.text-username,
+              fill: sty.text-username,
               cjk-latin-spacing: none,
             )
             align(horizon, user.name)
@@ -191,13 +191,13 @@
 
       let message-block = {
         set text(size: sty.message-text-size)
-        show link: set text(sub-theme.link-color)
+        show link: set text(sty.link-color)
 
         if msg.kind == "message" {
-          let bubble-color = sub-theme.bubble-color
+          let bubble-color = sty.bubble-color
 
           show: block.with(fill: bubble-color, radius: sty.bubble-radius, inset: sty.bubble-inset)
-          set text(cjk-latin-spacing: none, fill: sub-theme.text-color)
+          set text(cjk-latin-spacing: none, fill: sty.text-color)
           align(left, msg.body)
           v(1pt)
         } else if msg.kind == "plain" {

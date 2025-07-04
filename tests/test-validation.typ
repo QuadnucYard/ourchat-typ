@@ -1,9 +1,9 @@
-#import "src/lib.typ" as oc
+#import "/src/lib.typ" as oc
 #import oc.themes: *
 
 // Test 1: Valid theme and layout (should work)
 #let test-validate-theme() = {
-  wechat.chat(theme: (bubble-left: rgb("#ffcccc")), layout: (content-width: 300pt), oc.message(
+  wechat.chat(theme: (bubble-left: rgb("#ffcccc")), layout: (content-inset: 20pt), oc.message(
     left,
     wechat.default-user(name: [Test]),
   )[Valid message])

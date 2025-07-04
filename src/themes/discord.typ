@@ -22,7 +22,6 @@
 #let default-layout = (
   // Overall layout
   content-scale: 75%,
-  content-width: 640pt,
   content-inset: (y: 16pt),
   group-spacing-start: 1.0625em,
   message-margin-left: 72pt,
@@ -91,21 +90,33 @@
   body
 }
 
+/// Create a Discord style chat.
+///
+/// - theme (str, dictionary): The chat theme.
+/// - layout (dictionary): Override layout constants.
+/// - width (length): The width of the content block.
+/// - validate (bool): Validate the style fields.
+/// - messages: The items created by `time` or `message`.
+///
+/// -> content
 #let chat(
   theme: auto,
   layout: (:),
+  width: 640pt,
   validate: true,
   auto-mention: true,
   ..messages,
 ) = {
-  let theme = resolve-theme(builtin-themes, theme, default: "default", validate: validate)
-  let sty = resolve-layout(layout, default-layout, validate: validate)
+  let sty = (
+    resolve-theme(builtin-themes, theme, default: "default", validate: validate)
+      + resolve-layout(layout, default-layout, validate: validate)
+  )
 
   show: scale.with(sty.content-scale, reflow: true)
   show: block.with(
-    width: sty.content-width,
+    width: width,
     inset: sty.content-inset,
-    fill: theme.background,
+    fill: sty.background,
   )
   set text(size: sty.main-text-size)
   set par(leading: sty.par-leading, spacing: sty.par-spacing)
@@ -126,11 +137,11 @@
           right: sty.divider-right,
         ),
       )
-      show: block.with(width: 100%, stroke: (top: theme.divider-color + sty.time-line-stroke))
+      show: block.with(width: 100%, stroke: (top: sty.divider-color + sty.time-line-stroke))
       set align(horizon + center)
-      show: block.with(height: 13pt, inset: (x: 4pt, y: 2pt), fill: theme.background)
+      show: block.with(height: 13pt, inset: (x: 4pt, y: 2pt), fill: sty.background)
       set text(
-        fill: theme.text-muted,
+        fill: sty.text-muted,
         cjk-latin-spacing: none,
         size: 12pt,
         weight: 600,
@@ -150,21 +161,21 @@
         set align(horizon)
         set text(
           size: sty.username-text-size,
-          fill: theme.text-username,
+          fill: sty.text-username,
           cjk-latin-spacing: none,
           weight: 500,
         )
         let items = (
           if user.name != none {
             text(
-              fill: theme.text-username,
+              fill: sty.text-username,
               user.name,
             )
           },
           user.title,
           if msg.time != none {
             text(
-              fill: theme.text-muted,
+              fill: sty.text-muted,
               size: sty.timestamp-text-size,
               msg.time,
             )
@@ -174,8 +185,8 @@
       }
 
       let message-block = {
-        set text(size: sty.message-text-size, fill: theme.text-normal, cjk-latin-spacing: none)
-        show link: set text(fill: theme.text-link)
+        set text(size: sty.message-text-size, fill: sty.text-normal, cjk-latin-spacing: none)
+        show link: set text(fill: sty.text-link)
 
         if msg.kind == "message" {
           block(width: 100%, align(left, msg.body))
