@@ -101,7 +101,7 @@ async function extractExampleMetadata(): Promise<Example[]> {
           description,
           featured,
           sourceCode: sourceCode,
-          svgPath: `${baseUrl}/examples/${theme}/${basename}.svg`,
+          svgPath: `${baseUrl}/examples/${basename}.svg`,
         };
 
         examples.push(example);
