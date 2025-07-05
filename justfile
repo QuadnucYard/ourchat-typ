@@ -19,4 +19,5 @@ docs-dev:
 [working-directory: 'docs']
 docs-build:
   nu ../scripts/render-examples.nu ../examples public/examples
+  bun install
   bun run build

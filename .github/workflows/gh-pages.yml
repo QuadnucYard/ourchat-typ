@@ -32,6 +32,9 @@ jobs:
       - name: Setup typst
         uses: typst-community/setup-typst@v3
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Install tools
         uses: taiki-e/install-action@just
 
