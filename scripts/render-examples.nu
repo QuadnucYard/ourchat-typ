@@ -9,7 +9,6 @@ def main [examples_dir: string, output_dir: string] {
     print $"📁 Examples directory: ($examples_dir | path expand)"
     print $"📁 Output directory: ($output_dir | path expand)"
 
-
     # Ensure output directory exists
     mkdir $output_dir
 
@@ -116,14 +115,13 @@ def main [examples_dir: string, output_dir: string] {
     )
     print $"📊 Total rendered files: ($rendered_count)"
 
-    # List rendered files by theme
-    for theme in ["wechat", "discord", "qqnt"] {
-        let theme_path = ($output_dir | path join $theme)
-        if ($theme_path | path exists) {
-            let theme_files = (ls $theme_path | where type == file | where name =~ '\.svg$')
-            if ($theme_files | length) > 0 {
-                print $"   📱 ($theme): ($theme_files | length) files"
-            }
+    # List rendered files by theme (dynamic based on output dirs)
+    let themes = (ls $output_dir | where type == dir | get name)
+    for theme_path in $themes {
+        let theme = ($theme_path | path basename)
+        let theme_files = (ls $theme_path | where type == file | where name =~ '\.svg$')
+        if ($theme_files | length) > 0 {
+            print $"   📱 ($theme): ($theme_files | length) files"
         }
     }
 }
