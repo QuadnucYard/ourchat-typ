@@ -26,6 +26,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install fonts
+        run: |
+          git fetch origin assets:assets
+          git checkout assets -- assets/fonts
+          sudo mkdir -p /usr/share/fonts/truetype/custom
+          sudo cp assets/fonts/*.ttf /usr/share/fonts/truetype/custom/ || true
+          sudo fc-cache -fv
+
       - name: Setup Nushell
         uses: hustcer/setup-nu@v3
 
