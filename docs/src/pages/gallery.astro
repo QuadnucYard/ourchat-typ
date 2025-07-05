@@ -8,6 +8,12 @@ const examplesByTheme = await getExamplesByTheme();
 
 <Layout title="Gallery">
   <main>
+    <header class="gallery-header">
+      <h1>Gallery</h1>
+      <p>
+        Explore technical, visually-rich Typst chat UI examples across themes.
+      </p>
+    </header>
     <div class="gallery-container">
       {
         Object.entries(examplesByTheme).map(([theme, examples]) => (
@@ -23,8 +29,10 @@ const examplesByTheme = await getExamplesByTheme();
 
 <style>
   .gallery-header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    /* Improved header background */
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    backdrop-filter: none;
+    color: white;
     padding: 2rem 0;
     text-align: center;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
@@ -33,17 +41,14 @@ const examplesByTheme = await getExamplesByTheme();
   .gallery-header h1 {
     font-size: 3rem;
     font-weight: 700;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
     margin-bottom: 0.5rem;
   }
 
   .gallery-header p {
     font-size: 1.2rem;
-    color: #666;
-    max-width: 600px;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 800px;
     margin: 0 auto;
   }
 
