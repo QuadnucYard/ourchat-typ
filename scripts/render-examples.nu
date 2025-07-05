@@ -35,7 +35,7 @@ def main [examples_dir: string, output_dir: string] {
     print $"📋 Found ($typ_files | length) example files"
 
     # Process each .typ file
-    $typ_files | par-each { |file|
+    let results = ($typ_files | par-each { |file|
         let rel_path = ($file | path relative-to $examples_dir)
         let theme = ($rel_path | path dirname)
         let basename = ($rel_path | path basename | path parse | get stem)
@@ -47,15 +47,56 @@ def main [examples_dir: string, output_dir: string] {
         # Output SVG path
         let svg_path = ($theme_output_dir | path join $"($basename).svg")
 
-        print $"🔄 Rendering ($theme)/($basename).typ..."
-
-        # Render with typst
-        try {
-            typst compile --format svg $file $svg_path --root ..
-            print $"✅ Rendered ($svg_path)"
+        # Render with typst and capture output
+        let start_time = (date now)
+        let result = (try {
+            let output = (typst compile --format svg $file $svg_path --root .. | complete)
+            let end_time = (date now)
+            let duration_ms = (($end_time - $start_time) / 1ms | math round)
+            {
+                file: $file,
+                theme: $theme,
+                basename: $basename,
+                svg_path: $svg_path,
+                success: ($output.exit_code == 0),
+                stdout: $output.stdout,
+                stderr: $output.stderr,
+                duration_ms: $duration_ms
+            }
         } catch {
-            print $"❌ Failed to render ($file)"
-            print $"   Error: ($env.LAST_EXIT_CODE)"
+            let end_time = (date now)
+            let duration_ms = (($end_time - $start_time) / 1ms | math round)
+            {
+                file: $file,
+                theme: $theme,
+                basename: $basename,
+                svg_path: $svg_path,
+                success: false,
+                stdout: "",
+                stderr: $"Failed to execute typst command: ($env.LAST_EXIT_CODE)",
+                duration_ms: $duration_ms
+            }
+        })
+
+        $result
+    })
+
+    # Display results in a tidy way
+    let successful = ($results | where success == true)
+    let failed = ($results | where success == false)
+
+    print $"✅ Successfully rendered: ($successful | length) files"
+    for result in $successful {
+        print $"   📄 ($result.theme)/($result.basename).typ → ($result.svg_path | path basename) \(($result.duration_ms)ms\)"
+    }
+
+    if ($failed | length) > 0 {
+        print $"❌ Failed to render: ($failed | length) files"
+        for result in $failed {
+            print $"   📄 ($result.theme)/($result.basename).typ \(($result.duration_ms)ms\)"
+            if ($result.stderr | str length) > 0 {
+                print $"      Error: ($result.stderr)"
+            }
         }
     }
 
