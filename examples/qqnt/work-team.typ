@@ -27,9 +27,9 @@
     text-left: white,
   ),
   layout: (
-    content-width: 360pt,
     message-text-size: 12pt,
   ),
+  width: 360pt,
 
   time[Today 9:30 AM],
 

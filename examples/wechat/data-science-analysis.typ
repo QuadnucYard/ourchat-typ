@@ -25,12 +25,12 @@
 #wechat.chat(
   theme: "light",
   layout: (
-    content-width: 500pt,
     avatar-size: 35pt,
     message-text-size: 12pt,
     bubble-radius: 6pt,
     row-gutter: 0.8em,
   ),
+  width: 500pt,
 
   time[ML Model Review - Tuesday 10:00 AM],
 

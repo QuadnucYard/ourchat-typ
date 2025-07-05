@@ -10,7 +10,7 @@
 #let me = discord.user(name: text(fill: rgb("#009692"))[Anonymous])
 
 #discord.chat(
-  layout: (content-width: 400pt),
+  width: 400pt,
 
   oc.time[11月3日 中午12:05],
   oc.message(left, yau, time: [03/11/2025, 22:45])[

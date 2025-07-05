@@ -24,10 +24,10 @@
     text-right: rgb("#7B1FA2"),
   ),
   layout: (
-    content-width: 450pt,
     message-text-size: 11pt,
     bubble-inset: 0.8em,
   ),
+  width: 450pt,
 
   time[Support Ticket #12345 - Today 10:00],
 

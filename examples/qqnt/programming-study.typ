@@ -31,9 +31,9 @@
     text-right: rgb("#653545"),
   ),
   layout: (
-    content-width: 480pt,
     message-text-size: 12pt,
   ),
+  width: 480pt,
 
   time[Rust Learning Session - Today 3:00 PM],
 

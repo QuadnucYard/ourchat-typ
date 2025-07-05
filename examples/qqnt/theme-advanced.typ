@@ -27,7 +27,8 @@
 
 #qqnt.chat(
   theme: advanced-theme,
-  layout: (content-width: 360pt),
+  width: 360pt,
+
   oc.time[Today 17:00],
   oc.message(left, alice)[
     This theme uses gradient bubbles and custom typography!

@@ -24,12 +24,12 @@
     background: rgb("#1C1C1E"),
   ),
   layout: (
-    content-width: 320pt,
     message-text-size: 13pt,
     bubble-radius: 12pt,
     bubble-inset: 1em,
     row-gutter: 0.7em,
   ),
+  width: 320pt,
 
   time[Tonight 23:45],
 

@@ -32,9 +32,9 @@
     text-right: rgb("#663476"),
   ),
   layout: (
-    content-width: 600pt,
     message-text-size: 12pt,
   ),
+  width: 600pt,
 
   time[Algorithm Optimization Session - Wednesday 3:00 PM],
 

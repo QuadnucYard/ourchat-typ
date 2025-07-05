@@ -25,12 +25,14 @@
 #wechat.chat(
   theme: "dark",
   layout: (
-    content-width: 480pt,
     avatar-size: 36pt,
     message-text-size: 12pt,
     bubble-radius: 6pt,
     row-gutter: 0.8em,
   ),
+  width: 480pt,
+
+
   time[Monday 9:00 AM],
 
   message(left, manager)[

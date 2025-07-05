@@ -6,7 +6,7 @@
 
 #wechat.chat(
   theme: "light",
-  layout: (content-width: 240pt),
+  width: 240pt,
 
   oc.time[15:15],
 

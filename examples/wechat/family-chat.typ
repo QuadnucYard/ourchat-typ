@@ -27,11 +27,11 @@
     bubble-left: rgb("#4ECDC4"), // Custom teal bubble
   ),
   layout: (
-    content-width: 320pt,
     avatar-size: 30pt,
     bubble-radius: 8pt,
     row-gutter: 0.5em,
   ),
+  width: 320pt,
 
   time[Sunday 15:30],
 

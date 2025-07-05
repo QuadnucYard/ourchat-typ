@@ -27,9 +27,9 @@
     text-right: rgb("#354634"),
   ),
   layout: (
-    content-width: 360pt,
     message-text-size: 12pt,
   ),
+  width: 360pt,
 
   time[Sunday Evening 7:30 PM],
 
