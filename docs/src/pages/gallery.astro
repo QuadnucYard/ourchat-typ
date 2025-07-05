@@ -10,15 +10,12 @@ const examplesByTheme = await getExamplesByTheme();
   <main>
     <div class="gallery-container">
       {
-        Object.entries(examplesByTheme).map(
-          ([theme, examples]) =>
-            examples && (
-              <div class="theme-section">
-                <h2 class="theme-title">{getThemeDisplayName(theme)}</h2>
-                <ExampleGrid examples={examples} />
-              </div>
-            )
-        )
+        Object.entries(examplesByTheme).map(([theme, examples]) => (
+          <div class="theme-section">
+            <h2 class="theme-title">{getThemeDisplayName(theme)}</h2>
+            <ExampleGrid examples={examples} />
+          </div>
+        ))
       }
     </div>
   </main>

@@ -8,7 +8,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "bunx @biomejs/biome check --write ./src"
   },
   "devDependencies": {
     "@types/node": "^24.0.6",

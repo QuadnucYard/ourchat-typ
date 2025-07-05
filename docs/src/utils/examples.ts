@@ -36,12 +36,17 @@ export async function getExamples(): Promise<Example[]> {
   return cachedExamples;
 }
 
-export async function getExamplesByTheme(): Promise<
-  Partial<Record<string, Example[]>>
-> {
+export async function getExamplesByTheme(): Promise<Record<string, Example[]>> {
   const examples = await getExamples();
 
-  return Object.groupBy(examples, (example) => example.theme);
+  return Object.fromEntries(
+    THEMES.map((theme) => {
+      const themeExamples = examples.filter(
+        (example) => example.theme === theme.name,
+      );
+      return [theme.name, themeExamples];
+    }),
+  );
 }
 
 export async function getFeaturedExamples(): Promise<Example[]> {
@@ -56,7 +61,9 @@ async function extractExampleMetadata(): Promise<Example[]> {
   for (const theme of themeDirs) {
     const exampleDir = resolve(__dirname, "examples", theme);
     if (existsSync(exampleDir)) {
-      const files = readdirSync(exampleDir).filter((f) => f.endsWith(".typ"));
+      const files = readdirSync(exampleDir).filter(
+        (f) => f.endsWith(".typ") && f !== "mod.typ",
+      );
 
       for (const file of files) {
         const basename = file.replace(".typ", "");
