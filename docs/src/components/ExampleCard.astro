@@ -8,10 +8,7 @@ export interface Props {
 const { example } = Astro.props;
 ---
 
-<div
-  class="example-card"
-  onclick={`window.location.href='/gallery/${example.name}'`}
->
+<a class="example-card" href={`/gallery/${example.name}`}>
   <img
     src={example.svgPath}
     alt={example.title}
@@ -22,13 +19,16 @@ const { example } = Astro.props;
     <h3 class="example-title">{example.title}</h3>
     <p class="example-description">{example.description}</p>
   </div>
-</div>
+</a>
 
 <style>
   .example-card {
     background: white;
     border-radius: 16px;
     overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     transition:
       transform 0.3s ease,
