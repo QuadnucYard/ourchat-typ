@@ -1,6 +1,6 @@
 /// Advanced algorithm design discussion with complexity analysis
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

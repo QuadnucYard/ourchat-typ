@@ -1,6 +1,6 @@
 /// Using shapes in messages
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

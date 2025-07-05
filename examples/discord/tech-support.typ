@@ -1,6 +1,6 @@
 /// Quick tech debugging session with database connection issues
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

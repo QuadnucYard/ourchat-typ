@@ -1,6 +1,6 @@
 /// Your first example of theme inheritance
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

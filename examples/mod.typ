@@ -4,12 +4,6 @@
 #import oc: *
 #import oc.themes: *
 
-#let example-style(body) = {
-  set page(width: auto, height: auto, margin: 0em, fill: none)
-  set text(font: ("gg sans", "IBM Plex Sans SC"))
-  body
-}
-
 // Define reusable users with custom avatars
 #let alice = oc.user(name: [Alice], avatar: circle(
   fill: gradient.radial(purple.lighten(60%), purple),

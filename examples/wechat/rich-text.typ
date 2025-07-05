@@ -1,6 +1,6 @@
 /// Using rich text in messages
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

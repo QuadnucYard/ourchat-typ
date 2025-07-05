@@ -1,6 +1,6 @@
 /// Display bubbles in any styles
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

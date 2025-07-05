@@ -1,6 +1,6 @@
 /// Dark theme example with custom styling and modern appearance
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

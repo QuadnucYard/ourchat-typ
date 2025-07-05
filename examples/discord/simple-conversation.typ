@@ -1,6 +1,6 @@
 /// Simple Discord conversation showcasing basic features
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

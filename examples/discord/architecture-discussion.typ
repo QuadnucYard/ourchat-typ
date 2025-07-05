@@ -1,6 +1,6 @@
 /// Microservices architecture design with performance optimization
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

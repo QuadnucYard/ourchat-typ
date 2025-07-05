@@ -1,6 +1,6 @@
 /// ML model performance analysis with statistical insights
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

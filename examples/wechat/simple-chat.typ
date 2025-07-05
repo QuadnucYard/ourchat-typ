@@ -1,6 +1,6 @@
 /// Simple casual conversation between friends
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

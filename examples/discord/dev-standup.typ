@@ -1,7 +1,7 @@
 /// [Featured]
 /// Development team standup meeting in Discord format
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

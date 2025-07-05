@@ -1,6 +1,6 @@
 /// Casual hobby discussion with friends using QQNT
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

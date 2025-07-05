@@ -1,6 +1,6 @@
 /// Work team coordination using QQNT for business communication
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

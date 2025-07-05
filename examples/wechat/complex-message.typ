@@ -1,6 +1,6 @@
 /// Display something complex inside bubbles
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

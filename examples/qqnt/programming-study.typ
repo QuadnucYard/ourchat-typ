@@ -1,7 +1,7 @@
 /// [Featured]
 /// Advanced Rust programming discussion
 
-#import "../mod.typ": *
+#import "mod.typ": *
 #import "@preview/zebraw:0.5.5": *
 
 #show: example-style

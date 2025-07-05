@@ -1,6 +1,6 @@
 /// Customer support conversation with professional styling
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

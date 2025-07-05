@@ -1,7 +1,7 @@
 /// [Featured]
 /// Professional team meeting discussion showcasing business communication
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

@@ -1,6 +1,6 @@
 /// Simple Discord theme
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 

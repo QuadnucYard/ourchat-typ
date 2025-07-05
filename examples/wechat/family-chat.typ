@@ -1,7 +1,7 @@
 /// [Featured]
 /// Family group chat with photos and mixed content
 
-#import "../mod.typ": *
+#import "mod.typ": *
 
 #show: example-style
 
