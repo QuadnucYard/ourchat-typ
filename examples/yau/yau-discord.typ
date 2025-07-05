@@ -1,5 +1,6 @@
-#import "../src/lib.typ" as oc
-#import oc.themes: *
+/// [Featured]
+
+#import "mod.typ": *
 
 #set page(width: auto, height: auto, margin: 0em, fill: none)
 #set text(font: ("gg sans", "IBM Plex Sans SC"))
@@ -9,6 +10,8 @@
 #let me = discord.user(name: text(fill: rgb("#009692"))[Anonymous])
 
 #discord.chat(
+  width: 400pt,
+
   oc.time[11月3日 中午12:05],
   oc.message(left, yau, time: [03/11/2025, 22:45])[
     那場大雨毀了我的上學夢
