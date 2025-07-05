@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "@/config/site";
+import { baseUrl, siteConfig } from "@/config/site";
 import GitHub from "./icons/GitHub.astro";
 
 export interface Props {
@@ -16,7 +16,7 @@ const { title, subtitle, description } = Astro.props;
   <p class="subtitle">{subtitle}</p>
   <p class="description">{description}</p>
   <div class="cta-buttons">
-    <a href="/gallery" class="btn btn-primary">🎨 View Examples</a>
+    <a href=`${baseUrl}/gallery` class="btn btn-primary">🎨 View Examples</a>
     <a href={siteConfig.github.url} target="_blank" class="btn btn-secondary">
       <GitHub />
       <span>GitHub</span>

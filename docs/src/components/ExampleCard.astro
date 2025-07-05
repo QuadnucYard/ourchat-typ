@@ -1,4 +1,5 @@
 ---
+import { baseUrl } from "@/config/site";
 import type { Example } from "@/utils/examples";
 
 export interface Props {
@@ -8,7 +9,7 @@ export interface Props {
 const { example } = Astro.props;
 ---
 
-<a class="example-card" href={`/gallery/${example.name}`}>
+<a class="example-card" href=`${baseUrl}/gallery/${example.name}`>
   <img
     src={example.svgPath}
     alt={example.title}

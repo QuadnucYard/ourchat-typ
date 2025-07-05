@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "@/config/site";
+import { baseUrl, siteConfig } from "@/config/site";
 import GitHub from "./icons/GitHub.astro";
 
 export interface Props {
@@ -10,11 +10,15 @@ const { currentPath } = Astro.props;
 ---
 
 <nav class="nav">
-  <a href="/" class:list={[{ active: currentPath === "/" }]}>Home</a>
+  <a href={baseUrl} class:list={[{ active: currentPath === `${baseUrl}/` }]}>
+    Home
+  </a>
   <a
-    href="/gallery"
-    class:list={[{ active: currentPath?.startsWith("/gallery") }]}>Gallery</a
+    href=`${baseUrl}/gallery`
+    class:list={[{ active: currentPath?.includes("/gallery") }]}
   >
+    Gallery
+  </a>
   <a
     href={siteConfig.github.url}
     target="_blank"

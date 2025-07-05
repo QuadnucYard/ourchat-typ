@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { baseUrl } from "@/config/site";
 
 const __dirname = fileURLToPath(new URL("../../..", import.meta.url));
 
@@ -100,7 +101,7 @@ async function extractExampleMetadata(): Promise<Example[]> {
           description,
           featured,
           sourceCode: sourceCode,
-          svgPath: `/examples/${theme}/${basename}.svg`,
+          svgPath: `${baseUrl}/examples/${theme}/${basename}.svg`,
         };
 
         examples.push(example);

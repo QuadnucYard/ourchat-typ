@@ -1,7 +1,7 @@
 ---
 import ExampleGrid from "@/components/ExampleGrid.astro";
 import Hero from "@/components/Hero.astro";
-import { siteConfig } from "@/config/site";
+import { baseUrl, siteConfig } from "@/config/site";
 import Layout from "@/layouts/MainLayout.astro";
 import { getFeaturedExamples } from "@/utils/examples.ts";
 
@@ -24,7 +24,9 @@ const featuredExamples = await getFeaturedExamples();
         </p>
         <ExampleGrid examples={featuredExamples} />
         <div style="text-align: center; margin-top: 2rem">
-          <a href="/gallery" class="btn btn-primary">View All Examples</a>
+          <a href=`${baseUrl}/gallery` class="btn btn-primary">
+            View All Examples
+          </a>
         </div>
       </div>
     </section>

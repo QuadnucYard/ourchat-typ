@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "@/config/site";
+import { baseUrl, siteConfig } from "@/config/site";
 import Nav from "./Nav.astro";
 
 export interface Props {
@@ -11,7 +11,7 @@ const { currentPath } = Astro.props;
 
 <div class="header">
   <div class="header-content">
-    <a href="/" class="logo">{siteConfig.name}</a>
+    <a href={baseUrl} class="logo">{siteConfig.name}</a>
     <Nav currentPath={currentPath} />
   </div>
 </div>

@@ -1,3 +1,5 @@
+export const baseUrl = "/ourchat-typ"; // match GH Pages path
+
 export const siteConfig = {
   name: "Ourchat",
   subtitle: "Create stunning, authentic chat interfaces",
