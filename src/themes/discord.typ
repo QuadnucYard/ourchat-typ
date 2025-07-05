@@ -66,25 +66,25 @@
   )
 }
 
-#let raw-block-rule(theme, sty, body) = {
+#let raw-block-rule(sty, body) = {
   show: pad.with(right: sty.message-margin-left)
   set text(size: sty.code-block-text-size)
   show: block.with(
     width: 100%,
     inset: sty.code-block-inset,
-    fill: theme.code-background,
-    stroke: theme.code-border,
+    fill: sty.code-background,
+    stroke: sty.code-border,
     radius: sty.code-border-radius,
   )
   body
 }
-#let raw-inline-rule(theme, sty, body) = {
+#let raw-inline-rule(sty, body) = {
   set text(size: sty.code-inline-text-size)
   show: box.with(
     outset: sty.code-inline-outset,
     inset: sty.code-inline-inset,
-    fill: theme.code-background,
-    stroke: theme.code-border,
+    fill: sty.code-background,
+    stroke: sty.code-border,
     radius: sty.code-border-radius,
   )
   body
@@ -120,8 +120,8 @@
   )
   set text(size: sty.main-text-size)
   set par(leading: sty.par-leading, spacing: sty.par-spacing)
-  show raw.where(block: true): raw-block-rule.with(theme, sty)
-  show raw.where(block: false): raw-inline-rule.with(theme, sty)
+  show raw.where(block: true): raw-block-rule.with(sty)
+  show raw.where(block: false): raw-inline-rule.with(sty)
 
   show: auto-mention-rule(auto-mention, mention)
 
