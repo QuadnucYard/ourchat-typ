@@ -1,0 +1,61 @@
+---
+import { baseUrl } from "@/config/site";
+import type { Example } from "@/utils/examples";
+
+export interface Props {
+  example: Example;
+}
+
+const { example } = Astro.props;
+---
+
+<a class="example-card" href=`${baseUrl}/gallery/${example.name}`>
+  <img
+    src={example.svgPath}
+    alt={example.title}
+    loading="lazy"
+    class="example-image"
+  />
+  <div class="example-info">
+    <h3 class="example-title">{example.title}</h3>
+    <p class="example-description">{example.description}</p>
+  </div>
+</a>
+
+<style>
+  .example-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .example-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+  }
+
+  .example-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+
+  .example-info {
+    padding: 1.5rem;
+  }
+
+  .example-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+</style>

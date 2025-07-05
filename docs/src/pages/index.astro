@@ -1,0 +1,59 @@
+---
+import ExampleGrid from "@/components/ExampleGrid.astro";
+import Hero from "@/components/Hero.astro";
+import { baseUrl, siteConfig } from "@/config/site";
+import Layout from "@/layouts/MainLayout.astro";
+import { getFeaturedExamples } from "@/utils/examples.ts";
+
+const featuredExamples = await getFeaturedExamples();
+---
+
+<Layout>
+  <main>
+    <Hero
+      title={siteConfig.name}
+      subtitle={siteConfig.subtitle}
+      description={siteConfig.description}
+    />
+
+    <section class="examples-showcase">
+      <div class="container">
+        <h2>Featured Examples</h2>
+        <p class="examples-subtitle">
+          Explore our collection of ready-to-use chat UI examples
+        </p>
+        <ExampleGrid examples={featuredExamples} />
+        <div style="text-align: center; margin-top: 2rem">
+          <a href=`${baseUrl}/gallery` class="btn btn-primary">
+            View All Examples
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .examples-showcase {
+    background: white;
+    padding: 4rem 0;
+  }
+
+  .examples-showcase h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .examples-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 3rem;
+  }
+</style>

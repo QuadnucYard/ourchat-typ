@@ -1,0 +1,187 @@
+---
+import { Code } from "astro:components";
+import Layout from "@/layouts/MainLayout.astro";
+import { type Example, getExamples } from "@/utils/examples";
+
+export async function getStaticPaths() {
+  const examples = await getExamples();
+
+  return examples.map((example) => ({
+    params: {
+      example: example.name,
+    },
+    props: { example },
+  }));
+}
+
+interface Props {
+  example: Example;
+}
+
+const { example } = Astro.props as Props;
+
+if (!example) {
+  return Astro.redirect("/gallery");
+}
+---
+
+<Layout title={example.title} description={example.description}>
+  <main>
+    <div class="detail-container">
+      <div class="example-header">
+        <h1 class="example-title">{example.title}</h1>
+        <p class="example-description">{example.description}</p>
+      </div>
+
+      <div class="content-grid">
+        <div class="result-panel">
+          <div class="panel-header">📱 Rendered Result</div>
+          <div class="panel-content">
+            <img
+              src={example.svgPath}
+              alt={`${example.title} Result`}
+              loading="lazy"
+              class="result-image"
+            />
+          </div>
+        </div>
+
+        <div class="code-panel">
+          <div class="panel-header">📄 Source Code</div>
+          <div class="panel-content">
+            <Code code={example.sourceCode} lang="typst" theme="github-light" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .detail-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .detail-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .detail-title {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .example-header {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .example-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .example-description {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .example-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .result-panel,
+  .code-panel {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .panel-header {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .panel-content {
+    padding: 1.25rem;
+  }
+
+  .result-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-content {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: "Cascadia Code", "Fira Code", "Monaco", monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    max-height: 600px;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 768px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .detail-header-content {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .detail-container {
+      padding: 1rem;
+    }
+
+    .example-title {
+      font-size: 2rem;
+    }
+  }
+</style>

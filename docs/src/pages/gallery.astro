@@ -1,0 +1,82 @@
+---
+import ExampleGrid from "@/components/ExampleGrid.astro";
+import Layout from "@/layouts/MainLayout.astro";
+import { getExamplesByTheme, getThemeDisplayName } from "@/utils/examples.ts";
+
+const examplesByTheme = await getExamplesByTheme();
+---
+
+<Layout title="Gallery">
+  <main>
+    <header class="gallery-header">
+      <h1>Gallery</h1>
+      <p>
+        Explore technical, visually-rich Typst chat UI examples across themes.
+      </p>
+    </header>
+    <div class="gallery-container">
+      {
+        Object.entries(examplesByTheme).map(([theme, examples]) => (
+          <div class="theme-section">
+            <h2 class="theme-title">{getThemeDisplayName(theme)}</h2>
+            <ExampleGrid examples={examples} />
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .gallery-header {
+    /* Improved header background */
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    backdrop-filter: none;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .gallery-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+
+  .gallery-header p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .theme-section {
+    margin-bottom: 4rem;
+  }
+
+  .theme-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .gallery-header h1 {
+      font-size: 2rem;
+    }
+
+    .gallery-container {
+      padding: 2rem 1rem;
+    }
+  }
+</style>

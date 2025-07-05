@@ -1,0 +1,81 @@
+---
+import { baseUrl, siteConfig } from "@/config/site";
+import GitHub from "./icons/GitHub.astro";
+
+export interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+}
+
+const { title, subtitle, description } = Astro.props;
+---
+
+<div class="hero">
+  <h1>{title}</h1>
+  <p class="subtitle">{subtitle}</p>
+  <p class="description">{description}</p>
+  <div class="cta-buttons">
+    <a href=`${baseUrl}/gallery` class="btn btn-primary">🎨 View Examples</a>
+    <a href={siteConfig.github.url} target="_blank" class="btn btn-secondary">
+      <GitHub />
+      <span>GitHub</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: white;
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero .subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .hero .description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    opacity: 0.85;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+    }
+
+    .hero .description {
+      font-size: 1rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

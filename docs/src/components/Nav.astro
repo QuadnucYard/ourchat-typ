@@ -1,0 +1,62 @@
+---
+import { baseUrl, siteConfig } from "@/config/site";
+import GitHub from "./icons/GitHub.astro";
+
+export interface Props {
+  currentPath?: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<nav class="nav">
+  <a href={baseUrl} class:list={[{ active: currentPath === `${baseUrl}/` }]}>
+    Home
+  </a>
+  <a
+    href=`${baseUrl}/gallery`
+    class:list={[{ active: currentPath?.includes("/gallery") }]}
+  >
+    Gallery
+  </a>
+  <a
+    href={siteConfig.github.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="github-link"
+    aria-label="View source on GitHub"
+  >
+    <GitHub size={18} />
+    <span>GitHub</span>
+  </a>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav a {
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .nav a:hover,
+  .nav a.active {
+    color: #667eea;
+  }
+
+  .github-link {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .github-link:hover {
+    color: #333 !important;
+  }
+</style>

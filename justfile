@@ -11,3 +11,17 @@ test:
 
 package target="out":
   nu scripts/package.nu {{target}}
+
+
+[working-directory: 'docs']
+docs-examples:
+  nu ../scripts/render-examples.nu ../examples public/examples
+
+[working-directory: 'docs']
+docs-dev:
+  bun dev
+
+[working-directory: 'docs']
+docs-build: docs-examples
+  bun install
+  bun run build
