@@ -1,4 +1,4 @@
-#import "src/lib.typ" as oc: *
+#import "/src/lib.typ" as oc: *
 #import oc.themes: *
 
 #let is-html-target = dictionary(std).keys().contains("html")
@@ -72,7 +72,8 @@ _Create chat interfaces in Typst with ease_
 
 Ourchat is a #link("https://typst.app/")[Typst] package for building chat UI mockups. It helps you document software features, create presentations, or prototype chat interfaces with themes for popular platforms like WeChat, Discord, and QQ.
 
-#if sys.inputs.at("target-universe", default: false) != "true" {
+#let is-universe-target = false // FIXME - use `sys.input` when typlite works properly
+#if not is-universe-target {
   preview(
     reversed: true,
     ````typst

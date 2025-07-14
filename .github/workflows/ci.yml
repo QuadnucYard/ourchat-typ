@@ -52,10 +52,20 @@ jobs:
         uses: hustcer/setup-nu@v3
 
       - name: Install tools
-        uses: taiki-e/install-action@just
+        uses: taiki-e/install-action@v2
+        with:
+          tool: just,typlite
 
       - name: Setup typst
         uses: typst-community/setup-typst@v3
+
+      - name: Install fonts
+        run: |
+          git fetch origin assets:assets
+          git checkout assets -- assets/fonts
+          sudo mkdir -p /usr/share/fonts/truetype/custom
+          sudo cp assets/fonts/*.ttf /usr/share/fonts/truetype/custom/ || true
+          sudo fc-cache -fv
 
       - name: Build package
         run: just package
