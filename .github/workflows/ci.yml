@@ -95,8 +95,9 @@ jobs:
           # github.ref_name is just the tag (without the "refs/tags/" prefix)
           VERSION: ${{ github.ref_name }}
         run: |
-          # grab from "## v0.y.z[-suffix] – YYYY-MM-DD" until the next "## "  and drop the header
-          sed -En "/## ${VERSION}(-[[:alnum:]]+)? -/,/## /p" CHANGELOG.md | sed '1d;$d' > release_notes.md
+          # grab from "## [v0.y.z[-suffix]] - YYYY-MM-DD" until the next "## "  and drop the header
+          VERSION_NO_V="${VERSION#v}"
+          sed -En "/^## \[${VERSION_NO_V}\] - .*/,/^## /p" CHANGELOG.md | sed '1d;$d' > release_notes.md
 
       - name: Create release
         uses: ncipollo/release-action@v1
