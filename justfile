@@ -25,3 +25,6 @@ docs-dev:
 docs-build: docs-examples
   bun install
   bun run build
+
+readme-build:
+  typlite README.typ README.md --assets-path assets

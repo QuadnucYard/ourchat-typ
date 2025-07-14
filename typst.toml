@@ -7,5 +7,6 @@ license = "MIT"
 description = "Forge wonderful chat messages"
 categories = ["fun"]
 keywords = ["chat", "message"]
+homepage = "https://quadnucyard.github.io/ourchat-typ"
 repository = "https://github.com/QuadnucYard/ourchat-typ"
 exclude = ["examples"]
