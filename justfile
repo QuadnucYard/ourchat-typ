@@ -28,3 +28,4 @@ docs-build: docs-examples
 
 readme-build:
   typlite README.typ README.md --assets-path assets
+  nu scripts/fix-path-sep.nu README.md

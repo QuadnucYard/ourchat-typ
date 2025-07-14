@@ -42,19 +42,8 @@ def build_readme [target_dir: string] {
     let readme_tmp = "README.tmp.md"
     let readme = "README.md"
     typlite README.typ $readme_tmp --assets-path assets --root (".." | path expand)
-    # Fix image slash in the README
-    open $readme_tmp
-        | lines
-        | each { |line|
-            if ($line | str starts-with '![typst-frame](') {
-                $line | str replace -a '\' '/'
-            } else {
-                $line
-            }
-        }
-        | str join "\n"
-        | $in + "\n"
-        | save $readme -f
+    nu "../scripts/fix-path-sep.nu" $readme_tmp $readme # Fix image slash in the README
+
     rm $readme_tmp
     rm $readme_typ
 }

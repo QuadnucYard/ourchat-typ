@@ -6,7 +6,7 @@ _Create chat interfaces in Typst with ease_
 
 Ourchat is a [Typst](https://typst.app/) package for building chat UI mockups. It helps you document software features, create presentations, or prototype chat interfaces with themes for popular platforms like WeChat, Discord, and QQ.
 
-![typst-frame](assets\frame_0.svg)
+![typst-frame](assets/frame_0.svg)
 
 ```typst
 #let yau = wechat.default-user(name: [丘成桐（囯內）])
@@ -39,10 +39,10 @@ Ourchat is a [Typst](https://typst.app/) package for building chat UI mockups. I
 
 ## Features
 
-- **Multi-platform themes**: WeChat, Discord, QQNT support
-- **Customizable styling**: Colors, avatars, layouts, and typography
-- **Content support**: Full typst support in chat messages—Code blocks, tables, mathematical equations…
+- **Out-of-the-box themes**: WeChat, Discord, QQNT theme support
 - **Simple API**: Easy-to-use, declarative interface
+- **Customizable styling**: Colors, avatars, layouts, and typography
+- **Just do it**: Write anything inside messages—Code blocks, tables, mathematical equations…
 
 ## Quick Start
 
@@ -73,13 +73,11 @@ Then create your first chat:
 )
 ```
 
-![typst-frame](assets\frame_1.svg)
+![typst-frame](assets/frame_1.svg)
 
 ## Builtin Themes
 
 ### WeChat Theme
-
-Perfect for mobile-first designs and casual conversations:
 
 ```typst
 #let user1 = wechat.user(name: [Alice], avatar: circle(fill: blue, text(white)[A]))
@@ -98,11 +96,9 @@ Perfect for mobile-first designs and casual conversations:
 )
 ```
 
-![typst-frame](assets\frame_2.svg)
+![typst-frame](assets/frame_2.svg)
 
 ### Discord Theme
-
-Ideal for technical discussions and developer communities:
 
 ````typst
 #set text(font: ("gg sans", "IBM Plex Sans SC"))
@@ -133,11 +129,9 @@ def optimize_query():
 )
 ````
 
-![typst-frame](assets\frame_3.svg)
+![typst-frame](assets/frame_3.svg)
 
 ### QQNT Theme
-
-Modern interface for group discussions and study sessions:
 
 ```typst
 #let student = qqnt.user(
@@ -167,7 +161,7 @@ Modern interface for group discussions and study sessions:
 )
 ```
 
-![typst-frame](assets\frame_4.svg)
+![typst-frame](assets/frame_4.svg)
 
 ## Advanced Usage
 
@@ -203,7 +197,7 @@ For multiple messages from the same user, use `with-side-user` to avoid repetiti
 )
 ```
 
-![typst-frame](assets\frame_5.svg)
+![typst-frame](assets/frame_5.svg)
 
 ### Custom User Avatars
 
@@ -228,7 +222,7 @@ Create distinctive user profiles:
 )
 ```
 
-![typst-frame](assets\frame_6.svg)
+![typst-frame](assets/frame_6.svg)
 
 ### Rich Content Support
 
@@ -256,7 +250,7 @@ Include tables, code blocks, and visual elements:
 )
 ```
 
-![typst-frame](assets\frame_7.svg)
+![typst-frame](assets/frame_7.svg)
 
 ### Theme Customization
 

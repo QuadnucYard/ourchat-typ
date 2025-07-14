@@ -54,7 +54,7 @@
                                     <g class="typst-group">
                                         <g>
                                             <g transform="translate(16 1.875)">
-                                                <g class="typst-group" clip-path="url(#c91ACC09F268F35A2B7BDDA72BC4A43F0)">
+                                                <g class="typst-group" clip-path="url(#c6AB9EE8D0E0ACF0E63C5B9E67FAA745E)">
                                                     <g>
                                                         <g transform="translate(4.634569644816324 4.634569644816324)">
                                                             <g class="typst-group">
@@ -293,7 +293,7 @@
                                     <g class="typst-group">
                                         <g>
                                             <g transform="translate(16 1.875)">
-                                                <g class="typst-group" clip-path="url(#cD5D2A8283B91BD4E29464C1063749BE2)">
+                                                <g class="typst-group" clip-path="url(#cB722B133AC76E84D7F0273A819D165AD)">
                                                     <g>
                                                         <g transform="translate(4.634569644816324 4.634569644816324)">
                                                             <g class="typst-group">
@@ -665,10 +665,10 @@
         </symbol>
     </defs>
     <defs id="clip-path">
-        <clipPath id="c91ACC09F268F35A2B7BDDA72BC4A43F0">
+        <clipPath id="c6AB9EE8D0E0ACF0E63C5B9E67FAA745E">
             <path d="M 0 20 C 0 8.954305 8.954305 0 20 0 L 20 0 C 31.045694 0 40 8.954305 40 20 L 40 20 C 40 31.045694 31.045694 40 20 40 L 20 40 C 8.954305 40 0 31.045694 0 20 Z "/>
         </clipPath>
-        <clipPath id="cD5D2A8283B91BD4E29464C1063749BE2">
+        <clipPath id="cB722B133AC76E84D7F0273A819D165AD">
             <path d="M 0 20 C 0 8.954305 8.954305 0 20 0 L 20 0 C 31.045694 0 40 8.954305 40 20 L 40 20 C 40 31.045694 31.045694 40 20 40 L 20 40 C 8.954305 40 0 31.045694 0 20 Z "/>
         </clipPath>
     </defs>

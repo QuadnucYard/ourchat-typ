@@ -109,10 +109,10 @@ Ourchat is a #link("https://typst.app/")[Typst] package for building chat UI moc
 
 = Features
 
-- *Multi-platform themes*: WeChat, Discord, QQNT support
-- *Customizable styling*: Colors, avatars, layouts, and typography
-- *Content support*: Full typst support in chat messages---Code blocks, tables, mathematical equations...
+- *Out-of-the-box themes*: WeChat, Discord, QQNT theme support
 - *Simple API*: Easy-to-use, declarative interface
+- *Customizable styling*: Colors, avatars, layouts, and typography
+- *Just do it*: Write anything inside messages---Code blocks, tables, mathematical equations...
 
 = Quick Start
 
@@ -155,8 +155,6 @@ Then create your first chat:
 
 == WeChat Theme
 
-Perfect for mobile-first designs and casual conversations:
-
 #preview(
   ````typst
   #let user1 = wechat.user(name: [Alice], avatar: circle(fill: blue, text(white)[A]))
@@ -177,8 +175,6 @@ Perfect for mobile-first designs and casual conversations:
 )
 
 == Discord Theme
-
-Ideal for technical discussions and developer communities:
 
 #preview(
   ````typst
@@ -212,8 +208,6 @@ Ideal for technical discussions and developer communities:
 )
 
 == QQNT Theme
-
-Modern interface for group discussions and study sessions:
 
 #preview(
   ````typst
@@ -282,6 +276,7 @@ For multiple messages from the same user, use `with-side-user` to avoid repetiti
 )
 
 == Custom User Avatars
+
 Create distinctive user profiles:
 
 #preview(
