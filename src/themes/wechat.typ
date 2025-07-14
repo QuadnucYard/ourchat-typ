@@ -5,6 +5,10 @@
 /// The default avatar of Ourchat
 #let default-avatar = image("../assets/wechat-avatar.svg")
 
+/// A default user with the standard WeChat avatar.
+///
+/// This is a convenience user that comes with the default WeChat avatar pre-configured.
+/// You can use this directly or customize it with a name and other properties.
 #let default-user = user.with(avatar: default-avatar)
 
 /// Default light theme

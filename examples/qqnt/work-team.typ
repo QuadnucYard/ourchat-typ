@@ -4,17 +4,17 @@
 
 #show: example-style
 
-#let manager = user(name: [Sarah Wilson], title: qqnt.title[Project Manager], avatar: circle(
+#let manager = user(name: [Sarah Wilson], badge: qqnt.badge[Project Manager], avatar: circle(
   fill: gradient.radial(rgb("#1976D2"), rgb("#0D47A1")),
   text(white, size: 9pt, weight: "bold")[SW],
 ))
 
-#let designer = user(name: [Mike Chen], title: qqnt.title[UI Designer], avatar: circle(
+#let designer = user(name: [Mike Chen], badge: qqnt.badge[UI Designer], avatar: circle(
   fill: gradient.radial(rgb("#E91E63"), rgb("#AD1457")),
   text(white, size: 9pt, weight: "bold")[MC],
 ))
 
-#let developer = user(name: [Alex Kim], title: qqnt.title[Frontend Dev], avatar: circle(
+#let developer = user(name: [Alex Kim], badge: qqnt.badge[Frontend Dev], avatar: circle(
   fill: gradient.radial(rgb("#4CAF50"), rgb("#2E7D32")),
   text(white, size: 9pt, weight: "bold")[AK],
 ))

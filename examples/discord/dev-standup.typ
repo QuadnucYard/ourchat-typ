@@ -5,13 +5,13 @@
 
 #show: example-style
 
-#let lead = user(name: [sarah_pm], title: [Team Lead], avatar: rect(
+#let lead = user(name: [sarah_pm], badge: [Team Lead], avatar: rect(
   fill: rgb("#5865F2"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[SP],
 ))
 
-#let dev1 = user(name: [alex.codes], title: discord.newbie, avatar: rect(
+#let dev1 = user(name: [alex.codes], badge: discord.newbie, avatar: rect(
   fill: rgb("#57F287"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[AC],

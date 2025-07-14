@@ -52,10 +52,25 @@
   code-inline-outset: (y: 0.375em),
 )
 
+/// Discord newbie badge icon.
 #let newbie = image(width: 15pt, "../assets/discord-newbie.svg")
 
-#let newbie-user = user.with(title: newbie)
+/// A pre-configured user with Discord's newbie badge.
+///
+/// This is a convenience user that comes with the Discord newbie badge as a title.
+/// Perfect for showcasing new Discord users in chat mockups.
+#let newbie-user = user.with(badge: newbie)
 
+/// Create a Discord-style mention element.
+///
+/// This function creates a styled mention box that resembles Discord's `@username` mentions.
+/// The mention has a blue background with rounded corners and specific Discord colors.
+///
+/// This component is hard to customize due to lack of custom element. You can create your own
+/// mention component for a different style.
+///
+/// - body (content): The username or text to be mentioned.
+/// -> content: Styled mention box
 #let mention(body) = {
   box(
     fill: oklab(57.738%, 0.0140701, -0.208587, 23.9216%),
@@ -66,6 +81,14 @@
   )
 }
 
+/// Create a show rule for Discord-style code blocks.
+///
+/// This function returns a show rule that styles code blocks with Discord's
+/// characteristic dark background, border, and padding.
+///
+/// - sty (dictionary): Style dictionary containing Discord theme values.
+/// - body (content): The code block content to be styled.
+/// -> content: Styled code block
 #let raw-block-rule(sty, body) = {
   show: pad.with(right: sty.message-margin-left)
   set text(size: sty.code-block-text-size)
@@ -78,6 +101,15 @@
   )
   body
 }
+
+/// Create a show rule for Discord-style inline code.
+///
+/// This function returns a show rule that styles inline code with Discord's
+/// characteristic background and subtle border styling.
+///
+/// - sty (dictionary): Style dictionary containing Discord theme values.
+/// - body (content): The inline code content to be styled.
+/// -> content: Styled inline code
 #let raw-inline-rule(sty, body) = {
   set text(size: sty.code-inline-text-size)
   show: box.with(
@@ -172,7 +204,7 @@
               user.name,
             )
           },
-          user.title,
+          user.badge,
           if msg.time != none {
             text(
               fill: sty.text-muted,

@@ -43,7 +43,7 @@
   main-text-size: 10.5pt,
   message-text-size: 1em,
   username-text-size: 9pt,
-  title-text-size: 7.5pt,
+  badge-text-size: 7.5pt,
   timestamp-text-size: 9pt,
   // Paragraph formatting
   par-leading: 0.8em,
@@ -55,10 +55,10 @@
   bubble-radius: 5pt,
   // Title styling
   username-height: 1.05em,
-  title-spacing: 0.3em,
-  title-height: 1.2em,
-  title-inset: (x: 3pt),
-  title-radius: 3pt,
+  badge-spacing: 0.3em,
+  badge-height: 1.2em,
+  badge-inset: (x: 3pt),
+  badge-radius: 3pt,
   // Avatar styling
   avatar-offset-x: -30pt,
   avatar-width: 36pt,
@@ -72,7 +72,16 @@
   timestamp-inset: 0.6em,
 )
 
-#let title(
+/// Create a QQNT style title/role badge.
+///
+/// This function creates a title or role badge that can be displayed next to a user's name
+/// in QQNT themed chats. The badge has customizable text and background colors.
+///
+/// - body (content): The badge text content.
+/// - text-color (color): The text color of the badge. Default is orange.
+/// - bg-color (color): The background color of the badge. Default is transparent orange.
+/// -> dictionary: Title configuration dictionary
+#let badge(
   body,
   text-color: rgb("#FF8D37"),
   bg-color: rgb("#FF8D37").transparentize(80%),
@@ -156,7 +165,7 @@
       }
 
       let sender-block = {
-        let title = user.title
+        let badge = user.badge
 
         let items = (
           if user.name != none {
@@ -167,15 +176,15 @@
             )
             align(horizon, user.name)
           },
-          if title != none {
+          if badge != none {
             show: box.with(
-              height: sty.title-height,
-              inset: sty.title-inset,
-              radius: sty.title-radius,
-              fill: title.bg-color,
+              height: sty.badge-height,
+              inset: sty.badge-inset,
+              radius: sty.badge-radius,
+              fill: badge.bg-color,
             )
-            set text(size: sty.title-text-size, fill: title.text-color, cjk-latin-spacing: none)
-            align(horizon, title.body)
+            set text(size: sty.badge-text-size, fill: badge.text-color, cjk-latin-spacing: none)
+            align(horizon, badge.body)
           },
         )
 
@@ -184,7 +193,7 @@
         set text(weight: "light")
         stack(
           dir: if msg.side == left { ltr } else { rtl },
-          spacing: sty.title-spacing,
+          spacing: sty.badge-spacing,
           ..items.filter(it => it != none),
         )
       }

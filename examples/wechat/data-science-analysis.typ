@@ -4,19 +4,19 @@
 
 #show: example-style
 
-#let data_scientist = user(name: [Dr. Chen Wei], title: [Data Scientist], avatar: rect(
+#let data_scientist = user(name: [Dr. Chen Wei], badge: [Data Scientist], avatar: rect(
   fill: rgb("#2E86AB"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[CW],
 ))
 
-#let ml_engineer = user(name: [Alex Zhang], title: [ML Engineer], avatar: rect(
+#let ml_engineer = user(name: [Alex Zhang], badge: [ML Engineer], avatar: rect(
   fill: rgb("#A23B72"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[AZ],
 ))
 
-#let analyst = user(name: [Sarah Liu], title: [Business Analyst], avatar: rect(
+#let analyst = user(name: [Sarah Liu], badge: [Business Analyst], avatar: rect(
   fill: rgb("#F18F01"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[SL],

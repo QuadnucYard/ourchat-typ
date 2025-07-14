@@ -122,6 +122,15 @@
   })
 }
 
+/// Create a show rule for automatic mention styling.
+///
+/// This function creates a show rule that automatically styles `@username` mentions
+/// using Typst's ref syntax. When enabled, references that don't resolve to actual
+/// elements are treated as mentions and styled using the provided styler function.
+///
+/// - auto-mention (bool): Whether to enable automatic mention styling.
+/// - styler (function): Function that takes a username string and returns styled content.
+/// -> function: Show rule function to apply to content
 #let auto-mention-rule(auto-mention, styler) = {
   if auto-mention {
     it => {

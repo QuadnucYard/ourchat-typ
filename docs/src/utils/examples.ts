@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL("../../..", import.meta.url));
 // In display order
 const THEMES = [
   { name: "wechat", displayName: "WeChat Theme" },
-  { name: "qqnt", displayName: "QQ NT Theme" },
+  { name: "qqnt", displayName: "QQNT Theme" },
   { name: "discord", displayName: "Discord Theme" },
   { name: "yau", displayName: "yau" },
 ];

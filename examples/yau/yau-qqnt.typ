@@ -1,5 +1,5 @@
 /// [Featured]
-/// Title: Yau QQ NT
+/// Title: Yau QQNT
 
 #import "mod.typ": *
 
@@ -8,7 +8,7 @@
 
 #let yau = oc.message.with(left, oc.user(
   name: [丘成桐（囯內）],
-  title: qqnt.title(text(weight: 600)[LV100 群主]),
+  badge: qqnt.badge(text(weight: 600)[LV100 群主]),
   avatar: wechat.default-avatar,
 ))
 #let me = oc.message.with(right, oc.user(name: [丘成桐（囯內）], avatar: wechat.default-avatar))

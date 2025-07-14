@@ -4,19 +4,19 @@
 
 #show: example-style
 
-#let senior_dev = user(name: [Alex Chen], title: qqnt.title[Senior Developer], avatar: circle(
+#let senior_dev = user(name: [Alex Chen], badge: qqnt.badge[Senior Developer], avatar: circle(
   fill: gradient.radial(rgb("#FF6B6B"), rgb("#EE5A24")),
   text(white, size: 8pt, weight: "bold")[AC],
 ))
 
-#let algo_expert = user(name: [Dr. Wang], title: qqnt.title[Algorithm Specialist], avatar: circle(
+#let algo_expert = user(name: [Dr. Wang], badge: qqnt.badge[Algorithm Specialist], avatar: circle(
   fill: gradient.radial(rgb("#4834D4"), rgb("#686DE0")),
   text(white, size: 8pt, weight: "bold")[DW],
 ))
 
 #let performance_eng = user(
   name: [Sarah Kim],
-  title: qqnt.title[Performance Engineer],
+  badge: qqnt.badge[Performance Engineer],
   avatar: circle(fill: gradient.radial(rgb("#00D2D3"), rgb("#01A3A4")), text(
     white,
     size: 8pt,

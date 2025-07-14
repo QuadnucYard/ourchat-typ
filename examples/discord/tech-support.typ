@@ -4,19 +4,19 @@
 
 #show: example-style
 
-#let developer = user(name: [junior_dev], title: discord.newbie, avatar: rect(
+#let developer = user(name: [junior_dev], badge: discord.newbie, avatar: rect(
   fill: rgb("#FEE75C"),
   radius: 4pt,
   text(black, size: 8pt, weight: "bold")[JD],
 ))
 
-#let senior = user(name: [tech_lead], title: [Senior Engineer], avatar: rect(
+#let senior = user(name: [tech_lead], badge: [Senior Engineer], avatar: rect(
   fill: rgb("#EB459E"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[TL],
 ))
 
-#let devops = user(name: [devops_guru], title: [DevOps], avatar: rect(
+#let devops = user(name: [devops_guru], badge: [DevOps], avatar: rect(
   fill: rgb("#57F287"),
   radius: 4pt,
   text(black, size: 8pt, weight: "bold")[DG],

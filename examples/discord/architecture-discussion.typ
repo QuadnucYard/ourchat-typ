@@ -4,19 +4,19 @@
 
 #show: example-style
 
-#let architect = user(name: [SystemArchitect], title: [Senior Engineer], avatar: rect(
+#let architect = user(name: [SystemArchitect], badge: [Senior Engineer], avatar: rect(
   fill: rgb("#3498db"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[SA],
 ))
 
-#let backend_dev = user(name: [backend_ninja], title: [Backend Developer], avatar: rect(
+#let backend_dev = user(name: [backend_ninja], badge: [Backend Developer], avatar: rect(
   fill: rgb("#e74c3c"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[BN],
 ))
 
-#let devops = user(name: [cloudmaster], title: [DevOps Engineer], avatar: rect(
+#let devops = user(name: [cloudmaster], badge: [DevOps Engineer], avatar: rect(
   fill: rgb("#2ecc71"),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[CM],

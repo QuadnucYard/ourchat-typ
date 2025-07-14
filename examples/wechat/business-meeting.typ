@@ -5,18 +5,18 @@
 
 #show: example-style
 
-#let manager = user(name: [Sarah Chen], title: [Project Manager], avatar: rect(
+#let manager = user(name: [Sarah Chen], badge: [Project Manager], avatar: rect(
   fill: blue.darken(20%),
   text(white, size: 8pt, weight: "bold")[SM],
 ))
 
-#let dev1 = user(name: [Alex Kim], title: [Senior Developer], avatar: rect(
+#let dev1 = user(name: [Alex Kim], badge: [Senior Developer], avatar: rect(
   fill: green.darken(20%),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[AK],
 ))
 
-#let dev2 = user(name: [Emma Wilson], title: [Frontend Dev], avatar: rect(
+#let dev2 = user(name: [Emma Wilson], badge: [Frontend Dev], avatar: rect(
   fill: purple.darken(20%),
   radius: 4pt,
   text(white, size: 8pt, weight: "bold")[EW],

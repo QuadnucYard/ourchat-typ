@@ -4,13 +4,13 @@
 
 #show: example-style
 
-#let support = user(name: [Support Team], title: [Technical Support], avatar: rect(
+#let support = user(name: [Support Team], badge: [Technical Support], avatar: rect(
   fill: rgb("#2196F3"),
   radius: 50%,
   text(white, size: 8pt, weight: "bold")[🛠],
 ))
 
-#let customer = user(name: [John Developer], title: [Customer], avatar: circle(
+#let customer = user(name: [John Developer], badge: [Customer], avatar: circle(
   fill: gradient.radial(gray.lighten(40%), gray),
   text(white, size: 8pt, weight: "bold")[JD],
 ))

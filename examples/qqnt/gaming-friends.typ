@@ -4,17 +4,17 @@
 
 #show: example-style
 
-#let alice_hobby = user(name: [Alice], title: qqnt.title[Photography], avatar: circle(
+#let alice_hobby = user(name: [Alice], badge: qqnt.badge[Photography], avatar: circle(
   fill: gradient.radial(rgb("#FFD700"), rgb("#FFA000")),
   text(white, size: 8pt, weight: "bold")[📸],
 ))
 
-#let bob_hobby = user(name: [Bob], title: qqnt.title[Cooking], avatar: circle(
+#let bob_hobby = user(name: [Bob], badge: qqnt.badge[Cooking], avatar: circle(
   fill: gradient.radial(rgb("#FF69B4"), rgb("#E91E63")),
   text(white, size: 8pt, weight: "bold")[👨‍🍳],
 ))
 
-#let charlie_hobby = user(name: [Charlie], title: qqnt.title[Music], avatar: circle(
+#let charlie_hobby = user(name: [Charlie], badge: qqnt.badge[Music], avatar: circle(
   fill: gradient.radial(rgb("#8BC34A"), rgb("#4CAF50")),
   text(white, size: 8pt, weight: "bold")[🎵],
 ))
