@@ -1,6 +1,18 @@
-<h1>Ourchat</h1>
+<h1>
 
-<a href="https://typst.app/universe/package/ourchat"><img src="https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Ftypst.app%2Funiverse%2Fpackage%2Fourchat&amp;query=%2Fhtml%2Fbody%2Fdiv%2Fmain%2Fdiv%5B2%5D%2Faside%2Fsection%5B2%5D%2Fdl%2Fdd%5B3%5D&amp;logo=typst&amp;label=Universe&amp;color=%2339cccc" alt="Universe" /></a> <a href="https://github.com/QuadnucYard/ourchat-typ"><img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FQuadnucYard%2Fourchat-typ%2Frefs%2Fheads%2Fmain%2Ftypst.toml&amp;query=package.version&amp;logo=GitHub&amp;label=GitHub" alt="GitHub" /></a>
+Ourchat
+
+</h1>
+
+<a href="https://typst.app/universe/package/ourchat">
+
+<img src="https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Ftypst.app%2Funiverse%2Fpackage%2Fourchat&amp;query=%2Fhtml%2Fbody%2Fdiv%2Fmain%2Fdiv%5B2%5D%2Faside%2Fsection%5B2%5D%2Fdl%2Fdd%5B3%5D&amp;logo=typst&amp;label=Universe&amp;color=%2339cccc" alt="Universe" />
+
+</a> <a href="https://github.com/QuadnucYard/ourchat-typ">
+
+<img src="https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FQuadnucYard%2Fourchat-typ%2Frefs%2Fheads%2Fmain%2Ftypst.toml&amp;query=package.version&amp;logo=GitHub&amp;label=GitHub" alt="GitHub" />
+
+</a>
 
 _Create chat interfaces in Typst with ease_
 
@@ -315,7 +327,7 @@ Ourchat follows a unified component architecture where `oc` provides the core bu
 
 ### Theme Customization Scope
 
-Built-in themes provide a solid foundation but don't cover every possible customization. You're encouraged to:
+Built-in themes provide a solid foundation but don’t cover every possible customization. You’re encouraged to:
 
 - Extend existing themes for minor modifications using `theme` and `layout` parameters.
 - Create entirely new themes for different platforms or unique designs with basic blocks. Refer to the source code of built-in themes as implementation guides

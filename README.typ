@@ -45,25 +45,19 @@
 
 #let package = toml("typst.toml").package
 
-#context if is-html-target [
-  #html.elem("h1")[Ourchat]
+#title[Ourchat]
 
-  #html.elem("a", attrs: (href: "https://typst.app/universe/package/" + package.name))[
-    #html.elem(
-      "img",
-      attrs: (
-        src: "https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Ftypst.app%2Funiverse%2Fpackage%2Fourchat&query=%2Fhtml%2Fbody%2Fdiv%2Fmain%2Fdiv%5B2%5D%2Faside%2Fsection%5B2%5D%2Fdl%2Fdd%5B3%5D&logo=typst&label=Universe&color=%2339cccc",
-        alt: "Universe",
-      ),
+#context if is-html-target [
+  #html.a(href: "https://typst.app/universe/package/" + package.name)[
+    #html.img(
+      src: "https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Ftypst.app%2Funiverse%2Fpackage%2Fourchat&query=%2Fhtml%2Fbody%2Fdiv%2Fmain%2Fdiv%5B2%5D%2Faside%2Fsection%5B2%5D%2Fdl%2Fdd%5B3%5D&logo=typst&label=Universe&color=%2339cccc",
+      alt: "Universe",
     )
   ]
-  #html.elem("a", attrs: (href: package.repository))[
-    #html.elem(
-      "img",
-      attrs: (
-        src: "https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FQuadnucYard%2Fourchat-typ%2Frefs%2Fheads%2Fmain%2Ftypst.toml&query=package.version&logo=GitHub&label=GitHub",
-        alt: "GitHub",
-      ),
+  #html.a(href: package.repository)[
+    #html.img(
+      src: "https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2FQuadnucYard%2Fourchat-typ%2Frefs%2Fheads%2Fmain%2Ftypst.toml&query=package.version&logo=GitHub&label=GitHub",
+      alt: "GitHub",
     )
   ]
 ]

@@ -38,7 +38,7 @@ jobs:
         uses: hustcer/setup-nu@v3
 
       - name: Setup typst
-        uses: typst-community/setup-typst@v3
+        uses: typst-community/setup-typst@v4
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
