@@ -61,7 +61,7 @@ Ourchat is a [Typst](https://typst.app/) package for building chat UI mockups. I
 First, import the package in your Typst document:
 
 ```typst
-#import "@preview/ourchat:0.2.0" as oc
+#import "@preview/ourchat:0.2.1" as oc
 #import oc.themes: *
 ```
 
