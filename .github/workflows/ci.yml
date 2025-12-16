@@ -51,11 +51,17 @@ jobs:
       - name: Build package
         run: just package
 
+      - name: Archive artifacts
+        run: |
+          mkdir artifacts
+          cd out
+          zip -r ../artifacts/ourchat.zip .
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ourchat
-          path: out/
+          path: artifacts/
 
   release:
     runs-on: ubuntu-latest

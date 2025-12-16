@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.2] - 2025-12-16
+
+- Fixed the exclude pattern in `typst.toml` again.
+
 ## [0.2.1] - 2025-12-07
 
 - Update to typst 0.14. No API or output change.
